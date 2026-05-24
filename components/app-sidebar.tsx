@@ -86,9 +86,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100" {...props}>
+    <Sidebar collapsible="icon" className="border-r border-slate-200 dark:border-zinc-800 bg-white dark:bg-sidebar text-slate-900 dark:text-zinc-100" {...props}>
       {/* Sidebar Header */}
-      <SidebarHeader className="border-b border-slate-100 dark:border-zinc-800 py-3.5 px-3 bg-slate-50/50 dark:bg-zinc-900/30">
+      <SidebarHeader className="border-b border-slate-100 dark:border-zinc-800 py-3.5 px-3 bg-slate-50/50 dark:bg-sidebar/30">
         <SidebarMenu>
           <SidebarMenuItem>
             <div className="flex items-center gap-3.5 w-full overflow-hidden">
@@ -263,10 +263,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
 
       {/* Sidebar Footer */}
-      <SidebarFooter className="border-t border-slate-100 dark:border-zinc-800 p-2 bg-slate-50/50 dark:bg-zinc-900/30">
+      <SidebarFooter className="border-t border-slate-100 dark:border-zinc-800 p-2 bg-slate-50/50 dark:bg-sidebar/30">
         {/* System Online Badge */}
         {!isCollapsed && (
-          <div className="bg-white dark:bg-zinc-900 rounded-md p-2.5 mb-1.5 border border-slate-100 dark:border-zinc-800 shadow-sm">
+          <div className="bg-white dark:bg-background/50 rounded-md p-2.5 mb-1.5 border border-slate-100 dark:border-zinc-800 shadow-sm">
             <div className="text-[8px] text-slate-400 dark:text-zinc-500 font-bold uppercase tracking-wider mb-1">Status Koneksi</div>
             <div className="flex items-center gap-1.5">
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>

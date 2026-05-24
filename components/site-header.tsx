@@ -88,7 +88,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 flex w-full max-w-full h-[60px] shrink-0 items-center justify-between border-b border-slate-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md px-6 lg:px-8 transition-all duration-300">
+      <header className="sticky top-0 z-40 flex w-full max-w-full h-[60px] shrink-0 items-center justify-between border-b border-slate-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-background/80 backdrop-blur-md px-6 lg:px-8 transition-all duration-300">
         
         {/* Left Section: Menu trigger and beautiful breadcrumbs */}
         <div className="flex items-center gap-2 min-w-0">
@@ -157,17 +157,9 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Right Section: System status badge, Search input and Theme toggler */}
+        {/* Right Section: Search input and Theme toggler */}
         <div className="flex items-center gap-3.5 shrink-0">
           
-          {/* Active online status metric */}
-          <div className="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-500/5 border border-emerald-500/20 dark:border-emerald-500/10 shrink-0 select-none animate-in fade-in slide-in-from-right-3 duration-300">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[9px] font-black text-emerald-700 dark:text-emerald-450 uppercase tracking-widest flex items-center gap-1">
-              <Activity className="w-2.5 h-2.5" /> Sistem Online
-            </span>
-          </div>
-
           <div className="flex items-center gap-2 shrink-0">
             {/* Desktop Search Button (Beautiful dynamic wrapper) */}
             <button

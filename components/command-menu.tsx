@@ -12,7 +12,15 @@ import {
   FileSpreadsheet,
   Search,
   ArrowRight,
-  LogOut
+  LogOut,
+  PlusCircle,
+  Activity,
+  Layers,
+  Scale,
+  TrendingUp,
+  Terminal,
+  History,
+  X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -56,12 +64,19 @@ export function CommandMenu({ open, setOpen }: CommandMenuProps) {
             placeholder="Cari fitur atau laporan..."
             className="flex-1 h-14 bg-transparent outline-none text-[15px] font-medium text-slate-700 dark:text-zinc-200 placeholder:text-slate-400 dark:placeholder:text-zinc-500"
           />
-          <div className="flex items-center gap-1.5 ml-2">
+          <div className="flex items-center gap-2 ml-2">
             <kbd className="h-5 px-1.5 rounded border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[10px] font-black text-slate-400 dark:text-zinc-500 shadow-sm uppercase">ESC</kbd>
+            <button
+              onClick={() => setOpen(false)}
+              className="h-5 w-5 flex items-center justify-center rounded border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900 hover:bg-slate-100 dark:hover:bg-zinc-800 text-slate-400 dark:text-zinc-500 hover:text-slate-600 dark:hover:text-zinc-300 transition-colors"
+              title="Tutup Pencarian"
+            >
+              <X className="h-3 w-3" />
+            </button>
           </div>
         </div>
 
-        <Command.List className="max-h-[350px] overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+        <Command.List className="max-h-[400px] overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-zinc-800 scrollbar-track-transparent">
           <Command.Empty className="py-12 text-center text-sm text-slate-500 dark:text-zinc-400">
             <div className="flex flex-col items-center gap-3">
               <div className="p-3 bg-slate-50 dark:bg-zinc-900 rounded-2xl">
@@ -76,45 +91,96 @@ export function CommandMenu({ open, setOpen }: CommandMenuProps) {
             <Item
               onSelect={() => runCommand(() => router.push('/'))}
               icon={Home}
-              label="Dashboard"
+              label="Dashboard Ringkasan"
               shortcut="H"
             />
             <Item
               onSelect={() => runCommand(() => router.push('/master-unit'))}
               icon={LayoutDashboard}
-              label="Master Unit"
+              label="Master Unit Kebun"
               shortcut="U"
             />
             <Item
               onSelect={() => runCommand(() => router.push('/master-rekening'))}
               icon={BookOpen}
-              label="Master Rekening"
+              label="Master Rekening COA"
               shortcut="R"
+            />
+            <Item
+              onSelect={() => runCommand(() => router.push('/input-saldo-awal'))}
+              icon={PlusCircle}
+              label="Input Saldo Awal"
+            />
+          </Command.Group>
+
+          <Command.Separator className="h-px bg-slate-100 dark:bg-zinc-800 mx-2 my-2" />
+
+          <Command.Group heading="Kalkulasi & Proses" className="px-2 pt-1 pb-2">
+            <div className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2 pl-2">Proses Akhir Bulan</div>
+            <Item
+              onSelect={() => runCommand(() => router.push('/proses'))}
+              icon={Activity}
+              label="Bulan-End Closing & Trial Balance"
+            />
+            <Item
+              onSelect={() => runCommand(() => router.push('/proses/append'))}
+              icon={FileSpreadsheet}
+              label="Import Kas/Gudang (Excel)"
             />
           </Command.Group>
 
           <Command.Separator className="h-px bg-slate-100 dark:bg-zinc-800 mx-2 my-2" />
 
           <Command.Group heading="Reports" className="px-2 pt-1 pb-2">
-            <div className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2 pl-2">Jurnal & Laporan</div>
+            <div className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2 pl-2">Jurnal & Laporan Keuangan</div>
             <Item
               onSelect={() => runCommand(() => router.push('/input-jurnal'))}
               icon={FileCheck}
-              label="Input Jurnal"
+              label="Input Jurnal Transaksi"
               shortcut="I"
             />
             <Item
               onSelect={() => runCommand(() => router.push('/laporan-jurnal'))}
               icon={FileSpreadsheet}
-              label="Laporan Jurnal"
+              label="Laporan Jurnal Transaksi"
               shortcut="L"
+            />
+            <Item
+              onSelect={() => runCommand(() => router.push('/laporan/buku-besar'))}
+              icon={Layers}
+              label="Laporan Buku Besar"
+            />
+            <Item
+              onSelect={() => runCommand(() => router.push('/laporan/neraca-klasifikasi'))}
+              icon={Scale}
+              label="Laporan Neraca Klasifikasi"
+            />
+            <Item
+              onSelect={() => runCommand(() => router.push('/laporan/neraca-kompilasi'))}
+              icon={Layers}
+              label="Laporan Neraca Kompilasi Multi-Unit"
+            />
+            <Item
+              onSelect={() => runCommand(() => router.push('/laporan-manajemen'))}
+              icon={TrendingUp}
+              label="Laporan Manajemen (LNET) Dashboard"
             />
           </Command.Group>
 
           <Command.Separator className="h-px bg-slate-100 dark:bg-zinc-800 mx-2 my-2" />
 
-          <Command.Group heading="Settings" className="px-2 pt-1 pb-2">
-            <div className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2 pl-2">Sistem</div>
+          <Command.Group heading="Utility" className="px-2 pt-1 pb-2">
+            <div className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2 pl-2">Utilitas & Sistem</div>
+            <Item
+              onSelect={() => runCommand(() => router.push('/utility/console'))}
+              icon={Terminal}
+              label="Developer Audit Console"
+            />
+            <Item
+              onSelect={() => runCommand(() => router.push('/utility/backup-restore'))}
+              icon={History}
+              label="Backup & Restorasi Basis Data"
+            />
             <Item
               onSelect={() => runCommand(() => router.push('/logout'))}
               icon={LogOut}
