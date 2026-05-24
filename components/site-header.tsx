@@ -11,6 +11,7 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { cn } from '@/lib/utils';
 import { useAccounting } from '@/hooks/use-accounting-context';
 import { getMasterUnit } from '@/lib/actions/master-unit';
+import { getAvailableYears } from '@/lib/actions/utility';
 
 const BULAN_OPTIONS = [
   { value: '01', label: 'Januari' }, { value: '02', label: 'Februari' },
@@ -32,18 +33,28 @@ export function SiteHeader() {
   const pathname = usePathname();
   const { koke, bulan, tahun, setKoke, setBulan, setTahun, isSessionActive } = useAccounting();
   const [units, setUnits] = React.useState<any[]>([]);
+  const [availableYears, setAvailableYears] = React.useState<string[]>([]);
 
   React.useEffect(() => {
-    async function loadUnits() {
+    async function loadHeaderData() {
       try {
-        const u = await getMasterUnit();
+        const [u, y] = await Promise.all([
+          getMasterUnit(),
+          getAvailableYears()
+        ]);
         setUnits(u);
+        setAvailableYears(y);
+        
+        // Auto-select the first available year if current year is empty
+        if (y.length > 0 && !tahun) {
+          setTahun(y[0]);
+        }
       } catch (err) {
-        console.error("Failed to load master units for header selector:", err);
+        console.error("Failed to load header data for selectors:", err);
       }
     }
-    loadUnits();
-  }, []);
+    loadHeaderData();
+  }, [tahun, setTahun]);
 
   // Dynamic breadcrumbs structure for premium feel
   const getBreadcrumbs = (): BreadcrumbItem[] => {
@@ -98,19 +109,18 @@ export function SiteHeader() {
             className="mx-2 h-4 bg-slate-200 dark:bg-zinc-800 shrink-0"
           />
           
-          <nav className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400 dark:text-zinc-500 tracking-tight select-none">
+          <nav className="flex items-center gap-1.5 text-[11px] font-bold tracking-tight select-none min-w-0 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-0.5 whitespace-nowrap">
             {breadcrumbs.map((crumb, idx) => (
               <React.Fragment key={idx}>
-                {idx > 0 && <span className="text-[10px] text-slate-300 dark:text-zinc-700">/</span>}
-                {crumb.active ? (
-                  <span className="font-extrabold text-slate-800 dark:text-zinc-100 truncate max-w-[120px] sm:max-w-none transition-all">
-                    {crumb.label}
-                  </span>
-                ) : (
-                  <span className="hover:text-slate-600 dark:hover:text-zinc-300 transition-colors duration-200 hidden sm:inline">
-                    {crumb.label}
-                  </span>
-                )}
+                {idx > 0 && <span className="text-[10px] text-slate-300 dark:text-zinc-700 shrink-0">/</span>}
+                <span className={cn(
+                  "transition-all shrink-0",
+                  crumb.active 
+                    ? "font-extrabold text-slate-850 dark:text-zinc-100" 
+                    : "text-slate-400 dark:text-zinc-500 hover:text-slate-700 dark:hover:text-zinc-300"
+                )}>
+                  {crumb.label}
+                </span>
               </React.Fragment>
             ))}
           </nav>
@@ -131,7 +141,7 @@ export function SiteHeader() {
               <option value="">Unit Kebun</option>
               {units.map((u) => (
                 <option key={u.KOKE} value={u.KOKE}>
-                  {u.KOKE}
+                  {u.KOKE} - {u.NAKE}
                 </option>
               ))}
             </select>
@@ -147,13 +157,18 @@ export function SiteHeader() {
                 </option>
               ))}
             </select>
-            <input
-              type="number"
+            <select
               value={tahun}
               onChange={(e) => setTahun(e.target.value)}
-              className="bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-700 dark:text-zinc-300 outline-none focus:ring-1 focus:ring-emerald-500 h-6 w-14 shrink-0 transition-all hover:border-slate-300 font-mono"
-              placeholder="Tahun"
-            />
+              className="bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none focus:ring-1 focus:ring-emerald-500 h-6 shrink-0 transition-all hover:border-slate-300 font-mono"
+            >
+              <option value="">Tahun</option>
+              {availableYears.map((y) => (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
@@ -192,6 +207,59 @@ export function SiteHeader() {
 
       {/* Global Search Dialog Modal */}
       <CommandMenu open={open} setOpen={setOpen} />
+
+      {/* Floating Selector for Mobile Mode (Sits perfectly below the top header) */}
+      <div className="fixed top-[68px] left-0 right-0 z-40 md:hidden px-4 pointer-events-none">
+        <div className="mx-auto max-w-md w-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] p-2 flex items-center justify-between gap-1.5 pointer-events-auto transition-all duration-300">
+          <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 pl-1 shrink-0">
+            <Globe className="w-4 h-4 animate-pulse" />
+          </div>
+          
+          <div className="flex items-center gap-2 flex-1 min-w-0 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-0.5">
+            {/* Unit Dropdown */}
+            <select
+              value={koke}
+              onChange={(e) => setKoke(e.target.value)}
+              className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-2 py-1.5 text-[11px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none focus:ring-1 focus:ring-emerald-500 h-8 shrink-0 min-w-[180px] transition-all"
+            >
+              <option value="">Unit</option>
+              {units.map((u) => (
+                <option key={u.KOKE} value={u.KOKE}>
+                  {u.KOKE} - {u.NAKE}
+                </option>
+              ))}
+            </select>
+
+            {/* Month Dropdown */}
+            <select
+              value={bulan}
+              onChange={(e) => setBulan(e.target.value)}
+              className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-2 py-1.5 text-[11px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none focus:ring-1 focus:ring-emerald-500 h-8 shrink-0 transition-all w-24 min-w-[96px]"
+            >
+              <option value="">Bulan</option>
+              {BULAN_OPTIONS.map((b) => (
+                <option key={b.value} value={b.value}>
+                  {b.label}
+                </option>
+              ))}
+            </select>
+
+            {/* Year Dropdown */}
+            <select
+              value={tahun}
+              onChange={(e) => setTahun(e.target.value)}
+              className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-2 py-1.5 text-[11px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none focus:ring-1 focus:ring-emerald-500 h-8 shrink-0 transition-all font-mono w-20 min-w-[80px]"
+            >
+              <option value="">Tahun</option>
+              {availableYears.map((y) => (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

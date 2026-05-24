@@ -24,7 +24,7 @@ export default function DashboardLayout({
         <AppSidebar variant="inset" />
         <SidebarInset>
           <SiteHeader />
-          <div className="flex flex-1 flex-col overflow-auto bg-slate-50/40 dark:bg-transparent pb-20 md:pb-0">
+          <div className="flex flex-1 flex-col overflow-auto bg-slate-50/40 dark:bg-transparent pt-14 md:pt-0 pb-24 md:pb-0">
             {children}
           </div>
           <MobileBottomBar />

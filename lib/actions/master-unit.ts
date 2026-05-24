@@ -2,9 +2,10 @@
 
 import { createClient } from '../supabase/server';
 import { MasterUnit, MasterUnitInput } from '../types/master-unit';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
 
 export async function getMasterUnit() {
+  noStore();
   const supabase = await createClient();
   try {
     const { data, error } = await supabase
