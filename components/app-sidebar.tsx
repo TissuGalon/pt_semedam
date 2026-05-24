@@ -11,7 +11,13 @@ import {
   TrendingUp, 
   FileSpreadsheet, 
   LogOut, 
-  ChevronRight
+  ChevronRight,
+  Database,
+  Terminal,
+  History,
+  Activity,
+  Layers,
+  LineChart
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -49,6 +55,23 @@ const transactionNavItems = [
   { name: 'Input Jurnal', href: '/input-jurnal', icon: FileCheck },
   { name: 'Input Saldo Awal', href: '/input-saldo-awal', icon: TrendingUp },
   { name: 'Laporan Jurnal', href: '/laporan-jurnal', icon: FileSpreadsheet },
+];
+
+const reportNavItems = [
+  { name: 'Buku Besar', href: '/laporan/buku-besar', icon: Layers },
+  { name: 'Neraca Klasifikasi', href: '/laporan/neraca-klasifikasi', icon: FileSpreadsheet },
+  { name: 'Neraca Kompilasi', href: '/laporan/neraca-kompilasi', icon: Layers },
+  { name: 'Laporan Manajemen', href: '/laporan-manajemen', icon: LineChart },
+];
+
+const processNavItems = [
+  { name: 'Proses Akhir Bulan', href: '/proses', icon: Activity },
+  { name: 'Append Kas & Gudang', href: '/proses/append', icon: Database },
+];
+
+const utilityNavItems = [
+  { name: 'Console Admin', href: '/utility/console', icon: Terminal },
+  { name: 'Backup & Restore', href: '/utility/backup-restore', icon: History },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -117,10 +140,103 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* Accounting Group */}
         <SidebarGroup className="p-0">
           <SidebarGroupLabel className={cn("px-2.5 text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 transition-all", isCollapsed && "opacity-0 h-0 hidden")}>
-            Jurnal & Laporan
+            Jurnal & Transaksi
           </SidebarGroupLabel>
           <SidebarMenu className="space-y-0.5">
             {transactionNavItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <SidebarMenuItem key={item.name}>
+                  <SidebarMenuButton 
+                    asChild 
+                    tooltip={item.name}
+                    className={cn(
+                      "flex items-center gap-2.5 rounded-md px-2.5 h-9 text-xs font-bold transition-all",
+                      isActive 
+                        ? "bg-slate-100 dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 font-bold" 
+                        : "text-slate-500 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100"
+                    )}
+                  >
+                    <Link href={item.href}>
+                      <item.icon className={cn("h-4 w-4 shrink-0 transition-transform", isActive ? "text-emerald-600 scale-105" : "text-slate-400")} />
+                      <span className={cn("truncate transition-opacity", isCollapsed && "opacity-0")}>{item.name}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
+          </SidebarMenu>
+        </SidebarGroup>
+
+        {/* Proses Group */}
+        <SidebarGroup className="p-0">
+          <SidebarGroupLabel className={cn("px-2.5 text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 transition-all", isCollapsed && "opacity-0 h-0 hidden")}>
+            Kalkulasi & Proses
+          </SidebarGroupLabel>
+          <SidebarMenu className="space-y-0.5">
+            {processNavItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <SidebarMenuItem key={item.name}>
+                  <SidebarMenuButton 
+                    asChild 
+                    tooltip={item.name}
+                    className={cn(
+                      "flex items-center gap-2.5 rounded-md px-2.5 h-9 text-xs font-bold transition-all",
+                      isActive 
+                        ? "bg-slate-100 dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 font-bold" 
+                        : "text-slate-500 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100"
+                    )}
+                  >
+                    <Link href={item.href}>
+                      <item.icon className={cn("h-4 w-4 shrink-0 transition-transform", isActive ? "text-emerald-600 scale-105" : "text-slate-400")} />
+                      <span className={cn("truncate transition-opacity", isCollapsed && "opacity-0")}>{item.name}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
+          </SidebarMenu>
+        </SidebarGroup>
+
+        {/* Laporan Group */}
+        <SidebarGroup className="p-0">
+          <SidebarGroupLabel className={cn("px-2.5 text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 transition-all", isCollapsed && "opacity-0 h-0 hidden")}>
+            Laporan Keuangan
+          </SidebarGroupLabel>
+          <SidebarMenu className="space-y-0.5">
+            {reportNavItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <SidebarMenuItem key={item.name}>
+                  <SidebarMenuButton 
+                    asChild 
+                    tooltip={item.name}
+                    className={cn(
+                      "flex items-center gap-2.5 rounded-md px-2.5 h-9 text-xs font-bold transition-all",
+                      isActive 
+                        ? "bg-slate-100 dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 font-bold" 
+                        : "text-slate-500 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100"
+                    )}
+                  >
+                    <Link href={item.href}>
+                      <item.icon className={cn("h-4 w-4 shrink-0 transition-transform", isActive ? "text-emerald-600 scale-105" : "text-slate-400")} />
+                      <span className={cn("truncate transition-opacity", isCollapsed && "opacity-0")}>{item.name}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
+          </SidebarMenu>
+        </SidebarGroup>
+
+        {/* Utility Group */}
+        <SidebarGroup className="p-0">
+          <SidebarGroupLabel className={cn("px-2.5 text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 transition-all", isCollapsed && "opacity-0 h-0 hidden")}>
+            Alat & Utilitas
+          </SidebarGroupLabel>
+          <SidebarMenu className="space-y-0.5">
+            {utilityNavItems.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <SidebarMenuItem key={item.name}>

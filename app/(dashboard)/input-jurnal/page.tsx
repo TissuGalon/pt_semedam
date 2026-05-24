@@ -25,6 +25,7 @@ import { MasterUnit } from '@/lib/types/master-unit';
 import { MasterRekening } from '@/lib/types/master-rekening';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useAccounting } from '@/hooks/use-accounting-context';
 
 const BULAN_OPTIONS = [
   { value: '01', label: 'Januari' }, { value: '02', label: 'Februari' },
@@ -130,9 +131,9 @@ function CustomCombobox({
 }
 
 export default function InputJurnalPage() {
+  const { koke, bulan, tahun, setKoke, setBulan, setTahun, isSessionActive, clearSession } = useAccounting();
   const [units, setUnits] = useState<MasterUnit[]>([]);
   const [rekening, setRekening] = useState<MasterRekening[]>([]);
-  const [cutoff, setCutoff] = useState<{ unit: string; bulan: string; tahun: string } | null>(null);
   const [tempUnit, setTempUnit] = useState('');
   const [tempBulan, setTempBulan] = useState('');
   const [tempTahun, setTempTahun] = useState(new Date().getFullYear().toString());
@@ -151,9 +152,9 @@ export default function InputJurnalPage() {
   });
 
   const refreshNoBukti = async () => {
-    if (!cutoff) return;
+    if (!isSessionActive) return;
     try {
-      const nextNo = await getNextNoBukti(cutoff.unit, cutoff.tahun, cutoff.bulan);
+      const nextNo = await getNextNoBukti(koke, tahun, bulan);
       setFormData(prev => ({ ...prev, noBukti: nextNo }));
     } catch (err) {
       console.error("Failed to fetch next no bukti:", err);
@@ -161,10 +162,10 @@ export default function InputJurnalPage() {
   };
 
   useEffect(() => {
-    if (cutoff) {
+    if (isSessionActive) {
       refreshNoBukti();
     }
-  }, [cutoff]);
+  }, [isSessionActive, koke, bulan, tahun]);
 
   useEffect(() => {
     const initData = async () => {
@@ -181,7 +182,9 @@ export default function InputJurnalPage() {
   const handleCutoffSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (tempUnit && tempBulan && tempTahun) {
-      setCutoff({ unit: tempUnit, bulan: tempBulan, tahun: tempTahun });
+      setKoke(tempUnit);
+      setBulan(tempBulan);
+      setTahun(tempTahun);
     }
   };
 
@@ -202,8 +205,8 @@ export default function InputJurnalPage() {
       const kreditAccount = rekening.find(r => r.REKSUB === formData.rekKredit);
 
       const debitRow = {
-        KOKE: cutoff!.unit,
-        KOBU: cutoff!.bulan,
+        KOKE: koke,
+        KOBU: bulan,
         NO_BUKJUR: formData.noBukti,
         TANGGAL: formData.tanggal,
         REK: formData.rekDebit,
@@ -215,8 +218,8 @@ export default function InputJurnalPage() {
       };
 
       const creditRow = {
-        KOKE: cutoff!.unit,
-        KOBU: cutoff!.bulan,
+        KOKE: koke,
+        KOBU: bulan,
         NO_BUKJUR: formData.noBukti,
         TANGGAL: formData.tanggal,
         REK: formData.rekKredit,
@@ -247,7 +250,7 @@ export default function InputJurnalPage() {
     }
   };
 
-  if (!cutoff) {
+  if (!isSessionActive) {
     return (
       <div className="flex-1 flex items-center justify-center p-6 bg-slate-50/40 dark:bg-transparent h-full overflow-auto">
         <div className="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200 dark:border-zinc-800 max-w-sm w-full overflow-hidden shadow-md">
@@ -340,14 +343,14 @@ export default function InputJurnalPage() {
           <div className="flex items-center gap-2">
             <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500" />
             <div className="text-xs font-bold text-slate-800 dark:text-zinc-200">
-              Sesi: <span className="text-emerald-700 dark:text-emerald-400">Unit {cutoff.unit} ({BULAN_OPTIONS.find(b=>b.value===cutoff.bulan)?.label} {cutoff.tahun})</span>
+              Sesi: <span className="text-emerald-700 dark:text-emerald-450">Unit {koke} ({BULAN_OPTIONS.find(b=>b.value===bulan)?.label} {tahun})</span>
             </div>
           </div>
           <div className="h-4 w-px bg-slate-200 dark:bg-zinc-800"></div>
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={() => setCutoff(null)} 
+            onClick={clearSession} 
             className="h-7 w-7 text-slate-400 dark:text-zinc-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded"
             title="Tutup Bulan / Ganti Sesi"
           >

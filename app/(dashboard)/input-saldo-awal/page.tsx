@@ -27,6 +27,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { DataTable } from '@/components/ui/data-table';
 import { ColumnDef } from '@tanstack/react-table';
+import { useAccounting } from '@/hooks/use-accounting-context';
 import { 
   Dialog, 
   DialogContent, 
@@ -48,11 +49,20 @@ const BULAN_OPTIONS = [
 ];
 
 export default function InputSaldoAwalPage() {
+  const { koke, bulan, tahun, isSessionActive } = useAccounting();
   const [units, setUnits] = useState<MasterUnit[]>([]);
   const [rekening, setRekening] = useState<MasterRekening[]>([]);
   const [selectedUnit, setSelectedUnit] = useState('');
   const [selectedBulan, setSelectedBulan] = useState('01');
   const [selectedTahun, setSelectedTahun] = useState(new Date().getFullYear().toString());
+
+  useEffect(() => {
+    if (isSessionActive) {
+      setSelectedUnit(koke);
+      setSelectedBulan(bulan);
+      setSelectedTahun(tahun);
+    }
+  }, [isSessionActive, koke, bulan, tahun]);
   
   const columns: ColumnDef<SaldoAwal>[] = [
     {

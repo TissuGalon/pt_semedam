@@ -3,6 +3,8 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { MobileBottomBar } from "@/components/mobile-bottom-bar"
+import { AccountingProvider } from "@/hooks/use-accounting-context"
+import { FloatingCalculator } from "@/components/accounting/floating-calculator"
 
 export default function DashboardLayout({
   children,
@@ -10,22 +12,25 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <SidebarProvider
-      style={
-        {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
-          "--header-height": "calc(var(--spacing) * 12)",
-        } as React.CSSProperties
-      }
-    >
-      <AppSidebar variant="inset" />
-      <SidebarInset>
-        <SiteHeader />
-        <div className="flex flex-1 flex-col overflow-auto bg-slate-50/40 dark:bg-transparent pb-20 md:pb-0">
-          {children}
-        </div>
-        <MobileBottomBar />
-      </SidebarInset>
-    </SidebarProvider>
+    <AccountingProvider>
+      <SidebarProvider
+        style={
+          {
+            "--sidebar-width": "calc(var(--spacing) * 72)",
+            "--header-height": "calc(var(--spacing) * 12)",
+          } as React.CSSProperties
+        }
+      >
+        <AppSidebar variant="inset" />
+        <SidebarInset>
+          <SiteHeader />
+          <div className="flex flex-1 flex-col overflow-auto bg-slate-50/40 dark:bg-transparent pb-20 md:pb-0">
+            {children}
+          </div>
+          <MobileBottomBar />
+          <FloatingCalculator />
+        </SidebarInset>
+      </SidebarProvider>
+    </AccountingProvider>
   )
 }
