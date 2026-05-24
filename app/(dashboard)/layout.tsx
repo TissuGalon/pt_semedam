@@ -2,6 +2,7 @@ import React from "react"
 import { AppSidebar } from "@/components/app-sidebar"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { MobileBottomBar } from "@/components/mobile-bottom-bar"
 
 export default function DashboardLayout({
   children,
@@ -20,9 +21,10 @@ export default function DashboardLayout({
       <AppSidebar variant="inset" />
       <SidebarInset>
         <SiteHeader />
-        <div className="flex flex-1 flex-col overflow-auto bg-slate-50/40">
+        <div className="flex flex-1 flex-col overflow-auto bg-slate-50/40 dark:bg-transparent pb-20 md:pb-0">
           {children}
         </div>
+        <MobileBottomBar />
       </SidebarInset>
     </SidebarProvider>
   )

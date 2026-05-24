@@ -59,7 +59,7 @@ export default function InputSaldoAwalPage() {
       accessorKey: 'KOKE',
       header: 'Unit',
       cell: ({ row }) => (
-        <span className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold uppercase border border-slate-200">
+        <span className="px-2 py-0.5 bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 rounded text-[10px] font-bold uppercase border border-slate-200 dark:border-zinc-700">
           {row.original.KOKE}
         </span>
       )
@@ -67,30 +67,30 @@ export default function InputSaldoAwalPage() {
     {
       accessorKey: 'BULAN',
       header: 'Periode',
-      cell: ({ row }) => <span className="text-xs font-bold text-slate-700">{row.original.BULAN}/{row.original.TAHUN}</span>
+      cell: ({ row }) => <span className="text-xs font-bold text-slate-700 dark:text-zinc-350">{row.original.BULAN}/{row.original.TAHUN}</span>
     },
     {
       accessorKey: 'REK',
       header: 'Kode Akun',
-      cell: ({ row }) => <span className="font-mono text-xs font-bold text-slate-800">{row.original.REK}</span>
+      cell: ({ row }) => <span className="font-mono text-xs font-bold text-slate-800 dark:text-zinc-200">{row.original.REK}</span>
     },
     {
       accessorKey: 'NAMA_PERK',
       header: 'Nama Rekening',
       cell: ({ row }) => {
         const rekDetail = rekening.find(r => r.REKSUB === row.original.REK);
-        return <span className="text-xs font-medium text-slate-800">{row.original.NAMA_PERK || rekDetail?.NAMA_PERK || 'Tidak dikenal'}</span>
+        return <span className="text-xs font-medium text-slate-800 dark:text-zinc-200">{row.original.NAMA_PERK || rekDetail?.NAMA_PERK || 'Tidak dikenal'}</span>
       }
     },
     {
       accessorKey: 'DEBET',
       header: () => <div className="text-right">Debet</div>,
-      cell: ({ row }) => <div className="text-right font-mono text-xs font-bold text-emerald-700">{formatRupiah(row.original.DEBET)}</div>
+      cell: ({ row }) => <div className="text-right font-mono text-xs font-bold text-emerald-700 dark:text-emerald-450">{formatRupiah(row.original.DEBET)}</div>
     },
     {
       accessorKey: 'KREDIT',
       header: () => <div className="text-right">Kredit</div>,
-      cell: ({ row }) => <div className="text-right font-mono text-xs font-bold text-slate-700">{formatRupiah(row.original.KREDIT)}</div>
+      cell: ({ row }) => <div className="text-right font-mono text-xs font-bold text-slate-700 dark:text-zinc-300">{formatRupiah(row.original.KREDIT)}</div>
     },
     {
       id: 'actions',
@@ -101,7 +101,7 @@ export default function InputSaldoAwalPage() {
             variant="ghost" 
             size="icon" 
             onClick={() => handleEdit(row.original)}
-            className="h-7 w-7 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-md"
+            className="h-7 w-7 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-md"
           >
             <Edit className="w-3.5 h-3.5" />
           </Button>
@@ -109,7 +109,7 @@ export default function InputSaldoAwalPage() {
             variant="ghost" 
             size="icon" 
             onClick={() => handleDeleteRow(row.original.id!)}
-            className="h-7 w-7 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-md"
+            className="h-7 w-7 text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-md"
           >
             <Trash2 className="w-3.5 h-3.5" />
           </Button>
@@ -312,19 +312,19 @@ export default function InputSaldoAwalPage() {
   };
 
   return (
-    <div className="flex-1 overflow-auto bg-slate-50/40 p-6 lg:p-8 space-y-6 flex flex-col">
+    <div className="flex-1 overflow-auto bg-slate-50/40 dark:bg-transparent p-6 lg:p-8 space-y-6 flex flex-col">
       {/* Header section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 dark:border-zinc-800 pb-5">
         <div>
-          <h1 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+          <h1 className="text-xl font-extrabold text-slate-900 dark:text-zinc-100 tracking-tight flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-emerald-600" />
             Input Saldo Awal
           </h1>
-          <p className="text-slate-500 text-xs font-semibold mt-1">
+          <p className="text-slate-500 dark:text-zinc-400 text-xs font-semibold mt-1">
             Pengaturan saldo awal akun untuk memulai periode pembukuan baru secara manual atau Excel.
           </p>
         </div>
-
+ 
         <div className="flex items-center gap-2">
           <input 
             type="file" 
@@ -336,7 +336,7 @@ export default function InputSaldoAwalPage() {
           <Button 
             variant="outline"
             onClick={() => fileInputRef.current?.click()}
-            className="border-slate-200 text-slate-700 hover:bg-slate-50 h-9 px-3 text-xs rounded-md shadow-sm transition-all flex items-center gap-1.5 font-bold"
+            className="border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 h-9 px-3 text-xs rounded-md shadow-sm transition-all flex items-center gap-1.5 font-bold"
           >
             <Upload className="w-3.5 h-3.5" /> Import Excel
           </Button>
@@ -361,14 +361,14 @@ export default function InputSaldoAwalPage() {
       {/* Control Panel Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Unit & Period Card */}
-        <div className="md:col-span-2 bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+        <div className="md:col-span-2 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-4 shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-2.5">
-             <Building2 className="w-3.5 h-3.5 text-slate-400" />
-             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Filter Unit & Periode</span>
+             <Building2 className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500" />
+             <span className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest">Filter Unit & Periode</span>
           </div>
           <div className="grid grid-cols-3 gap-2">
             <select 
-              className="w-full border border-slate-200 bg-white rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
+              className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
               value={selectedUnit}
               onChange={(e) => setSelectedUnit(e.target.value)}
             >
@@ -376,7 +376,7 @@ export default function InputSaldoAwalPage() {
               {units.map(u => <option key={u.KOKE} value={u.KOKE}>{u.KOKE}</option>)}
             </select>
             <select 
-              className="w-full border border-slate-200 bg-white rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
+              className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
               value={selectedBulan}
               onChange={(e) => setSelectedBulan(e.target.value)}
             >
@@ -385,31 +385,31 @@ export default function InputSaldoAwalPage() {
             </select>
             <input 
               type="number"
-              className="w-full border border-slate-200 bg-white rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 focus:ring-1 focus:ring-emerald-500 outline-none transition-all"
+              className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all"
               value={selectedTahun}
               onChange={(e) => setSelectedTahun(e.target.value)}
             />
           </div>
         </div>
-
+ 
         {/* Total stats metric card */}
-        <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
-          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Baris Saldo</span>
+        <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+          <span className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest">Total Baris Saldo</span>
           <div className="flex items-baseline gap-1 mt-2">
-            <span className="text-2xl font-black text-slate-900 tracking-tight">{existingData.length}</span>
-            <span className="text-[10px] font-semibold text-slate-400">Akun</span>
+            <span className="text-2xl font-black text-slate-900 dark:text-zinc-100 tracking-tight">{existingData.length}</span>
+            <span className="text-[10px] font-semibold text-slate-400 dark:text-zinc-500">Akun</span>
           </div>
-          <div className="text-[9px] text-slate-400 font-bold mt-1 flex items-center gap-1">
+          <div className="text-[9px] text-slate-400 dark:text-zinc-500 font-bold mt-1 flex items-center gap-1">
             <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Data tersinkron
           </div>
         </div>
-
+ 
         {/* Operations Shortcut Card */}
-        <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex items-center gap-2">
+        <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-4 shadow-sm flex items-center gap-2">
           <Button 
             variant="outline"
             onClick={showAllData}
-            className="border-slate-200 text-slate-700 hover:bg-slate-50 font-bold flex flex-col items-center justify-center gap-1 h-auto py-2.5 rounded-md flex-1 text-[10px] uppercase tracking-wider transition-all"
+            className="border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 font-bold flex flex-col items-center justify-center gap-1 h-auto py-2.5 rounded-md flex-1 text-[10px] uppercase tracking-wider transition-all"
           >
             <Search className="w-4 h-4 text-slate-400" />
             Semua Data
@@ -418,7 +418,7 @@ export default function InputSaldoAwalPage() {
             variant="ghost"
             onClick={handleClear}
             disabled={loading || existingData.length === 0}
-            className="text-rose-600 hover:bg-rose-50/50 hover:text-rose-700 font-bold flex flex-col items-center justify-center gap-1 h-auto py-2.5 rounded-md flex-1 text-[10px] uppercase tracking-wider transition-all"
+            className="text-rose-600 hover:bg-rose-50/50 dark:hover:bg-rose-950/20 hover:text-rose-700 font-bold flex flex-col items-center justify-center gap-1 h-auto py-2.5 rounded-md flex-1 text-[10px] uppercase tracking-wider transition-all"
           >
             <Trash2 className="w-4 h-4" />
             Kosongkan
@@ -429,7 +429,7 @@ export default function InputSaldoAwalPage() {
       {message && (
         <div className={cn(
           "p-3 rounded-lg text-xs font-bold flex items-center gap-2.5 animate-in slide-in-from-top-4 duration-200",
-          message.type === 'success' ? 'bg-emerald-50 text-emerald-800 border border-emerald-100' : 'bg-rose-50 text-rose-850 border border-rose-100'
+          message.type === 'success' ? 'bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30' : 'bg-rose-50 dark:bg-rose-950/20 text-rose-800 dark:text-rose-400 border border-rose-100 dark:border-rose-900/30'
         )}>
           {message.type === 'success' ? <CheckCircle2 className="w-4 h-4 text-emerald-600" /> : <AlertCircle className="w-4 h-4 text-rose-600" />}
           {message.text}
@@ -438,16 +438,16 @@ export default function InputSaldoAwalPage() {
       )}
 
       {/* Content Area */}
-      <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex-1 flex flex-col">
-        <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+      <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden flex-1 flex flex-col">
+        <div className="px-5 py-3 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between bg-slate-50 dark:bg-zinc-950/20">
           <div className="flex items-center gap-2">
              <div className="bg-emerald-600 h-1.5 w-4 rounded-full"></div>
-             <h2 className="font-bold text-xs text-slate-800 tracking-tight uppercase">
+             <h2 className="font-bold text-xs text-slate-800 dark:text-zinc-200 tracking-tight uppercase">
                {previewData.length > 0 ? 'Preview Data Excel' : 'Daftar Saldo Awal Terdaftar'}
              </h2>
           </div>
           {previewData.length > 0 && (
-            <Button variant="ghost" size="sm" onClick={() => setPreviewData([])} className="text-xs text-slate-400 hover:text-rose-600 h-8 px-2">
+            <Button variant="ghost" size="sm" onClick={() => setPreviewData([])} className="text-xs text-slate-400 dark:text-zinc-500 hover:text-rose-600 h-8 px-2">
                Batalkan Preview
             </Button>
           )}
@@ -466,18 +466,18 @@ export default function InputSaldoAwalPage() {
       
       {/* Summary Bar */}
       {(previewData.length > 0 || existingData.length > 0) && (
-        <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden p-4 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden p-4 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-6 w-full md:w-auto">
             <div>
-              <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Total Debet</p>
-              <p className="text-lg font-black text-slate-800 font-mono">
+              <p className="text-[9px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest mb-0.5">Total Debet</p>
+              <p className="text-lg font-black text-slate-800 dark:text-zinc-100 font-mono">
                 {formatRupiah((previewData.length > 0 ? previewData : existingData).reduce((a, b) => a + b.DEBET, 0))}
               </p>
             </div>
-            <div className="h-8 w-px bg-slate-200"></div>
+            <div className="h-8 w-px bg-slate-200 dark:bg-zinc-800"></div>
             <div>
-              <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Total Kredit</p>
-              <p className="text-lg font-black text-slate-800 font-mono">
+              <p className="text-[9px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest mb-0.5">Total Kredit</p>
+              <p className="text-lg font-black text-slate-800 dark:text-zinc-100 font-mono">
                 {formatRupiah((previewData.length > 0 ? previewData : existingData).reduce((a, b) => a + b.KREDIT, 0))}
               </p>
             </div>
@@ -487,8 +487,8 @@ export default function InputSaldoAwalPage() {
             <span className={cn(
               "text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border",
               Math.abs((previewData.length > 0 ? previewData : existingData).reduce((a, b) => a + (b.DEBET - b.KREDIT), 0)) < 0.01 
-               ? "bg-emerald-50 text-emerald-800 border-emerald-200" 
-               : "bg-rose-50 text-rose-800 border-rose-200"
+               ? "bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900/30" 
+               : "bg-rose-50 dark:bg-rose-950/20 text-rose-800 dark:text-rose-400 border-rose-200 dark:border-rose-900/30"
             )}>
               {Math.abs((previewData.length > 0 ? previewData : existingData).reduce((a, b) => a + (b.DEBET - b.KREDIT), 0)) < 0.01 
                ? "Balance / Seimbang" : "Selisih / Tidak Seimbang"}
@@ -498,11 +498,11 @@ export default function InputSaldoAwalPage() {
       )}
 
       {/* Instruction alert */}
-      <div className="p-4 bg-amber-50/50 rounded-xl border border-amber-200/40 flex items-start gap-3">
-         <Info className="w-4 h-4 text-amber-600 mt-0.5" />
+      <div className="p-4 bg-amber-50/50 dark:bg-amber-950/15 rounded-xl border border-amber-200/40 dark:border-amber-900/25 flex items-start gap-3">
+         <Info className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5" />
          <div className="space-y-1">
-            <h4 className="font-bold text-amber-900 text-xs">Petunjuk Penggunaan</h4>
-            <p className="text-amber-800/80 text-[10px] font-medium leading-relaxed">
+            <h4 className="font-bold text-amber-900 dark:text-amber-300 text-xs">Petunjuk Penggunaan</h4>
+            <p className="text-amber-800/80 dark:text-amber-300/80 text-[10px] font-medium leading-relaxed">
               Saldo awal biasanya dimasukkan sekali pada awal tahun buku. Pastikan total Debet dan Kredit Anda seimbang sebelum menyimpan. 
               Jika mengimpor dari Excel, pastikan kolom <span className="font-bold">REKSUB</span> (kode akun) sesuai dengan yang ada di Master Rekening.
             </p>
@@ -511,14 +511,14 @@ export default function InputSaldoAwalPage() {
 
       {/* Manual Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[425px] rounded-xl border border-slate-200 shadow-lg p-0 overflow-hidden">
-          <div className="bg-slate-50 border-b border-slate-200 p-5">
+        <DialogContent className="sm:max-w-[425px] rounded-xl border border-slate-200 dark:border-zinc-800 shadow-lg p-0 overflow-hidden bg-white dark:bg-zinc-900">
+          <div className="bg-slate-50 dark:bg-zinc-950/40 border-b border-slate-200 dark:border-zinc-800 p-5">
             <DialogHeader>
-              <DialogTitle className="text-sm font-bold tracking-tight text-slate-800 flex items-center gap-2">
+              <DialogTitle className="text-sm font-bold tracking-tight text-slate-800 dark:text-zinc-200 flex items-center gap-2">
                 {dialogMode === 'add' ? <Plus className="w-4 h-4 text-emerald-600" /> : <Edit className="w-4 h-4 text-emerald-600" />}
                 {dialogMode === 'add' ? 'Tambah Saldo Awal' : 'Edit Saldo Awal'}
               </DialogTitle>
-              <DialogDescription className="text-slate-500 font-semibold text-xs mt-1">
+              <DialogDescription className="text-slate-500 dark:text-zinc-400 font-semibold text-xs mt-1">
                 {dialogMode === 'add' 
                   ? 'Masukkan data saldo awal untuk akun tertentu secara manual.' 
                   : 'Perbarui nilai debet atau kredit untuk baris saldo awal ini.'}
@@ -526,12 +526,12 @@ export default function InputSaldoAwalPage() {
             </DialogHeader>
           </div>
           
-          <div className="p-5 space-y-4 bg-white">
+          <div className="p-5 space-y-4 bg-white dark:bg-zinc-900">
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Unit</Label>
+                <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Unit</Label>
                 <select 
-                  className="w-full border border-slate-200 bg-white rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
+                  className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
                   value={formData.KOKE}
                   onChange={(e) => setFormData({...formData, KOKE: e.target.value})}
                   disabled={dialogMode === 'edit'}
@@ -541,9 +541,9 @@ export default function InputSaldoAwalPage() {
                 </select>
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Rekening</Label>
+                <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Rekening</Label>
                 <select 
-                  className="w-full border border-slate-200 bg-white rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
+                  className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
                   value={formData.REK}
                   onChange={(e) => setFormData({...formData, REK: e.target.value})}
                   disabled={dialogMode === 'edit'}
@@ -553,12 +553,12 @@ export default function InputSaldoAwalPage() {
                 </select>
               </div>
             </div>
-
+ 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Bulan</Label>
+                <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Bulan</Label>
                 <select 
-                  className="w-full border border-slate-200 bg-white rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
+                  className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
                   value={formData.BULAN}
                   onChange={(e) => setFormData({...formData, BULAN: e.target.value})}
                   disabled={dialogMode === 'edit'}
@@ -567,40 +567,40 @@ export default function InputSaldoAwalPage() {
                 </select>
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Tahun</Label>
+                <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Tahun</Label>
                 <Input 
                   type="number"
                   value={formData.TAHUN}
                   onChange={(e) => setFormData({...formData, TAHUN: e.target.value})}
                   disabled={dialogMode === 'edit'}
-                  className="bg-white border border-slate-200 rounded-md font-bold text-xs h-8.5"
+                  className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-200 rounded-md font-bold text-xs h-8.5"
                 />
               </div>
             </div>
-
+ 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">Debet</Label>
+                <Label className="text-[10px] font-bold text-emerald-700 dark:text-emerald-450 uppercase tracking-wider">Debet</Label>
                 <Input 
                   type="number"
                   value={formData.DEBET}
                   onChange={(e) => setFormData({...formData, DEBET: parseFloat(e.target.value) || 0})}
-                  className="bg-white border border-slate-200 text-slate-800 font-mono font-bold text-sm h-9 rounded-md"
+                  className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-800 dark:text-zinc-100 font-mono font-bold text-sm h-9 rounded-md"
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Kredit</Label>
+                <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Kredit</Label>
                 <Input 
                   type="number"
                   value={formData.KREDIT}
                   onChange={(e) => setFormData({...formData, KREDIT: parseFloat(e.target.value) || 0})}
-                  className="bg-white border border-slate-200 text-slate-800 font-mono font-bold text-sm h-9 rounded-md"
+                  className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-800 dark:text-zinc-100 font-mono font-bold text-sm h-9 rounded-md"
                 />
               </div>
             </div>
           </div>
-
-          <DialogFooter className="p-5 border-t border-slate-100 bg-white">
+ 
+          <DialogFooter className="p-5 border-t border-slate-100 dark:border-zinc-800 bg-white dark:bg-zinc-900">
             <Button 
               variant="outline" 
               onClick={() => setIsDialogOpen(false)}

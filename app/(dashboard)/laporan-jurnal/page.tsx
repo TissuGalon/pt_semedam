@@ -96,24 +96,24 @@ function CustomCombobox({
     <div ref={wrapperRef} className="relative">
       <div 
         className={cn(
-          "flex items-center justify-between border rounded-md px-3 py-2 bg-white cursor-pointer transition-all text-xs h-9",
-          open ? "border-emerald-500 ring-1 ring-emerald-500 shadow-sm" : "border-slate-200 hover:border-slate-300"
+          "flex items-center justify-between border rounded-md px-3 py-2 bg-white dark:bg-zinc-900 cursor-pointer transition-all text-xs h-9",
+          open ? "border-emerald-500 ring-1 ring-emerald-500 shadow-sm" : "border-slate-200 dark:border-zinc-800 hover:border-slate-300 dark:hover:border-zinc-700"
         )}
         onClick={() => setOpen(!open)}
       >
-        <span className={selectedItem ? "text-slate-900 font-medium" : "text-slate-400"}>
+        <span className={selectedItem ? "text-slate-900 dark:text-zinc-100 font-medium" : "text-slate-400 dark:text-zinc-500"}>
           {selectedItem ? `${selectedItem[valueKey]} - ${selectedItem[labelKey]}` : placeholder}
         </span>
         <Search className="w-3.5 h-3.5 text-slate-400" />
       </div>
-
+ 
       {open && (
-        <div className="absolute z-[60] top-full mt-1 w-full bg-white border border-slate-200 rounded-md shadow-lg overflow-hidden animate-in fade-in zoom-in-95 duration-100">
-          <div className="p-1.5 border-b border-slate-100 bg-slate-50">
+        <div className="absolute z-[60] top-full mt-1 w-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-md shadow-lg overflow-hidden animate-in fade-in zoom-in-95 duration-100">
+          <div className="p-1.5 border-b border-slate-100 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950/40">
             <input 
               autoFocus
               type="text"
-              className="w-full bg-white border border-slate-200 rounded px-2.5 py-1.5 text-xs outline-none placeholder:text-slate-400 focus:border-emerald-500 transition-colors shadow-sm font-medium text-slate-700"
+              className="w-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded px-2.5 py-1.5 text-xs outline-none placeholder:text-slate-400 focus:border-emerald-500 transition-colors shadow-sm font-medium text-slate-700 dark:text-zinc-200"
               placeholder="Cari kode atau nama..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -129,8 +129,8 @@ function CustomCombobox({
                   className={cn(
                     "px-2.5 py-2 text-xs cursor-pointer rounded flex items-center justify-between transition-colors",
                     value === item[valueKey] 
-                      ? 'bg-slate-100 text-emerald-800 font-bold' 
-                      : 'text-slate-655 hover:bg-slate-50 hover:text-slate-900'
+                      ? 'bg-slate-100 dark:bg-zinc-800 text-emerald-800 dark:text-emerald-450 font-bold' 
+                      : 'text-slate-655 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-zinc-100'
                   )}
                   onClick={() => {
                     onChange(item[valueKey]);
@@ -325,43 +325,43 @@ export default function LaporanJurnalPage() {
       cell: (info: any) => {
         const val = info.getValue();
         const dateStr = val instanceof Date ? val.toISOString().split('T')[0] : String(val || '');
-        return <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">{dateStr}</span>
+        return <span className="text-xs font-semibold text-slate-500 dark:text-zinc-400 whitespace-nowrap">{dateStr}</span>
       }
     },
     {
       header: 'No Bukti',
       accessorKey: 'NO_BUKJUR',
-      cell: (info: any) => <span className="font-bold text-xs text-slate-800 whitespace-nowrap tracking-tight">{info.getValue()}</span>
+      cell: (info: any) => <span className="font-bold text-xs text-slate-800 dark:text-zinc-200 whitespace-nowrap tracking-tight">{info.getValue()}</span>
     },
     {
       header: 'Rec',
       accessorKey: 'record_seq',
-      cell: (info: any) => <span className="text-slate-400 font-mono text-[9px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded">{info.getValue()}</span>
+      cell: (info: any) => <span className="text-slate-400 dark:text-zinc-500 font-mono text-[9px] bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 px-1.5 py-0.5 rounded">{info.getValue()}</span>
     },
     {
       header: 'Rek',
       accessorKey: 'REK',
-      cell: (info: any) => <span className="text-slate-900 font-mono text-xs font-bold">{info.getValue()}</span>
+      cell: (info: any) => <span className="text-slate-900 dark:text-zinc-200 font-mono text-xs font-bold">{info.getValue()}</span>
     },
     {
       header: 'Rek Lawan',
       accessorKey: 'REKLA',
-      cell: (info: any) => <span className="text-slate-500 font-mono text-xs">{info.getValue()}</span>
+      cell: (info: any) => <span className="text-slate-500 dark:text-zinc-400 font-mono text-xs">{info.getValue()}</span>
     },
     {
       header: 'Uraian',
       accessorKey: 'URAIAN1',
-      cell: (info: any) => <span className="text-xs leading-relaxed line-clamp-2 max-w-[250px] text-slate-650" title={info.getValue()}>{info.getValue()}</span>
+      cell: (info: any) => <span className="text-xs leading-relaxed line-clamp-2 max-w-[250px] text-slate-650 dark:text-zinc-350" title={info.getValue()}>{info.getValue()}</span>
     },
     {
       header: 'Debet',
       accessorKey: 'DEBET',
-      cell: (info: any) => <span className="font-mono text-xs text-right font-bold text-emerald-700">{formatRupiah(info.getValue())}</span>
+      cell: (info: any) => <span className="font-mono text-xs text-right font-bold text-emerald-700 dark:text-emerald-450">{formatRupiah(info.getValue())}</span>
     },
     {
       header: 'Kredit',
       accessorKey: 'KREDIT',
-      cell: (info: any) => <span className="font-mono text-xs text-right font-bold text-slate-700">{formatRupiah(info.getValue())}</span>
+      cell: (info: any) => <span className="font-mono text-xs text-right font-bold text-slate-700 dark:text-zinc-300">{formatRupiah(info.getValue())}</span>
     },
     {
       header: 'Aksi',
@@ -371,7 +371,7 @@ export default function LaporanJurnalPage() {
           <Button 
             variant="ghost" 
             size="icon" 
-            className="h-7 w-7 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-md"
+            className="h-7 w-7 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-md"
             onClick={() => handleOpenEdit(info.row.original)}
             title="Koreksi"
           >
@@ -380,7 +380,7 @@ export default function LaporanJurnalPage() {
           <Button 
             variant="ghost" 
             size="icon" 
-            className="h-7 w-7 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-md"
+            className="h-7 w-7 text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-md"
             onClick={() => handleDelete(info.row.original.id)}
             title="Hapus"
           >
@@ -407,24 +407,24 @@ export default function LaporanJurnalPage() {
   });
 
   return (
-    <div className="flex-1 overflow-auto bg-slate-50/40 p-6 lg:p-8 space-y-6 flex flex-col">
+    <div className="flex-1 overflow-auto bg-slate-50/40 dark:bg-transparent p-6 lg:p-8 space-y-6 flex flex-col">
       {/* Header section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 dark:border-zinc-800 pb-5">
         <div>
-          <h1 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+          <h1 className="text-xl font-extrabold text-slate-900 dark:text-zinc-100 tracking-tight flex items-center gap-2">
             <FileSpreadsheet className="w-5 h-5 text-emerald-600" />
             Tinjauan Data Jurnal
           </h1>
-          <p className="text-slate-500 text-xs font-semibold mt-1">
+          <p className="text-slate-500 dark:text-zinc-400 text-xs font-semibold mt-1">
             Lihat, koreksi, dan ekspor data buku jurnal (cut-off). Pastikan total pada Debet dan Kredit seimbang.
           </p>
         </div>
-
+ 
         <div className="flex items-center gap-2">
           <Button 
             onClick={fetchData}
             variant="outline"
-            className="h-9 px-3 rounded-md border-slate-200 bg-white text-slate-700 shadow-sm hover:bg-slate-50 text-xs font-bold transition-all"
+            className="h-9 px-3 rounded-md border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-slate-700 dark:text-zinc-300 shadow-sm hover:bg-slate-50 dark:hover:bg-zinc-800 text-xs font-bold transition-all"
             title="Refresh Data"
           >
             <RefreshCcw className={cn("w-3.5 h-3.5 mr-1.5", loading && "animate-spin")} />
@@ -441,17 +441,17 @@ export default function LaporanJurnalPage() {
       </div>
 
       {/* Control Panel Filter bar */}
-      <div className="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex flex-wrap items-center gap-3">
+      <div className="bg-white dark:bg-zinc-900 p-3 rounded-xl shadow-sm border border-slate-200 dark:border-zinc-800 flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2 pl-1 mr-2">
-          <Filter className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Filter Data Jurnal</span>
+          <Filter className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500" />
+          <span className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider">Filter Data Jurnal</span>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <select 
             value={filterUnit} 
             onChange={e => setFilterUnit(e.target.value)}
-            className="border border-slate-200 bg-white rounded-md px-2.5 py-1.5 text-xs font-semibold text-slate-700 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer h-8.5"
+            className="border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer h-8.5"
           >
             {units.map(u => <option key={u.KOKE} value={u.KOKE}>{u.NAKE}</option>)}
           </select>
@@ -459,7 +459,7 @@ export default function LaporanJurnalPage() {
           <select 
             value={filterBulan} 
             onChange={e => setFilterBulan(e.target.value)}
-            className="border border-slate-200 bg-white rounded-md px-2.5 py-1.5 text-xs font-semibold text-slate-700 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer h-8.5"
+            className="border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer h-8.5"
           >
             {BULAN_OPTIONS.map(u => <option key={u.value} value={u.value}>{u.label}</option>)}
           </select>
@@ -467,16 +467,16 @@ export default function LaporanJurnalPage() {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col flex-1">
+      <div className="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm overflow-hidden flex flex-col flex-1">
         <div className="flex-1 overflow-auto">
           <table className="w-full text-left border-collapse">
-            <thead className="bg-slate-50 sticky top-0 border-b border-slate-200 z-10">
+            <thead className="bg-slate-50 dark:bg-zinc-950/40 sticky top-0 border-b border-slate-200 dark:border-zinc-800 z-10">
               {table.getHeaderGroups().map(headerGroup => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map(header => (
                     <th 
                       key={header.id} 
-                      className="py-3 px-5 text-[10px] font-bold uppercase tracking-wider text-slate-500 cursor-pointer hover:bg-slate-100 transition-colors" 
+                      className="py-3 px-5 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400 cursor-pointer hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors" 
                       onClick={header.column.getToggleSortingHandler()}
                     >
                       {header.isPlaceholder ? null : (
@@ -503,19 +503,19 @@ export default function LaporanJurnalPage() {
                 <tr>
                   <td colSpan={columns.length} className="text-center py-20">
                     <div className="flex flex-col items-center justify-center text-slate-400">
-                      <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-4 border border-slate-100">
+                      <div className="w-12 h-12 bg-slate-50 dark:bg-zinc-800 rounded-full flex items-center justify-center mb-4 border border-slate-100 dark:border-zinc-700">
                         <FileSpreadsheet className="w-6 h-6 opacity-30 text-slate-400" />
                       </div>
-                      <h3 className="text-xs font-bold text-slate-700">Data Tidak Ditemukan</h3>
-                      <p className="text-[10px] max-w-xs mx-auto mt-1.5 text-slate-400 font-semibold leading-relaxed">Tidak ada transaksi yang tercatat untuk unit ini pada bulan {BULAN_OPTIONS.find(b => b.value === filterBulan)?.label}.</p>
+                      <h3 className="text-xs font-bold text-slate-700 dark:text-zinc-350">Data Tidak Ditemukan</h3>
+                      <p className="text-[10px] max-w-xs mx-auto mt-1.5 text-slate-400 dark:text-zinc-500 font-semibold leading-relaxed">Tidak ada transaksi yang tercatat untuk unit ini pada bulan {BULAN_OPTIONS.find(b => b.value === filterBulan)?.label}.</p>
                     </div>
                   </td>
                 </tr>
               ) : (
                 table.getRowModel().rows.map((row, idx) => (
                   <tr key={row.id} className={cn(
-                     "border-b border-slate-100 transition-colors hover:bg-slate-50/50",
-                     idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/20'
+                     "border-b border-slate-100 dark:border-zinc-800/40 transition-colors hover:bg-slate-50/50 dark:hover:bg-zinc-800/30",
+                     idx % 2 === 0 ? 'bg-white dark:bg-zinc-900' : 'bg-slate-50/20 dark:bg-zinc-950/10'
                   )}>
                     {row.getVisibleCells().map(cell => (
                       <td key={cell.id} className="py-2.5 px-5">
@@ -530,21 +530,21 @@ export default function LaporanJurnalPage() {
         </div>
 
         {/* Footer balance details bar */}
-        <div className="border-t border-slate-200 bg-slate-50 p-4 shrink-0 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="border-t border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950/30 p-4 shrink-0 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex flex-wrap items-center gap-6 w-full md:w-auto">
             <div>
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 block">Total Debet</span>
-              <span className="text-sm font-mono font-black text-emerald-800 tracking-tight">{formatRupiah(totalDebet)}</span>
+              <span className="text-[9px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest leading-none mb-1 block">Total Debet</span>
+              <span className="text-sm font-mono font-black text-emerald-800 dark:text-emerald-450 tracking-tight">{formatRupiah(totalDebet)}</span>
             </div>
-            <div className="h-6 w-px bg-slate-200"></div>
+            <div className="h-6 w-px bg-slate-200 dark:bg-zinc-800"></div>
             <div>
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 block">Total Kredit</span>
-              <span className="text-sm font-mono font-black text-slate-800 tracking-tight">{formatRupiah(totalKredit)}</span>
+              <span className="text-[9px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest leading-none mb-1 block">Total Kredit</span>
+              <span className="text-sm font-mono font-black text-slate-800 dark:text-zinc-200 tracking-tight">{formatRupiah(totalKredit)}</span>
             </div>
-            <div className="h-6 w-px bg-slate-200"></div>
+            <div className="h-6 w-px bg-slate-200 dark:bg-zinc-800"></div>
             <span className={cn(
               "text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded border",
-              isBalanced ? "bg-emerald-50 text-emerald-800 border-emerald-250" : "bg-rose-50 text-rose-800 border-rose-250"
+              isBalanced ? "bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/30" : "bg-rose-50 dark:bg-rose-950/20 text-rose-800 dark:text-rose-400 border border-rose-200 dark:border-rose-900/30"
             )}>
               {isBalanced ? "Balanced" : "Not Balanced"}
             </span>
@@ -555,21 +555,21 @@ export default function LaporanJurnalPage() {
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8 rounded border-slate-200 bg-white shadow-sm disabled:opacity-30"
+              className="h-8 w-8 rounded border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm disabled:opacity-30 text-slate-700 dark:text-zinc-300"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
             
-            <div className="bg-white border border-slate-200 rounded px-3 py-1 shadow-sm font-bold text-xs text-slate-700">
+            <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded px-3 py-1 shadow-sm font-bold text-xs text-slate-700 dark:text-zinc-300">
               {table.getState().pagination.pageIndex + 1} <span className="text-slate-300 mx-1 font-medium">/</span> {table.getPageCount()}
             </div>
-
+ 
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8 rounded border-slate-200 bg-white shadow-sm disabled:opacity-30"
+              className="h-8 w-8 rounded border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm disabled:opacity-30 text-slate-700 dark:text-zinc-300"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
             >
@@ -581,47 +581,47 @@ export default function LaporanJurnalPage() {
 
       {/* Edit Modal using Shadcn Dialog Component */}
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
-        <DialogContent className="sm:max-w-[500px] rounded-xl border border-slate-200 shadow-lg p-0 overflow-hidden">
-          <div className="bg-slate-50 border-b border-slate-200 p-5">
+        <DialogContent className="sm:max-w-[500px] rounded-xl border border-slate-200 dark:border-zinc-800 shadow-lg p-0 overflow-hidden bg-white dark:bg-zinc-900">
+          <div className="bg-slate-50 dark:bg-zinc-950/40 border-b border-slate-200 dark:border-zinc-800 p-5">
             <DialogHeader>
-              <DialogTitle className="text-sm font-bold tracking-tight text-slate-800 flex items-center gap-2">
+              <DialogTitle className="text-sm font-bold tracking-tight text-slate-800 dark:text-zinc-200 flex items-center gap-2">
                 <Edit className="w-4 h-4 text-emerald-600" />
                 Koreksi Jurnal Transaksi
               </DialogTitle>
-              <DialogDescription className="text-slate-500 font-semibold text-xs mt-1">
+              <DialogDescription className="text-slate-500 dark:text-zinc-400 font-semibold text-xs mt-1">
                 Koreksi data tanggal, nomor bukti, COA rekening, dan jumlah nominal jurnal terpilih.
               </DialogDescription>
             </DialogHeader>
           </div>
-
+ 
           <form onSubmit={handleSaveEdit}>
-            <div className="p-5 space-y-4 bg-white">
+            <div className="p-5 space-y-4 bg-white dark:bg-zinc-900">
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Tanggal</Label>
+                  <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Tanggal</Label>
                   <input 
                     type="date" 
                     required
-                    className="w-full border border-slate-200 rounded-md px-3 py-1.5 text-xs font-semibold text-slate-700 focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
+                    className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
                     value={editFormData.TANGGAL}
                     onChange={e => setEditFormData({...editFormData, TANGGAL: e.target.value})}
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">No Bukti</Label>
+                  <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">No Bukti</Label>
                   <Input 
                     type="text" 
                     required
-                    className="bg-white border border-slate-200 rounded-md font-bold text-xs h-8.5"
+                    className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-200 rounded-md font-bold text-xs h-8.5"
                     value={editFormData.NO_BUKJUR}
                     onChange={e => setEditFormData({...editFormData, NO_BUKJUR: e.target.value})}
                   />
                 </div>
               </div>
-
+ 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Rekening Utama</Label>
+                  <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Rekening Utama</Label>
                   <CustomCombobox 
                     items={rekening} 
                     value={editFormData.REK} 
@@ -632,7 +632,7 @@ export default function LaporanJurnalPage() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Rekening Lawan</Label>
+                  <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Rekening Lawan</Label>
                   <CustomCombobox 
                     items={rekening} 
                     value={editFormData.REKLA} 
@@ -643,40 +643,40 @@ export default function LaporanJurnalPage() {
                   />
                 </div>
               </div>
-
+ 
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Uraian / Keterangan</Label>
+                <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Uraian / Keterangan</Label>
                 <input 
                   type="text" 
-                  className="w-full border border-slate-200 rounded-md px-3 py-1.5 text-xs font-semibold text-slate-700 focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
+                  className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
                   value={editFormData.URAIAN1}
                   onChange={e => setEditFormData({...editFormData, URAIAN1: e.target.value})}
                 />
               </div>
-
-              <div className="grid grid-cols-2 gap-3 p-3 bg-slate-50 border border-slate-200 rounded-lg">
+ 
+              <div className="grid grid-cols-2 gap-3 p-3 bg-slate-50 dark:bg-zinc-900/20 border border-slate-200 dark:border-zinc-800 rounded-lg">
                 <div className="space-y-1.5">
-                  <Label className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">Debet</Label>
+                  <Label className="text-[10px] font-bold text-emerald-700 dark:text-emerald-450 uppercase tracking-wider">Debet</Label>
                   <input 
                     type="number" 
-                    className="w-full border border-slate-200 rounded-md px-3 py-1.5 text-xs font-mono font-bold text-emerald-800 bg-white focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
+                    className="w-full border border-slate-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-xs font-mono font-bold text-emerald-800 dark:text-emerald-450 bg-white dark:bg-zinc-900 focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
                     value={editFormData.DEBET}
                     onChange={e => setEditFormData({...editFormData, DEBET: parseFloat(e.target.value || '0')})}
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Kredit</Label>
+                  <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Kredit</Label>
                   <input 
                     type="number" 
-                    className="w-full border border-slate-200 rounded-md px-3 py-1.5 text-xs font-mono font-bold text-slate-800 bg-white focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
+                    className="w-full border border-slate-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-xs font-mono font-bold text-slate-800 dark:text-zinc-300 bg-white dark:bg-zinc-900 focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
                     value={editFormData.KREDIT}
                     onChange={e => setEditFormData({...editFormData, KREDIT: parseFloat(e.target.value || '0')})}
                   />
                 </div>
               </div>
             </div>
-
-            <DialogFooter className="p-5 border-t border-slate-100 bg-white">
+ 
+            <DialogFooter className="p-5 border-t border-slate-100 dark:border-zinc-800 bg-white dark:bg-zinc-900">
               <Button 
                 type="button" 
                 variant="outline"

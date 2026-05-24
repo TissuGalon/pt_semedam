@@ -69,17 +69,17 @@ export default function RekeningTable({ data }: RekeningTableProps) {
     {
       accessorKey: "REKSUB",
       header: "Sandi Akun",
-      cell: ({ row }) => <div className="font-mono font-bold text-slate-800">{row.getValue("REKSUB")}</div>,
+      cell: ({ row }) => <div className="font-mono font-bold text-slate-800 dark:text-zinc-200">{row.getValue("REKSUB")}</div>,
     },
     {
       accessorKey: "NAMA_PERK",
       header: "Nama Perkiraan",
-      cell: ({ row }) => <div className="font-medium text-slate-900">{row.getValue("NAMA_PERK")}</div>,
+      cell: ({ row }) => <div className="font-medium text-slate-900 dark:text-zinc-100">{row.getValue("NAMA_PERK")}</div>,
     },
     {
       accessorKey: "REKIN",
       header: "Akun Induk",
-      cell: ({ row }) => <span className="text-slate-500 font-mono text-xs">{row.getValue("REKIN") || "-"}</span>,
+      cell: ({ row }) => <span className="text-slate-500 dark:text-zinc-400 font-mono text-xs">{row.getValue("REKIN") || "-"}</span>,
     },
     {
       accessorKey: "created_at",
@@ -89,7 +89,7 @@ export default function RekeningTable({ data }: RekeningTableProps) {
         if (!val) return <span className="text-slate-400">-</span>;
         try {
           return (
-            <div className="text-xs text-slate-500 whitespace-nowrap">
+            <div className="text-xs text-slate-500 dark:text-zinc-400 whitespace-nowrap">
               {format(new Date(val as string), 'dd MMM yyyy', { locale: id })}
             </div>
           );
@@ -108,7 +108,7 @@ export default function RekeningTable({ data }: RekeningTableProps) {
             <Button 
               variant="outline" 
               size="sm" 
-              className="h-8 px-2.5 rounded-md border-slate-200 hover:bg-slate-50 hover:text-slate-900 transition-all text-xs"
+              className="h-8 px-2.5 rounded-md border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-zinc-100 transition-all text-xs"
               onClick={() => {
                 setEditingData(item);
                 setIsFormOpen(true);
@@ -119,7 +119,7 @@ export default function RekeningTable({ data }: RekeningTableProps) {
             <Button 
               variant="outline" 
               size="sm" 
-              className="h-8 px-2.5 rounded-md border-slate-200 text-rose-600 hover:text-rose-700 hover:bg-rose-50/50 hover:border-rose-200 transition-all text-xs"
+              className="h-8 px-2.5 rounded-md border-slate-200 dark:border-zinc-800 text-rose-600 hover:text-rose-700 hover:bg-rose-50/50 dark:hover:bg-rose-950/20 hover:border-rose-200 dark:hover:border-rose-900 transition-all text-xs"
               onClick={() => handleDelete(item.REKSUB)}
             >
               <Trash2 className="w-3 h-3 mr-1" /> Hapus
@@ -148,7 +148,7 @@ export default function RekeningTable({ data }: RekeningTableProps) {
             />
             <Button 
               variant="outline"
-              className="border-slate-200 text-slate-700 hover:bg-slate-50 rounded-md h-9 px-3 text-xs transition-all"
+              className="border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 rounded-md h-9 px-3 text-xs transition-all"
               onClick={() => fileInputRef.current?.click()}
               disabled={isImporting}
             >

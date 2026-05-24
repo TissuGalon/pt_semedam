@@ -34,26 +34,26 @@ export default function UnitTable({ data }: UnitTableProps) {
     {
       accessorKey: "KOKE",
       header: "Kode",
-      cell: ({ row }) => <div className="font-bold text-slate-800">{row.getValue("KOKE")}</div>,
+      cell: ({ row }) => <div className="font-bold text-slate-800 dark:text-zinc-200">{row.getValue("KOKE")}</div>,
     },
     {
       accessorKey: "NAKE",
       header: "Nama Kebun/Unit",
-      cell: ({ row }) => <div className="font-medium">{row.getValue("NAKE")}</div>,
+      cell: ({ row }) => <div className="font-medium text-slate-900 dark:text-zinc-100">{row.getValue("NAKE")}</div>,
     },
     {
       accessorKey: "PIMPINAN",
       header: "Pimpinan",
       cell: ({ row }) => (
         <div className="flex flex-col">
-          <span className="text-sm font-medium">{row.getValue("PIMPINAN") || "-"}</span>
+          <span className="text-sm font-medium text-slate-900 dark:text-zinc-100">{row.getValue("PIMPINAN") || "-"}</span>
         </div>
       ),
     },
     {
       accessorKey: "NAMA_KTU",
       header: "KTU",
-      cell: ({ row }) => <span className="text-slate-500">{row.getValue("NAMA_KTU") || "-"}</span>,
+      cell: ({ row }) => <span className="text-slate-500 dark:text-zinc-400">{row.getValue("NAMA_KTU") || "-"}</span>,
     },
     {
       id: "actions",
@@ -65,7 +65,7 @@ export default function UnitTable({ data }: UnitTableProps) {
             <Button 
               variant="outline" 
               size="sm" 
-              className="h-8 px-2.5 rounded-md border-slate-200 hover:bg-slate-50 hover:text-slate-900 transition-all text-xs"
+              className="h-8 px-2.5 rounded-md border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-zinc-100 transition-all text-xs"
               onClick={() => {
                 setEditingData(item);
                 setIsFormOpen(true);
@@ -76,7 +76,7 @@ export default function UnitTable({ data }: UnitTableProps) {
             <Button 
               variant="outline" 
               size="sm" 
-              className="h-8 px-2.5 rounded-md border-slate-200 text-rose-600 hover:text-rose-700 hover:bg-rose-50/50 hover:border-rose-200 transition-all text-xs"
+              className="h-8 px-2.5 rounded-md border-slate-200 dark:border-zinc-800 text-rose-600 hover:text-rose-700 hover:bg-rose-50/50 dark:hover:bg-rose-950/20 hover:border-rose-200 dark:hover:border-rose-900 transition-all text-xs"
               onClick={() => handleDelete(item.KOKE)}
             >
               <Trash2 className="w-3 h-3 mr-1" /> Hapus

@@ -63,9 +63,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-slate-200 bg-white text-slate-900" {...props}>
+    <Sidebar collapsible="icon" className="border-r border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100" {...props}>
       {/* Sidebar Header */}
-      <SidebarHeader className="border-b border-slate-100 py-3.5 px-3 bg-slate-50/50">
+      <SidebarHeader className="border-b border-slate-100 dark:border-zinc-800 py-3.5 px-3 bg-slate-50/50 dark:bg-zinc-900/30">
         <SidebarMenu>
           <SidebarMenuItem>
             <div className="flex items-center gap-3.5 w-full overflow-hidden">
@@ -73,8 +73,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 S
               </div>
               <div className={cn("transition-all duration-200 flex flex-col min-w-0", isCollapsed ? "opacity-0 w-0" : "opacity-100")}>
-                <span className="font-extrabold text-sm text-slate-955 tracking-tight truncate leading-none">SIA Semedam</span>
-                <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider mt-1.5">PT Semedam</span>
+                <span className="font-extrabold text-sm text-slate-955 dark:text-zinc-100 tracking-tight truncate leading-none">SIA Semedam</span>
+                <span className="text-[9px] text-slate-400 dark:text-zinc-500 font-bold uppercase tracking-wider mt-1.5">PT Semedam</span>
               </div>
             </div>
           </SidebarMenuItem>
@@ -82,7 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
 
       {/* Sidebar Content */}
-      <SidebarContent className="px-2 py-4 space-y-3 bg-white">
+      <SidebarContent className="px-2 py-4 space-y-3 bg-sidebar text-sidebar-foreground">
         {/* Main Group */}
         <SidebarGroup className="p-0">
           <SidebarGroupLabel className={cn("px-2.5 text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 transition-all", isCollapsed && "opacity-0 h-0 hidden")}>
@@ -99,8 +99,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     className={cn(
                       "flex items-center gap-2.5 rounded-md px-2.5 h-9 text-xs font-bold transition-all",
                       isActive 
-                        ? "bg-slate-100 text-slate-900 font-bold" 
-                        : "text-slate-505 hover:bg-slate-50 hover:text-slate-900 text-slate-500"
+                        ? "bg-slate-100 dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 font-bold" 
+                        : "text-slate-500 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100"
                     )}
                   >
                     <Link href={item.href}>
@@ -130,8 +130,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     className={cn(
                       "flex items-center gap-2.5 rounded-md px-2.5 h-9 text-xs font-bold transition-all",
                       isActive 
-                        ? "bg-slate-100 text-slate-900 font-bold" 
-                        : "text-slate-505 hover:bg-slate-50 hover:text-slate-900 text-slate-500"
+                        ? "bg-slate-100 dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 font-bold" 
+                        : "text-slate-500 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100"
                     )}
                   >
                     <Link href={item.href}>
@@ -147,14 +147,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
 
       {/* Sidebar Footer */}
-      <SidebarFooter className="border-t border-slate-100 p-2 bg-slate-50/50">
+      <SidebarFooter className="border-t border-slate-100 dark:border-zinc-800 p-2 bg-slate-50/50 dark:bg-zinc-900/30">
         {/* System Online Badge */}
         {!isCollapsed && (
-          <div className="bg-white rounded-md p-2.5 mb-1.5 border border-slate-100 shadow-sm">
-            <div className="text-[8px] text-slate-400 font-bold uppercase tracking-wider mb-1">Status Koneksi</div>
+          <div className="bg-white dark:bg-zinc-900 rounded-md p-2.5 mb-1.5 border border-slate-100 dark:border-zinc-800 shadow-sm">
+            <div className="text-[8px] text-slate-400 dark:text-zinc-500 font-bold uppercase tracking-wider mb-1">Status Koneksi</div>
             <div className="flex items-center gap-1.5">
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-              <span className="text-[10px] text-slate-600 font-bold font-mono">Server Connected</span>
+              <span className="text-[10px] text-slate-600 dark:text-zinc-400 font-bold font-mono">Server Connected</span>
             </div>
           </div>
         )}
@@ -166,7 +166,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton
                   size="default"
-                  className="data-[state=open]:bg-slate-100 data-[state=open]:text-slate-900 rounded-md h-10 w-full flex items-center justify-between transition-colors px-2"
+                  className="data-[state=open]:bg-slate-100 dark:data-[state=open]:bg-zinc-800 data-[state=open]:text-slate-900 dark:data-[state=open]:text-zinc-100 rounded-md h-10 w-full flex items-center justify-between transition-colors px-2"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
                     <Avatar className="h-7 w-7 rounded bg-emerald-600 text-white font-bold flex items-center justify-center text-xs">
@@ -174,26 +174,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <AvatarFallback className="rounded bg-emerald-600 text-white font-bold text-[10px]">AS</AvatarFallback>
                     </Avatar>
                     <div className={cn("grid flex-1 text-left text-[11px] leading-tight min-w-0 transition-opacity", isCollapsed && "opacity-0")}>
-                      <span className="truncate font-bold text-slate-800">{user.name}</span>
-                      <span className="truncate text-[9px] text-slate-400 font-medium">{user.email}</span>
+                      <span className="truncate font-bold text-slate-800 dark:text-zinc-200">{user.name}</span>
+                      <span className="truncate text-[9px] text-slate-400 dark:text-zinc-500 font-medium">{user.email}</span>
                     </div>
                   </div>
-                  <ChevronRight className={cn("h-3.5 w-3.5 text-slate-400 transition-opacity", isCollapsed && "opacity-0")} />
+                  <ChevronRight className={cn("h-3.5 w-3.5 text-slate-400 dark:text-zinc-500 transition-opacity", isCollapsed && "opacity-0")} />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="w-48 rounded-md p-1 bg-white border border-slate-200 text-slate-800 shadow-md"
+                className="w-48 rounded-md p-1 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-800 dark:text-zinc-200 shadow-md"
                 side={isMobile ? "bottom" : "right"}
                 align="end"
                 sideOffset={8}
               >
                 <div className="px-2 py-1.5 text-left">
-                  <div className="text-xs font-bold text-slate-800">{user.name}</div>
-                  <div className="text-[9px] text-slate-400 font-medium">{user.email}</div>
+                  <div className="text-xs font-bold text-slate-800 dark:text-zinc-200">{user.name}</div>
+                  <div className="text-[9px] text-slate-400 dark:text-zinc-500 font-medium">{user.email}</div>
                 </div>
-                <DropdownMenuSeparator className="bg-slate-100" />
+                <DropdownMenuSeparator className="bg-slate-100 dark:bg-zinc-800" />
                 
-                <DropdownMenuItem asChild className="rounded cursor-pointer hover:bg-slate-50 hover:text-slate-900 flex items-center gap-2 px-2 py-1.5">
+                <DropdownMenuItem asChild className="rounded cursor-pointer hover:bg-slate-50 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-zinc-100 flex items-center gap-2 px-2 py-1.5">
                   <Link href="/logout" className="w-full flex items-center gap-2">
                     <LogOut className="h-3.5 w-3.5 text-rose-500" />
                     <span className="font-bold text-xs text-rose-600">Logout</span>
