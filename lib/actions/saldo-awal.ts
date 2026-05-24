@@ -7,7 +7,7 @@ import { SaldoAwal } from '../types/saldo-awal';
 export async function getSaldoAwal(filterUnit?: string, filterBulan?: string, filterTahun?: string) {
   const supabase = await createClient();
   try {
-    let query = supabase.from('saldo_awal').select('*');
+    let query = supabase.from('saldo_awal').select('id, KOKE, BULAN, TAHUN, REK, DEBET, KREDIT');
     
     if (filterUnit) {
       query = query.eq('KOKE', filterUnit);
