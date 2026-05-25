@@ -96,8 +96,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 S
               </div>
               <div className={cn("transition-all duration-200 flex flex-col min-w-0", isCollapsed ? "opacity-0 w-0" : "opacity-100")}>
-                <span className="font-extrabold text-sm text-slate-955 dark:text-zinc-100 tracking-tight truncate leading-none">SIA Semedam</span>
-                <span className="text-[9px] text-slate-400 dark:text-zinc-500 font-bold uppercase tracking-wider mt-1.5">PT Semedam</span>
+                <span className="font-extrabold text-[9px] text-slate-400 dark:text-zinc-550 tracking-tight leading-none uppercase">Sistem Informasi Manajemen (SIM)</span>
+                <span className="text-xs font-black text-slate-900 dark:text-zinc-100 tracking-wider mt-1.5 uppercase">PT Seumadam</span>
               </div>
             </div>
           </SidebarMenuItem>
