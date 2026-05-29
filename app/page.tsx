@@ -154,7 +154,7 @@ export default function LandingPage() {
           <ThemeToggle />
           
           <Link
-            href="/dashboard"
+            href="/portal"
             className="group relative inline-flex items-center gap-2 h-9 rounded-xl px-4 bg-slate-950 dark:bg-zinc-150 hover:bg-slate-850 dark:hover:bg-white text-white dark:text-slate-950 text-xs font-bold transition-all duration-300 shadow-sm border border-slate-900 dark:border-transparent select-none cursor-pointer"
           >
             Masuk Portal
@@ -216,7 +216,7 @@ export default function LandingPage() {
         >
           {/* Main Glowing CTA Button */}
           <Link
-            href="/dashboard"
+            href="/portal"
             className="w-full sm:w-auto relative group inline-flex items-center justify-center gap-2.5 h-12 px-7 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-extrabold rounded-2xl shadow-lg shadow-emerald-600/20 dark:shadow-none transition-all duration-350 select-none cursor-pointer scale-100 hover:scale-[1.02] active:scale-[0.98]"
           >
             Masuk Portal ERP
@@ -581,7 +581,7 @@ export default function LandingPage() {
             </p>
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href="/dashboard"
+                href="/portal"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-8 bg-white hover:bg-zinc-100 text-slate-950 text-sm font-extrabold rounded-2xl shadow-md transition-all scale-100 hover:scale-[1.02] active:scale-[0.98]"
               >
                 Buka Dashboard ERP
@@ -612,7 +612,7 @@ export default function LandingPage() {
             <span>•</span>
             <a href="#preview" className="hover:text-emerald-600 dark:hover:text-emerald-455 transition-colors">Audit Ledger</a>
             <span>•</span>
-            <a href="/dashboard" className="hover:text-emerald-600 dark:hover:text-emerald-455 transition-colors">Portal Dashboard</a>
+            <a href="/portal" className="hover:text-emerald-600 dark:hover:text-emerald-455 transition-colors">Portal Dashboard</a>
           </div>
         </div>
       </footer>
