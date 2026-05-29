@@ -160,7 +160,7 @@ export default function RekeningTable({ data }: RekeningTableProps) {
               Import Excel
             </Button>
             <Button 
-              className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-md h-9 px-3 text-xs transition-all" 
+              className="bg-orange-500 hover:bg-orange-600 text-white rounded-md h-9 px-3 text-xs transition-all" 
               onClick={() => {
                 setEditingData(undefined);
                 setIsFormOpen(true);

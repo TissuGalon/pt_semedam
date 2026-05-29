@@ -94,7 +94,7 @@ export function AccountingSidebar({ ...props }: React.ComponentProps<typeof Side
         <SidebarMenu>
           <SidebarMenuItem>
             <div className="flex items-center gap-3.5 w-full overflow-hidden">
-              <div className="w-8.5 h-8.5 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-extrabold text-lg shrink-0 shadow-sm shadow-emerald-200">
+              <div className="w-8.5 h-8.5 rounded-lg bg-orange-500 flex items-center justify-center text-white font-extrabold text-lg shrink-0 shadow-sm shadow-orange-200">
                 S
               </div>
               <div className={cn("transition-all duration-200 flex flex-col min-w-0", isCollapsed ? "opacity-0 w-0" : "opacity-100")}>
@@ -113,9 +113,9 @@ export function AccountingSidebar({ ...props }: React.ComponentProps<typeof Side
         <SidebarGroup className="p-0">
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/20 font-black text-[10px] uppercase tracking-widest gap-2">
+              <SidebarMenuButton asChild className="text-orange-600 hover:text-orange-700 hover:bg-orange-50 dark:hover:bg-orange-950/20 font-black text-[10px] uppercase tracking-widest gap-2">
                 <Link href="/portal">
-                  <Grid className="w-4 h-4 text-emerald-500" />
+                  <Grid className="w-4 h-4 text-orange-500" />
                   <span>Pilih Modul ERP</span>
                 </Link>
               </SidebarMenuButton>
@@ -132,9 +132,9 @@ export function AccountingSidebar({ ...props }: React.ComponentProps<typeof Side
               const isActive = pathname === item.href;
               return (
                 <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild isActive={isActive} className={cn("text-xs font-bold gap-3 rounded-xl py-2 px-2.5 transition-colors cursor-pointer", isActive ? "bg-slate-100 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 font-extrabold" : "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-zinc-200")}>
+                  <SidebarMenuButton asChild isActive={isActive} className={cn("text-xs font-bold gap-3 rounded-xl py-2 px-2.5 transition-colors cursor-pointer", isActive ? "bg-slate-100 dark:bg-zinc-800 text-orange-600 dark:text-orange-400 font-extrabold" : "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-zinc-200")}>
                     <Link href={item.href}>
-                      <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-zinc-500")} />
+                      <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-orange-600 dark:text-orange-400" : "text-slate-400 dark:text-zinc-500")} />
                       <span>{item.name}</span>
                     </Link>
                   </SidebarMenuButton>
@@ -153,9 +153,9 @@ export function AccountingSidebar({ ...props }: React.ComponentProps<typeof Side
               const isActive = pathname === item.href;
               return (
                 <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild isActive={isActive} className={cn("text-xs font-bold gap-3 rounded-xl py-2 px-2.5 transition-colors cursor-pointer", isActive ? "bg-slate-100 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 font-extrabold" : "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-zinc-200")}>
+                  <SidebarMenuButton asChild isActive={isActive} className={cn("text-xs font-bold gap-3 rounded-xl py-2 px-2.5 transition-colors cursor-pointer", isActive ? "bg-slate-100 dark:bg-zinc-800 text-orange-600 dark:text-orange-400 font-extrabold" : "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-zinc-200")}>
                     <Link href={item.href}>
-                      <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-zinc-500")} />
+                      <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-orange-600 dark:text-orange-400" : "text-slate-400 dark:text-zinc-500")} />
                       <span>{item.name}</span>
                     </Link>
                   </SidebarMenuButton>
@@ -174,9 +174,9 @@ export function AccountingSidebar({ ...props }: React.ComponentProps<typeof Side
               const isActive = pathname === item.href;
               return (
                 <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild isActive={isActive} className={cn("text-xs font-bold gap-3 rounded-xl py-2 px-2.5 transition-colors cursor-pointer", isActive ? "bg-slate-100 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 font-extrabold" : "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-zinc-200")}>
+                  <SidebarMenuButton asChild isActive={isActive} className={cn("text-xs font-bold gap-3 rounded-xl py-2 px-2.5 transition-colors cursor-pointer", isActive ? "bg-slate-100 dark:bg-zinc-800 text-orange-600 dark:text-orange-400 font-extrabold" : "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-zinc-200")}>
                     <Link href={item.href}>
-                      <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-zinc-500")} />
+                      <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-orange-600 dark:text-orange-400" : "text-slate-400 dark:text-zinc-500")} />
                       <span>{item.name}</span>
                     </Link>
                   </SidebarMenuButton>
@@ -195,9 +195,9 @@ export function AccountingSidebar({ ...props }: React.ComponentProps<typeof Side
               const isActive = pathname === item.href;
               return (
                 <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild isActive={isActive} className={cn("text-xs font-bold gap-3 rounded-xl py-2 px-2.5 transition-colors cursor-pointer", isActive ? "bg-slate-100 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 font-extrabold" : "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-zinc-200")}>
+                  <SidebarMenuButton asChild isActive={isActive} className={cn("text-xs font-bold gap-3 rounded-xl py-2 px-2.5 transition-colors cursor-pointer", isActive ? "bg-slate-100 dark:bg-zinc-800 text-orange-600 dark:text-orange-400 font-extrabold" : "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-zinc-200")}>
                     <Link href={item.href}>
-                      <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-zinc-500")} />
+                      <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-orange-600 dark:text-orange-400" : "text-slate-400 dark:text-zinc-500")} />
                       <span>{item.name}</span>
                     </Link>
                   </SidebarMenuButton>
@@ -216,9 +216,9 @@ export function AccountingSidebar({ ...props }: React.ComponentProps<typeof Side
               const isActive = pathname === item.href;
               return (
                 <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild isActive={isActive} className={cn("text-xs font-bold gap-3 rounded-xl py-2 px-2.5 transition-colors cursor-pointer", isActive ? "bg-slate-100 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 font-extrabold" : "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-zinc-200")}>
+                  <SidebarMenuButton asChild isActive={isActive} className={cn("text-xs font-bold gap-3 rounded-xl py-2 px-2.5 transition-colors cursor-pointer", isActive ? "bg-slate-100 dark:bg-zinc-800 text-orange-600 dark:text-orange-400 font-extrabold" : "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-zinc-200")}>
                     <Link href={item.href}>
-                      <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-zinc-500")} />
+                      <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-orange-600 dark:text-orange-400" : "text-slate-400 dark:text-zinc-500")} />
                       <span>{item.name}</span>
                     </Link>
                   </SidebarMenuButton>
@@ -239,7 +239,7 @@ export function AccountingSidebar({ ...props }: React.ComponentProps<typeof Side
                 <SidebarMenuButton size="lg" className="hover:bg-slate-100 dark:hover:bg-zinc-850 rounded-xl cursor-pointer">
                   <Avatar className="h-7 w-7 rounded-lg shrink-0">
                     <AvatarImage src={user.avatar} alt={user.name} />
-                    <AvatarFallback className="bg-emerald-100 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 text-xs font-black">AS</AvatarFallback>
+                    <AvatarFallback className="bg-orange-100 dark:bg-orange-950/30 text-orange-700 dark:text-orange-400 text-xs font-black">AS</AvatarFallback>
                   </Avatar>
                   <div className={cn("transition-all duration-200 flex flex-col min-w-0 text-left", isCollapsed ? "opacity-0 w-0" : "opacity-100")}>
                     <span className="text-[10px] font-black text-slate-800 dark:text-zinc-300 truncate leading-none">{user.name}</span>

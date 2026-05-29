@@ -65,7 +65,7 @@ export function FloatingCalculator() {
           "w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-300",
           isOpen 
             ? "bg-rose-600 hover:bg-rose-700 text-white rotate-90" 
-            : "bg-emerald-600 hover:bg-emerald-700 text-white hover:scale-110"
+            : "bg-orange-500 hover:bg-orange-600 text-white hover:scale-110"
         )}
       >
         {isOpen ? <X className="w-5 h-5" /> : <Calculator className="w-5 h-5" />}
@@ -76,11 +76,11 @@ export function FloatingCalculator() {
         <div className="absolute bottom-16 right-0 w-80 bg-white/95 dark:bg-zinc-950/95 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-4 animate-in slide-in-from-bottom-5 duration-200 backdrop-blur-md flex flex-col gap-3">
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-zinc-800 pb-2">
             <span className="text-xs font-extrabold text-slate-800 dark:text-zinc-200 uppercase tracking-wider flex items-center gap-1.5">
-              <Calculator className="w-3.5 h-3.5 text-emerald-600" /> Kalkulator Akuntansi
+              <Calculator className="w-3.5 h-3.5 text-orange-500" /> Kalkulator Akuntansi
             </span>
             <div className="flex gap-1">
               <Button size="icon" variant="ghost" className="h-6 w-6 rounded" onClick={handleCopy} title="Salin Nominal">
-                <Copy className="w-3 h-3 text-slate-500 hover:text-emerald-600" />
+                <Copy className="w-3 h-3 text-slate-500 hover:text-orange-500" />
               </Button>
               <Button size="icon" variant="ghost" className="h-6 w-6 rounded" onClick={handleClear} title="Clear">
                 <RotateCcw className="w-3 h-3 text-slate-500 hover:text-rose-600" />
@@ -117,7 +117,7 @@ export function FloatingCalculator() {
             <button onClick={() => handleDigit('1')} className="h-10 text-xs font-bold bg-white dark:bg-zinc-900 border border-slate-100 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 rounded-lg transition-all">1</button>
             <button onClick={() => handleDigit('2')} className="h-10 text-xs font-bold bg-white dark:bg-zinc-900 border border-slate-100 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 rounded-lg transition-all">2</button>
             <button onClick={() => handleDigit('3')} className="h-10 text-xs font-bold bg-white dark:bg-zinc-900 border border-slate-100 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 rounded-lg transition-all">3</button>
-            <button onClick={handleCalculate} className="row-span-2 h-22 text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors flex items-center justify-center"><Equal className="w-4 h-4" /></button>
+            <button onClick={handleCalculate} className="row-span-2 h-22 text-xs font-extrabold bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors flex items-center justify-center"><Equal className="w-4 h-4" /></button>
 
             {/* Row 5 */}
             <button onClick={() => handleDigit('0')} className="col-span-2 h-10 text-xs font-bold bg-white dark:bg-zinc-900 border border-slate-100 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 rounded-lg transition-all">0</button>
@@ -134,7 +134,7 @@ export function FloatingCalculator() {
                     <span className="truncate">{h}</span>
                     <button 
                       onClick={() => setDisplay(h.split(' = ')[1])}
-                      className="text-[9px] text-emerald-600 hover:text-emerald-700 flex items-center gap-0.5 shrink-0"
+                      className="text-[9px] text-orange-600 hover:text-orange-700 flex items-center gap-0.5 shrink-0"
                       title="Gunakan Hasil ini"
                     >
                       <CornerRightDown className="w-2.5 h-2.5" /> Use

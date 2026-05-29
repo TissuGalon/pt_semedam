@@ -111,7 +111,7 @@ export default function RekeningForm({ isOpen, onClose, initialData, onSuccess }
             <Button type="button" variant="outline" onClick={onClose} disabled={isLoading}>
               Batal
             </Button>
-            <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700 text-white min-w-[120px]" disabled={isLoading}>
+            <Button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white min-w-[120px]" disabled={isLoading}>
               {isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
