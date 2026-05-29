@@ -1,0 +1,283 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Paket LaTeX Standar ---
+\usepackage[utf8]{inputenc}
+\usepackage[bahasa]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\usepackage{mathptmx}      % Menggunakan font Times New Roman
+\usepackage{parskip}       % Spasi antar paragraf modern & tanpa indentasi paragraf awal
+\renewcommand{\arraystretch}{1.3} % Membuat tinggi baris tabel lebih renggang & profesional
+
+% --- Konfigurasi Hyperref ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Product Requirement Document (PRD) - Sistem Portal ERP PT Semadam},
+    pdfpagemode=FullScreen,
+}
+
+% --- Konfigurasi Warna & Kotak Pesan ---
+\definecolor{primarycolor}{HTML}{0f172a} % Slate 900
+\definecolor{secondarycolor}{HTML}{ea580c} % Orange 600
+\definecolor{alertbg}{HTML}{f8fafc}
+\definecolor{alertborder}{HTML}{cbd5e1}
+\definecolor{alerttext}{HTML}{334155}
+
+\newtcolorbox{notealert}[1][Catatan Desain]{
+    colback=alertbg,
+    colframe=alertborder,
+    coltext=alerttext,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=4px,
+    boxrule=1pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+
+% --- Konfigurasi Header & Footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}Sistem ERP PT Semadam - Product Requirement Document (PRD)}
+\fancyhead[R]{\small\color{gray}Portal \& Visual Identity}
+\fancyfoot[L]{\small\color{gray}\copyright~2026 PT Semadam}
+\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- INFORMASI DOKUMEN ---
+\title{
+    \vspace{-1.5cm}
+    \color{primarycolor}\textbf{\Huge PRODUCT REQUIREMENT DOCUMENT (PRD)}\\
+    \vspace{0.3cm}
+    \color{secondarycolor}\Large\textbf{Sistem Portal ERP Terpadu \& Tema Warna Integrasi}\\
+    \vspace{0.2cm}
+    \large\textbf{Sistem Informasi ERP Terintegrasi PT Semadam}
+}
+\author{\textbf{PT Semadam - Tim Pengembang Sistem}}
+\date{29 Mei 2026}
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{empty}
+\begin{center}
+    \vspace{1.5cm}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Detail Dokumen} & \textbf{Informasi} \\
+        \midrule
+        Nama Proyek & Sistem ERP Terintegrasi PT Semadam \\
+        Modul / Subsistem & Portal Gateway, Navigasi Modul-Aware \& Konsistensi Visual \\
+        Versi Dokumen & 1.0.0 (Production Ready) \\
+        Status Dokumen & Final (Disetujui untuk Produksi) \\
+        Bahasa & Bahasa Indonesia \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ==========================================
+\section{PENDAHULUAN}
+% ==========================================
+
+\subsection{Latar Belakang}
+Dalam rangka modernisasi sistem operasional PT Semadam dari sistem berbasis DOS (\textit{legacy}) Clipper/dBase menuju platform berbasis Web modern (\textbf{Next.js 15, TailwindCSS, Supabase}), integrasi antarmuka pengguna (\textit{User Interface / User Experience}) antar departemen menjadi faktor yang sangat krusial. Sistem ERP PT Semadam dikembangkan dalam 5 modul fungsional utama yang berjalan secara paralel:
+\begin{enumerate}
+    \item \textbf{Accounting (Sistem Informasi Akuntansi - SIA)}
+    \item \textbf{Inventory (Logistik \& Gudang Perkebunan)}
+    \item \textbf{Kas/Bank (Treasury \& Kasir Kebun)}
+    \item \textbf{Payroll (HRD \& Rekap Buruh Panen)}
+    \item \textbf{Assets (Aktiva Tetap \& Depresiasi)}
+\end{enumerate}
+
+Sebelum pembaruan arsitektural ini dilakukan, terdapat beberapa masalah inkonsistensi yang dihadapi oleh pengguna operasional:
+\begin{itemize}
+    \item \textbf{Namespace Rute yang Membingungkan}: Beberapa modul menggunakan namespace \texttt{/dashboard/} sementara modul lain diakses secara terpisah, memicu kebingungan navigasi bagi staf administrasi.
+    \item \textbf{Kebocoran Identitas Visual (\textit{Visual Leakage})}: Modul-modul dengan fungsi yang berbeda sering menggunakan aksen warna yang sama secara tumpang tindih (misalnya modul Akuntansi yang sempat menggunakan warna hijau zamrud milik Payroll), sehingga pengguna kehilangan intuisi psikologis mengenai modul aktif tempat mereka menginput data.
+    \item \textbf{Sistem Pencarian dan Header yang Kaku}: Kotak pencarian menu (\texttt{CommandMenu}) dan remah roti (\texttt{Breadcrumbs}) bersifat statis dan tidak adaptif terhadap modul kerja yang sedang dibuka.
+\end{itemize}
+
+Untuk menyelesaikan masalah di atas, sistem ini merombak total arsitektur navigasi global menjadi \textbf{Sistem Portal ERP Terpadu} yang menerapkan rute modular (\texttt{/portal/}), menu pencarian adaptif, bottom bar dinamis untuk mobile, serta \textbf{sistem pewarnaan eksklusif per modul (Module-Specific Color Theming)}.
+
+\subsection{Tujuan Dokumen}
+Dokumen \textit{Product Requirement Document} (PRD) ini dibuat untuk:
+\begin{itemize}
+    \item Mendefinisikan spesifikasi fungsional dari sistem portal terpadu dan navigasi dinamis berbasis konteks.
+    \item Menetapkan panduan standardisasi identitas visual (skema warna) untuk kelima modul utama ERP PT Semadam.
+    \item Menjadi acuan formal bagi tim pengembang dalam memelihara dan menambahkan fitur baru agar senantiasa konsisten secara estetika UI/UX premium.
+\end{itemize}
+
+\subsection{Ruang Lingkup Sistem}
+Portal ERP ini mencakup gerbang selektor utama (\texttt{/portal}), penataan tata letak navigasi samping (Sidebar), sistem remah roti dinamis (Site Header \& Breadcrumbs), modal pencarian modular (\texttt{CommandMenu}), bilah tombol bawah untuk mobile (\texttt{MobileBottomBar}), serta standardisasi tombol navigasi kembali (\textit{Back to Portal}).
+
+\newpage
+
+% ==========================================
+\section{PANDUAN IDENTITAS VISUAL (COLOR THEMING SYSTEM)}
+% ==========================================
+Untuk meningkatkan kecepatan kognitif pengguna dalam mengenali modul aktif secara psikologis, ditetapkan aturan pewarnaan eksklusif untuk masing-masing modul. Seluruh tombol utama (\textit{primary buttons}), ikon menu aktif, batas fokus teks (\textit{focus border}), lencana inisial avatar, serta efek hover wajib mematuhi kode warna TailwindCSS berikut:
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{lllll}
+    \toprule
+    \textbf{Modul ERP} & \textbf{Warna Utama} & \textbf{Kode Tailwind} & \textbf{Aksen Dark Mode} & \textbf{Representasi Psikologis} \\
+    \midrule
+    \textbf{Accounting} & Oranye (Orange) & \texttt{bg-orange-500} & \texttt{dark:text-orange-400} & Keuangan, Anggaran, Neraca \\
+    \textbf{Inventory} & Biru (Blue) & \texttt{bg-blue-600} & \texttt{dark:text-blue-400} & Logistik, Stok, Persediaan \\
+    \textbf{Kas/Bank} & Indigo & \texttt{bg-indigo-650} & \texttt{dark:text-indigo-400} & Kasir, Kas Masuk, Rekonsiliasi \\
+    \textbf{Payroll} & Hijau (Emerald) & \texttt{bg-emerald-600} & \texttt{dark:text-emerald-450} & Karyawan, Jam Kerja, Gaji \\
+    \textbf{Assets} & Biru Langit (Sky) & \texttt{bg-sky-600} & \texttt{dark:text-sky-400} & Aktiva Tetap, Penyusutan, Tanah \\
+    \bottomrule
+\end{tabular}
+\caption{Panduan Standardisasi Skema Warna Modul ERP PT Semadam}
+\end{table}
+
+\begin{notealert}[Konsistensi Warna]
+Penerapan warna di atas harus diisolasi secara ketat. Dilarang keras menggunakan aksen warna \texttt{emerald} di dalam modul \texttt{accounting} atau sebaliknya, untuk mencegah bias navigasi visual bagi staf akuntan.
+\end{notealert}
+
+\newpage
+
+% ==========================================
+\section{SPESIFIKASI FUNGSIONAL (FUNCTIONAL REQUIREMENTS)}
+% ==========================================
+
+\subsection{RF-01: Portal Gateway \& Namespace Rute Terpadu}
+Sistem harus menyatukan seluruh akses modul ERP di bawah satu gerbang utama.
+\begin{itemize}
+    \item \textbf{RF-01.1}: Halaman \texttt{/portal} bertindak sebagai modul selector utama yang menyajikan bento grid dinamis berisi kelima kartu modul ERP aktif.
+    \item \textbf{RF-01.2}: Migrasi rute fisik dari namespace \texttt{/dashboard/} ke \texttt{/portal/} dilakukan secara penuh untuk menjaga kerapian URL dan struktur Next.js App Router:
+    \begin{itemize}
+        \item Modul Akuntansi: \texttt{/portal/accounting/...}
+        \item Modul Inventory: \texttt{/portal/inventory/...}
+        \item Modul Kas/Bank: \texttt{/portal/kas-bank/...}
+        \item Modul Payroll: \texttt{/portal/payroll/...}
+        \item Modul Assets: \texttt{/portal/assets/...}
+    \end{itemize}
+\end{itemize}
+
+\subsection{RF-02: Sistem Navigasi Sidebar Khusus Modul}
+Setiap modul harus memiliki komponen sidebar independen yang menampilkan menu spesifik modul terkait dengan pewarnaan yang serasi:
+\begin{itemize}
+    \item \textbf{RF-02.1}: Logo pengenal atas pada sidebar wajib menggunakan warna modul masing-masing (contoh: huruf "S" oranye untuk Akuntansi, "S" biru untuk Logistik).
+    \item \textbf{RF-02.2}: Hover menu samping dan status link aktif (\texttt{isActive}) wajib menampilkan skema warna modul:
+    \begin{itemize}
+        \item Akuntansi: \texttt{text-orange-600 bg-slate-100} (atau \texttt{dark:text-orange-400 dark:bg-zinc-800}).
+        \item Logistik: \texttt{text-blue-600 bg-slate-100}.
+        \item Treasury: \texttt{text-indigo-600 bg-slate-100}.
+        \item HRD/Gaji: \texttt{text-emerald-600 bg-slate-100}.
+        \item Aktiva: \texttt{text-sky-650 bg-slate-100}.
+    \end{itemize}
+\end{itemize}
+
+\subsection{RF-03: SiteHeader \& Breadcrumbs Context-Aware}
+Bilah header di bagian atas halaman harus mendeteksi posisi pengguna secara dinamis.
+\begin{itemize}
+    \item \textbf{RF-03.1}: Remah roti (\textit{Breadcrumbs}) otomatis mengurai URL pathname Next.js untuk menyajikan navigasi bersarang yang akurat bagi kelima modul kerja (contoh: \texttt{/portal/accounting/master-unit} akan dibedah menjadi \texttt{Portal} / \texttt{Accounting} / \texttt{Master Unit}).
+    \item \textbf{RF-03.2}: Elemen penyorot styling pada dropdown selektor unit global (\texttt{KOKE}), bulan, dan tahun harus mengadaptasi warna modul aktif.
+\end{itemize}
+
+\subsection{RF-04: Command Menu Adaptif (``Cari fitur atau laporan...'')}
+Modal utilitas pencarian cepat (dipanggil via \texttt{Ctrl + K}) harus menyesuaikan perilakunya berdasarkan modul aktif:
+\begin{itemize}
+    \item \textbf{RF-04.1}: Sistem mendeteksi modul aktif dari pathname URL dan memuat daftar fitur pencarian yang relevan saja (tidak mencampuradukkan menu payroll saat berada di modul akuntansi).
+    \item \textbf{RF-04.2}: Warna penyorot baris pencarian terpilih (\textit{highlight selector}) harus adaptif (contoh: \texttt{bg-orange-500} saat di akuntansi, \texttt{bg-blue-600} di gudang).
+    \item \textbf{RF-04.3}: Placeholder teks dinamis berubah sesuai konteks modul (contoh: ``\textit{Cari rekening COA atau jurnal...}'' untuk Akuntansi).
+\end{itemize}
+
+\subsection{RF-05: Mobile Bottom Bar Module-Aware}
+Bilah navigasi bawah khusus untuk resolusi layar perangkat seluler harus dinamis:
+\begin{itemize}
+    \item \textbf{RF-05.1}: Bottom bar \textbf{wajib disembunyikan} (me-return \texttt{null}) ketika pengguna berada di halaman Landing Page (\texttt{/}) atau halaman selektor portal utama (\texttt{/portal}) agar tata letak visual bersih.
+    \item \textbf{RF-05.2}: Menghilangkan tombol menu ``Portal'' dari bottom bar modul kerja guna memfasilitasi tata letak 4-tombol bawah (4-button layout) yang lapang dan fokus.
+    \item \textbf{RF-05.3}: Garis indikator aktif pada menu bawah diselaraskan dengan warna modul berjalan (oranye untuk akuntansi, hijau untuk payroll).
+\end{itemize}
+
+\subsection{RF-06: Standardisasi Tombol Kembali (Back to Portal)}
+Tombol kembali dari halaman utama masing-masing modul menuju halaman selector portal utama disamakan polanya di seluruh sistem:
+\begin{itemize}
+    \item \textbf{RF-06.1}: Diletakkan secara konsisten di \textbf{sisi kiri judul halaman utama} (sebelum tulisan sub-modul).
+    \item \textbf{RF-06.2}: Menggunakan tombol ikon persegi berbingkai melayang premium (\texttt{Button variant="outline" size="icon" className="rounded-xl h-9 w-9 cursor-pointer"}) yang memuat ikon \texttt{ArrowLeft} dari \texttt{lucide-react}.
+\end{itemize}
+
+\newpage
+
+% ==========================================
+\section{KEBUTUHAN NON-FUNGSIONAL (NON-FUNCTIONAL REQUIREMENTS)}
+% ==========================================
+
+\subsection{Konsistensi UI \& UX Premium}
+\begin{itemize}
+    \item \textbf{NFR-1.1}: Seluruh transisi visual pada hover status menu, ikon, dan tombol wajib menggunakan animasi mikro transisi CSS (\texttt{transition-all duration-200 ease-in-out}) agar gerakan terasa alami dan premium bagi pengguna.
+    \item \textbf{NFR-1.2}: Tampilan wajib mematuhi panduan mode gelap (\textit{dark mode}) yang rapi dengan kontras warna yang nyaman di mata menggunakan warna HSL slate/zinc.
+\end{itemize}
+
+\subsection{Kepatuhan Tipe Data \& Kompilasi}
+\begin{itemize}
+    \item \textbf{NFR-2.1}: Seluruh perubahan penamaan rute, integrasi parameter URL baru, dan penyelarasan tema warna wajib lulus uji tipe TypeScript tanpa kesalahan. Perintah pengujian kompilasi \texttt{npm run typecheck} wajib mengembalikan kode keluar \texttt{0}.
+\end{itemize}
+
+\newpage
+
+% ==========================================
+\section{DETAIL ARSITEKTUR STRUKTUR FILE}
+% ==========================================
+Berikut adalah peta berkas antarmuka terintegrasi yang menerapkan parameter PRD ini:
+\begin{itemize}
+    \item \textbf{Global App Layout \& Context}: \texttt{app/layout.tsx} (Mengandung context modular global).
+    \item \textbf{Portal Selector Gateway}: \texttt{app/portal/page.tsx} (Selector bento grid).
+    \item \textbf{SiteHeader \& Breadcrumbs}: \texttt{components/site-header.tsx}.
+    \item \textbf{Command Menu}: \texttt{components/command-menu.tsx}.
+    \item \textbf{Mobile Navigation}: \texttt{components/mobile-bottom-bar.tsx}.
+    \item \textbf{Accounting Module Components}:
+    \begin{itemize}
+        \item Dashboard SIA: \texttt{app/(accounting)/portal/accounting/page.tsx}
+        \item Sidebar Akuntansi: \texttt{components/accounting-sidebar.tsx}
+        \item Floating Calculator: \texttt{components/accounting/floating-calculator.tsx}
+        \item Master Unit: \texttt{components/master-unit/unit-table.tsx}
+        \item Master Rekening: \texttt{components/master-rekening/rekening-table.tsx}
+    \end{itemize}
+    \item \textbf{Inventory Module Components}:
+    \begin{itemize}
+        \item Dashboard Inventory: \texttt{app/(inventory)/portal/inventory/page.tsx}
+        \item Sidebar Inventory: \texttt{components/inventory-sidebar.tsx}
+    \end{itemize}
+    \item \textbf{Kas/Bank Module Components}:
+    \begin{itemize}
+        \item Sidebar Kas \& Bank: \texttt{components/kas-bank-sidebar.tsx}
+    \end{itemize}
+    \item \textbf{Payroll Module Components}:
+    \begin{itemize}
+        \item Sidebar Payroll: \texttt{components/payroll-sidebar.tsx}
+    \end{itemize}
+    \item \textbf{Assets Module Components}:
+    \begin{itemize}
+        \item Sidebar Assets: \texttt{components/assets-sidebar.tsx}
+    \end{itemize}
+\end{itemize}
+
+\vspace{2cm}
+
+\begin{center}
+    \rule{8cm}{0.5pt}\\
+    \small\color{gray}PRODUCT REQUIREMENT DOCUMENT (PRD) PORTAL ERP PT SEMADAM INI TELAH DIRESMIKAN SEBAGAI ACUAN STANDAR VISUAL DAN ARSITEKTUR NAVIGASI.
+\end{center}
+
+\end{document}

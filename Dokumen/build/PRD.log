@@ -2,8 +2,8 @@ This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**"e:/PROJECT/PT Semedam/pt_semadam/Dokumen/SRS.tex"
-(e:/PROJECT/PT Semedam/pt_semadam/Dokumen/SRS.tex
+**"e:/PROJECT/PT Semedam/pt_semadam/Dokumen/PRD.tex"
+(e:/PROJECT/PT Semedam/pt_semadam/Dokumen/PRD.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
 (C:\Program Files\MiKTeX\tex/latex/base\article.cls
@@ -737,53 +737,9 @@ LaTeX Info: Redefining \hbar on input line 50.
 (C:\Users\acern\AppData\Roaming\MiKTeX\tex/latex/parskip\parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 )
-(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
-ryshapes.geometric.code.tex
-File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-
-(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.geom
-etric.code.tex
-File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-))
-(C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryarrows.meta.code.t
-ex
-File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfarrowinset=\dimen298
-\pgfarrowlength=\dimen299
-\pgfarrowwidth=\dimen300
-\pgfarrowlinewidth=\dimen301
-)
-(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
-rypositioning.code.tex
-File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
-ryfit.code.tex
-File: tikzlibraryfit.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
-rybackgrounds.code.tex
-File: tikzlibrarybackgrounds.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@layerbox@background=\box78
-\pgf@layerboxsaved@background=\box79
-)
-(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
-ryshadows.code.tex
-File: tikzlibraryshadows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-
-(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
-ryfadings.code.tex
-File: tikzlibraryfadings.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-
-(C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryfadings.code.tex
-File: pgflibraryfadings.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)))
-Package hyperref Info: Option `colorlinks' set `true' on input line 32.
- (C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty
-File: lstlang1.sty 2025/11/14 1.11b listings language file
-)
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 1
-20.
+Package hyperref Info: Option `colorlinks' set `true' on input line 28.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 7
+0.
 
 (C:\Users\acern\AppData\Roaming\MiKTeX\tex/latex/psnfss\ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -791,27 +747,27 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 (C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count350
-) (SRS.aux)
-\openout1 = `SRS.aux'.
+) (PRD.aux)
+\openout1 = `PRD.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -850,13 +806,13 @@ LaTeX Font Info:    ... okay on input line 120.
 (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count351
-\scratchdimen=\dimen302
-\scratchbox=\box80
+\scratchdimen=\dimen298
+\scratchbox=\box78
 \nofMPsegments=\count352
 \nofMParguments=\count353
 \everyMPshowfont=\toks43
 \MPscratchCnt=\count354
-\MPscratchDim=\dimen303
+\MPscratchDim=\dimen299
 \MPnumerator=\count355
 \makeMPintoPDFobject=\count356
 \everyMPtoPDFconversion=\toks44
@@ -869,138 +825,132 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 \c@lstlisting=\count357
-Package hyperref Info: Link coloring ON on input line 120.
- (SRS.out)
-(SRS.out)
+Package hyperref Info: Link coloring ON on input line 70.
+ (PRD.out)
+(PRD.out)
 \@outlinefile=\write4
-\openout4 = `SRS.out'.
+\openout4 = `PRD.out'.
 
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 123.
+ 73.
  (C:\Users\acern\AppData\Roaming\MiKTeX\tex/latex/psnfss\ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 123.
+ 73.
 
 (C:\Users\acern\AppData\Roaming\MiKTeX\tex/latex/psnfss\omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 123.
+ 73.
 
 (C:\Users\acern\AppData\Roaming\MiKTeX\tex/latex/psnfss\omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 123.
+ 73.
 
 (C:\Users\acern\AppData\Roaming\MiKTeX\tex/latex/psnfss\omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 123.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 73.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 123.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 73.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 123.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 73.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 127.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 77.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 127.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 77.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 127.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 77.
  [1
 
 {C:/Users/acern/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Program Fi
-les/MiKTeX/fonts/enc/dvips/base/8r.enc}] (SRS.toc)
+les/MiKTeX/fonts/enc/dvips/base/8r.enc}] (PRD.toc)
 \tf@toc=\write5
-\openout5 = `SRS.toc'.
+\openout5 = `PRD.toc'.
 
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
-42.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 9
+2.
 
 (C:\Users\acern\AppData\Roaming\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [2] [3]
-[4]
-Overfull \hbox (19.57416pt too wide) in paragraph at lines 209--210
-\OT1/ptm/m/n/10.95 nal da-ri 4 mo-dul la-in-nya ak-an ber-mu-a-ra pa-da pe-ngi-
-si-an jur-nal tran-sak-si di ta-bel \OT1/cmtt/m/n/10.95 public.jurnal[]transaks
-i
+) [2]
+Overfull \hbox (15.35944pt too wide) in paragraph at lines 110--111
+[]\OT1/ptm/b/n/10.95 Namespace Ru-te yang Mem-bi-ngungk-an\OT1/ptm/m/n/10.95 : 
+Be-be-ra-pa mo-dul meng-gu-nak-an na-mes-pa-ce \OT1/cmtt/m/n/10.95 /dashboard/
  []
 
 
-Overfull \hbox (127.426pt too wide) in paragraph at lines 261--262
+Overfull \hbox (13.48557pt too wide) in paragraph at lines 126--127
+\OT1/ptm/m/n/10.95 de-bar), sis-tem re-mah ro-ti di-na-mis (Si-te He-a-der & Br
+e-a-dcrumbs), mo-dal pen-ca-ri-an mo-du-lar (\OT1/cmtt/m/n/10.95 CommandMenu\OT
+1/ptm/m/n/10.95 ),
+ []
+
+[3]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 138.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 138.
+
+Overfull \hbox (44.01872pt too wide) in paragraph at lines 138--149
  [][] 
  []
 
-[5] [6]
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 303.
- [7]
-Overfull \hbox (1.27661pt too wide) in paragraph at lines 338--339
-[]\OT1/ptm/b/n/10.95 RF-05.2: Pro-ses LNET La-por-an Ma-na-je-men\OT1/ptm/m/n/1
-0.95 : Meng-hi-tung ni-lai re-a-li-sa-si bi-a-ya ak-tu-al (\OT1/cmtt/m/n/10.95 
-biayabi
+[4]
+Overfull \hbox (55.72035pt too wide) in paragraph at lines 182--183
+[]\OT1/ptm/m/n/10.95 Akuntansi: \OT1/cmtt/m/n/10.95 text-orange-600 bg-slate-10
+0 \OT1/ptm/m/n/10.95 (atau \OT1/cmtt/m/n/10.95 dark:text-orange-400 dark:bg-zin
+c-800\OT1/ptm/m/n/10.95 ). 
  []
 
 
-Overfull \hbox (19.51814pt too wide) in paragraph at lines 361--362
-\OT1/ptm/m/n/10.95 dingk-an no-mi-nal \OT1/ptm/b/n/10.95 Bi-a-ya Ak-tu-al S.D B
-ul-an Ini (\OT1/cmtt/m/n/10.95 BIAYASD\OT1/ptm/b/n/10.95 ) \OT1/ptm/m/n/10.95 v
-s \OT1/ptm/b/n/10.95 Ang-gar-an S.D Bul-an Ini (\OT1/cmtt/m/n/10.95 ANGGARANSD\
-OT1/ptm/b/n/10.95 )\OT1/ptm/m/n/10.95 . 
+Overfull \hbox (28.82741pt too wide) in paragraph at lines 193--194
+\OT1/ptm/m/n/10.95 na-vi-ga-si ber-sa-rang yang aku-rat ba-gi ke-li-ma mo-dul k
+er-ja (con-toh: \OT1/cmtt/m/n/10.95 /portal/accounting/master-unit
  []
 
-[8] [9]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 382.
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 383.
-
-Overfull \hbox (20.24278pt too wide) in paragraph at lines 392--393
-\OT1/ptm/m/n/10.95 di Su-pa-ba-se (\OT1/cmtt/m/n/10.95 master[]unit\OT1/ptm/m/n
-/10.95 , \OT1/cmtt/m/n/10.95 master[]rekening\OT1/ptm/m/n/10.95 , \OT1/cmtt/m/n
-/10.95 jurnal[]transaksi\OT1/ptm/m/n/10.95 , \OT1/cmtt/m/n/10.95 saldo[]awal\OT
-1/ptm/m/n/10.95 , \OT1/cmtt/m/n/10.95 anggaran[]rabi\OT1/ptm/m/n/10.95 ,
+[5]
+Overfull \hbox (47.54126pt too wide) in paragraph at lines 217--218
+[]\OT1/ptm/b/n/10.95 RF-06.2\OT1/ptm/m/n/10.95 : Meng-gu-nak-an tom-bol ikon pe
+r-se-gi ber-bing-kai me-la-yang pre-mi-um (\OT1/cmtt/m/n/10.95 Button variant="
+outline"
  []
 
 
-Overfull \hbox (3.36858pt too wide) in paragraph at lines 405--406
-[]\OT1/ptm/b/n/10.95 NFR-4.1: Pre-mi-um UI De-sign\OT1/ptm/m/n/10.95 : Tam-pil-
-an an-tar-mu-ka pro-fe-sio-nal meng-gu-nak-an font In-ter/Roboto,
+Overfull \hbox (41.71545pt too wide) in paragraph at lines 217--218
+\OT1/cmtt/m/n/10.95 size="icon" className="rounded-xl h-9 w-9 cursor-pointer"\O
+T1/ptm/m/n/10.95 ) yang me-mu-at ikon \OT1/cmtt/m/n/10.95 ArrowLeft
  []
 
-[10] [11]
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 471.
- [12] [13] [14] (SRS.aux)
+[6] [7] [8] (PRD.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
-Package rerunfilecheck Info: File `SRS.out' has not changed.
-(rerunfilecheck)             Checksum: 9E37FB55E040A2AA867EA3AD91009B8A;8058.
+Package rerunfilecheck Info: File `PRD.out' has not changed.
+(rerunfilecheck)             Checksum: F70B4BB0B8B24D3ECF5F4658C13320E6;3965.
  ) 
 Here is how much of TeX's memory you used:
- 28168 strings out of 467871
- 532305 string characters out of 5428443
- 1531912 words of memory out of 5000000
- 56439 multiletter control sequences out of 15000+600000
- 663274 words of font info for 115 fonts, out of 8000000 for 9000
+ 26173 strings out of 467871
+ 491657 string characters out of 5428443
+ 896947 words of memory out of 5000000
+ 54608 multiletter control sequences out of 15000+600000
+ 669555 words of font info for 128 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 98i,13n,108p,630b,2033s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/Progr
-am Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmtt12.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/time
-s/utmb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Prog
-ram Files/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "e:\PROJECT\PT Semedam\pt_semadam\Dokumen\SRS.pdf" (14 pages,
- 192092 bytes).
+ 98i,12n,108p,630b,600s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX/fonts/
+type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmr
+8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on "e:\PROJECT\PT Semedam\pt_semadam\Dokumen\PRD.pdf" (8 pages, 
+110156 bytes).
 PDF statistics:
- 449 PDF objects out of 1000 (max. 8388607)
- 162 named destinations out of 1000 (max. 500000)
- 389 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 164 PDF objects out of 1000 (max. 8388607)
+ 32 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 

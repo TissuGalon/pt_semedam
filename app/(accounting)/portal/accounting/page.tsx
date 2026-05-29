@@ -26,7 +26,8 @@ import {
   Settings,
   HelpCircle,
   ExternalLink,
-  ChevronLeft
+  ChevronLeft,
+  ArrowLeft
 } from 'lucide-react';
 import { getMasterUnit } from '@/lib/actions/master-unit';
 import { getMasterRekening } from '@/lib/actions/master-rekening';
@@ -130,23 +131,24 @@ export default function AccountingDashboard() {
       {/* HEADER SECTION                                                */}
       {/* ------------------------------------------------------------- */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 dark:border-zinc-800/80 pb-6 shrink-0">
-        <div>
-          <div className="flex items-center gap-2 text-orange-600 dark:text-orange-400 font-black text-[10px] uppercase tracking-[0.2em] mb-1">
-            Sistem Informasi Akuntansi (SIA)
-          </div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-zinc-100 tracking-tight">Dasbor Akuntansi Kebun</h1>
-          <p className="text-slate-500 dark:text-zinc-400 text-xs font-semibold mt-1">
-            Ringkasan data balance sheet, bagan rekening COA, dan audit voucher jurnal harian PT Semadam.
-          </p>
-        </div>
-        <div className="flex items-center gap-3 self-start md:self-auto">
+        <div className="flex items-center gap-3">
           <Link href="/portal">
-            <Button variant="outline" className="h-9 rounded-xl text-xs font-extrabold border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-zinc-900 transition-colors">
-              <ChevronLeft className="w-4 h-4" />
-              Kembali ke Portal
+            <Button variant="outline" size="icon" className="rounded-xl h-9 w-9 cursor-pointer">
+              <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
-          <div className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl px-3.5 py-2 shadow-sm text-xs font-bold text-slate-650 dark:text-zinc-300">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-black text-orange-600 dark:text-orange-400 uppercase tracking-[0.2em] leading-none">Sistem Informasi Akuntansi (SIA)</span>
+            </div>
+            <h1 className="text-2xl font-black text-slate-900 dark:text-zinc-100 tracking-tight mt-1">Dasbor Akuntansi Kebun</h1>
+            <p className="text-slate-500 dark:text-zinc-400 text-xs font-semibold mt-1">
+              Ringkasan data balance sheet, bagan rekening COA, dan audit voucher jurnal harian PT Semadam.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 self-start md:self-auto">
+          <div className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl px-3.5 py-2 shadow-sm text-xs font-bold text-slate-650 dark:text-zinc-300 h-9">
             <CalendarDays className="w-4 h-4 text-orange-500" />
             {format(new Date(), 'dd MMMM yyyy', { locale: localeID })}
           </div>

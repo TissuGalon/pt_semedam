@@ -1,0 +1,17 @@
+\babel@toc {bahasa}{}\relax 
+\contentsline {section}{\numberline {1}PENDAHULUAN}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Latar Belakang}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Tujuan Dokumen}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Ruang Lingkup Sistem}{3}{subsection.1.3}%
+\contentsline {section}{\numberline {2}PANDUAN IDENTITAS VISUAL (COLOR THEMING SYSTEM)}{4}{section.2}%
+\contentsline {section}{\numberline {3}SPESIFIKASI FUNGSIONAL (FUNCTIONAL REQUIREMENTS)}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}RF-01: Portal Gateway \& Namespace Rute Terpadu}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}RF-02: Sistem Navigasi Sidebar Khusus Modul}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}RF-03: SiteHeader \& Breadcrumbs Context-Aware}{5}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}RF-04: Command Menu Adaptif (``Cari fitur atau laporan...'')}{5}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}RF-05: Mobile Bottom Bar Module-Aware}{6}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}RF-06: Standardisasi Tombol Kembali (Back to Portal)}{6}{subsection.3.6}%
+\contentsline {section}{\numberline {4}KEBUTUHAN NON-FUNGSIONAL (NON-FUNCTIONAL REQUIREMENTS)}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Konsistensi UI \& UX Premium}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Kepatuhan Tipe Data \& Kompilasi}{7}{subsection.4.2}%
+\contentsline {section}{\numberline {5}DETAIL ARSITEKTUR STRUKTUR FILE}{8}{section.5}%
