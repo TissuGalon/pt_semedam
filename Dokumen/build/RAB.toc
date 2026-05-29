@@ -1,0 +1,12 @@
+\babel@toc {bahasa}{}\relax 
+\contentsline {section}{\numberline {1}PENDAHULUAN}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Latar Belakang}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Metode Alokasi Anggaran}{3}{subsection.1.2}%
+\contentsline {section}{\numberline {2}RINGKASAN ANGGARAN MODUL ERP}{4}{section.2}%
+\contentsline {section}{\numberline {3}DETAIL ALOKASI ANGGARAN FITUR PER MODUL}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Modul 1: Accounting (SIA) - Total Rp 20.000.000,-}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Modul 2: Kas/Bank (Treasury) - Total Rp 15.000.000,-}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Modul 3: Inventory (Logistik \& Gudang) - Total Rp 27.000.000,-}{5}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Modul 4: Gaji (Payroll) - Total Rp 17.000.000,-}{6}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Modul 5: Assets (Aktiva Tetap) - Total Rp 15.000.000,-}{6}{subsection.3.5}%
+\contentsline {section}{\numberline {4}METODE PEMBAYARAN \& TERMIN (PAYMENT MILESTONES)}{7}{section.4}%

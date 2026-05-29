@@ -1,0 +1,278 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Paket LaTeX Standar ---
+\usepackage[utf8]{inputenc}
+\usepackage[bahasa]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\usepackage{mathptmx}      % Menggunakan font Times New Roman
+\usepackage{parskip}       % Spasi antar paragraf modern & tanpa indentasi paragraf awal
+\renewcommand{\arraystretch}{1.3} % Membuat tinggi baris tabel lebih renggang & profesional
+
+% --- Konfigurasi Hyperref ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Rencana Anggaran Biaya (RAB) - Sistem ERP PT Semadam},
+    pdfpagemode=FullScreen,
+}
+
+% --- Konfigurasi Warna & Kotak Pesan ---
+\definecolor{primarycolor}{HTML}{0f172a} % Slate 900
+\definecolor{secondarycolor}{HTML}{ea580c} % Orange 600
+\definecolor{alertbg}{HTML}{f8fafc}
+\definecolor{alertborder}{HTML}{cbd5e1}
+\definecolor{alerttext}{HTML}{334155}
+
+\newtcolorbox{notealert}[1][Catatan Finansial]{
+    colback=alertbg,
+    colframe=alertborder,
+    coltext=alerttext,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=4px,
+    boxrule=1pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+
+% --- Konfigurasi Header & Footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}Sistem ERP PT Semadam - Rencana Anggaran Biaya (RAB)}
+\fancyhead[R]{\small\color{gray}Alokasi Nilai Fitur}
+\fancyfoot[L]{\small\color{gray}\copyright~2026 PT Semadam}
+\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- INFORMASI DOKUMEN ---
+\title{
+    \vspace{-1.5cm}
+    \color{primarycolor}\textbf{\Huge RENCANA ANGGARAN BIAYA (RAB)}\\
+    \vspace{0.3cm}
+    \color{secondarycolor}\Large\textbf{Distribusi Anggaran Fitur \& Milestones Finansial ERP}\\
+    \vspace{0.2cm}
+    \large\textbf{Sistem Informasi ERP Terintegrasi PT Semadam}
+}
+\author{\textbf{PT Semadam - Tim Pengembang Sistem}}
+\date{29 Mei 2026}
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{empty}
+\begin{center}
+    \vspace{1.5cm}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Detail Dokumen} & \textbf{Informasi} \\
+        \midrule
+        Nama Proyek & Sistem ERP Terintegrasi PT Semadam \\
+        Dokumen / Lampiran & Rencana Anggaran Biaya (RAB) \& Alokasi Harga Fitur \\
+        Versi Dokumen & 1.0.0 (Final) \\
+        Status Dokumen & Lampiran Kontrak Resmi (Disetujui) \\
+        Bahasa & Bahasa Indonesia \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ==========================================
+\section{PENDAHULUAN}
+% ==========================================
+
+\subsection{Latar Belakang}
+Pengembangan Sistem Informasi ERP Terintegrasi PT Semadam mencakup lima modul operasional dan finansial terpadu yang berjalan secara paralel. Untuk memastikan transparansi nilai pekerjaan dan menyusun milestones pembayaran berbasis fungsionalitas (\textit{feature-based payment milestones}), diperlukan perincian anggaran biaya untuk setiap fitur di masing-masing modul.
+
+\subsection{Metode Alokasi Anggaran}
+Dalam menetapkan nilai nominal per fitur, tim pengembang tidak menerapkan pembagian rata (\textit{flat division}), melainkan menggunakan \textbf{Metode Pembobotan Kompleksitas Fitur (Complexity-Weighted Allocation)}. Metode ini dinilai jauh lebih profesional dan akurat karena beberapa alasan:
+\begin{enumerate}
+    \item \textbf{Representasi Usaha (Effort Representation)}: Fitur yang membutuhkan arsitektur database rumit, Server Actions mutakhir, dan algoritma komputasi berat (seperti \textit{GL Engine} dan \textit{FIFO Valuation}) dinilai dengan harga lebih tinggi dibanding CRUD master data dasar.
+    \item \textbf{Keadilan Finansial (Financial Fairness)}: Menyelaraskan harga fitur dengan keahlian teknis (\textit{expertise}) yang dibutuhkan untuk membangunnya.
+    \item \textbf{Kemudahan Audit}: Memudahkan manajemen PT Semadam dalam melakukan audit progress serah terima pekerjaan per fitur secara objektif.
+\end{enumerate}
+
+\newpage
+
+% ==========================================
+\section{RINGKASAN ANGGARAN MODUL ERP}
+% ==========================================
+
+Total nilai kontrak pengembangan Sistem ERP Terintegrasi PT Semadam adalah \textbf{Rp 92.000.000,- (Sembilan Puluh Dua Juta Rupiah)} dengan rincian per modul sebagai berikut:
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{llrlc}
+    \toprule
+    \textbf{No.} & \textbf{Modul ERP} & \textbf{Harga Modul (IDR)} & \textbf{Persentase (\%)} & \textbf{Status Pengembangan} \\
+    \midrule
+    1 & \textbf{Accounting (SIA)} & Rp 20.000.000,- & 21,74\% & Financial Core Hub \\
+    2 & \textbf{Kas/Bank (Treasury)} & Rp 15.000.000,- & 16,30\% & Cash Flow Engine \\
+    3 & \textbf{Inventory (Gudang)} & Rp 27.000.000,- & 29,35\% & Logistics \& Stocks \\
+    4 & \textbf{Gaji (Payroll)} & Rp 17.000.000,- & 18,48\% & Plantation HRD Engine \\
+    5 & \textbf{Assets (Aktiva Tetap)} & Rp 15.000.000,- & 16,13\% & Depreciation Engine \\
+    \midrule
+    & \textbf{TOTAL} & \textbf{Rp 92.000.000,-} & \textbf{100,00\%} & \textbf{Terintegrasi Penuh} \\
+    \bottomrule
+\end{tabular}
+\caption{Ringkasan Anggaran Pengembangan Modul ERP PT Semadam}
+\end{table}
+
+\begin{notealert}[Integrasi Finansial]
+Meskipun harga dibagi per modul, kelima modul di atas dirancang untuk beroperasi secara terintegrasi penuh melalui backend PostgreSQL Supabase secara \textit{real-time} tanpa penundaan sinkronisasi.
+\end{notealert}
+
+\newpage
+
+% ==========================================
+\section{DETAIL ALOKASI ANGGARAN FITUR PER MODUL}
+% ==========================================
+
+\subsection{Modul 1: Accounting (SIA) - Total Rp 20.000.000,-}
+Modul ini bertindak sebagai jantung keuangan konsolidasi seluruh unit kebun PT Semadam.
+
+\begin{table}[h!]
+\centering
+\scriptsize
+\begin{tabular}{llcrl}
+    \toprule
+    \textbf{Nama Fitur / Komponen} & \textbf{Kompleksitas} & \textbf{Bobot} & \textbf{Nilai Fitur (IDR)} & \textbf{Deskripsi Fungsional} \\
+    \midrule
+    \textbf{Core GL \& Trial Balance} & Tinggi & 30\% & Rp 6.000.000,- & Server Action \texttt{calculateTrialBalance} (Saldo Awal \& Mutasi) \\
+    \textbf{LNET \& Laporan Manajemen} & Tinggi & 27,5\% & Rp 5.500.000,- & Komparasi Aktual vs Anggaran, cache tabel \texttt{laporan\_manajemen\_netral} \\
+    \textbf{Memorial Journal Form} & Sedang & 17,5\% & Rp 3.500.000,- & Form input berimbang, autokomplit COA, hotkey \texttt{Ctrl+S} \\
+    \textbf{Master Data CRUD} & Rendah & 15\% & Rp 3.000.000,- & CRUD \texttt{master\_unit}, \texttt{master\_rekening}, Excel Import COA \\
+    \textbf{Floating Calculator \& Console} & Sedang & 10\% & Rp 2.000.000,- & Widget kalkulator melayang \& grid admin perbaikan darurat \\
+    \midrule
+    \textbf{TOTAL} & & \textbf{100\%} & \textbf{Rp 20.000.000,-} & \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Modul 2: Kas/Bank (Treasury) - Total Rp 15.000.000,-}
+Mengelola aliran masuk dan keluar dana cair kebun serta rekonsiliasi perbankan.
+
+\begin{table}[h!]
+\centering
+\scriptsize
+\begin{tabular}{llcrl}
+    \toprule
+    \textbf{Nama Fitur / Komponen} & \textbf{Kompleksitas} & \textbf{Bobot} & \textbf{Nilai Fitur (IDR)} & \textbf{Deskripsi Fungsional} \\
+    \midrule
+    \textbf{Cash Flow Ledger Engine} & Tinggi & 33,3\% & Rp 5.000.000,- & Otomasi posting jurnal transaksi kas keluar/masuk ke Ledger \\
+    \textbf{Bank Reconciliation} & Tinggi & 30\% & Rp 4.500.000,- & Komparasi mutasi kas internal vs rekening koran via CSV bank \\
+    \textbf{Voucher Entry Forms} & Sedang & 23,3\% & Rp 3.500.000,- & UI pembuatan slip bukti kas masuk/keluar multi-baris pembebanan \\
+    \textbf{Master Kas \& Rekening Bank} & Rendah & 13,4\% & Rp 2.000.000,- & Setup kasir kebun, limit harian, otorisasi tanda tangan slip \\
+    \midrule
+    \textbf{TOTAL} & & \textbf{100\%} & \textbf{Rp 15.000.000,-} & \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Modul 3: Inventory (Logistik \& Gudang) - Total Rp 27.000.000,-}
+Modul terbesar menangani suku cadang pabrik sawit, pupuk, BBM, dan logistik kebun.
+
+\begin{table}[h!]
+\centering
+\scriptsize
+\begin{tabular}{llcrl}
+    \toprule
+    \textbf{Nama Fitur / Komponen} & \textbf{Kompleksitas} & \textbf{Bobot} & \textbf{Nilai Fitur (IDR)} & \textbf{Deskripsi Fungsional} \\
+    \midrule
+    \textbf{Stock Valuation Engine} & Tinggi & 31,5\% & Rp 8.500.000,- & Penilaian stok mutasi barang dengan metode \textit{Weighted Average} \\
+    \textbf{Append Gudang \& Opname} & Tinggi & 24\% & Rp 6.500.000,- & Closing stok bulanan, stock opname fisik, pencatatan deviasi \\
+    \textbf{Buku Penerimaan \& Pengeluaran} & Sedang & 22,2\% & Rp 6.000.000,- & Transaksi LPB/Nota dan pengeluaran bon barang per afdeling kebun \\
+    \textbf{Master Barang \& Alert Order} & Sedang & 14,8\% & Rp 4.000.000,- & Setup batas minimal stok barang kebun \& alert restock otomatis \\
+    \textbf{Supplier \& Purchase Order} & Rendah & 7,5\% & Rp 2.000.000,- & Setup rekanan suplier, cetak dokumen PO resmi, pelacakan transit \\
+    \midrule
+    \textbf{TOTAL} & & \textbf{100\%} & \textbf{Rp 27.000.000,-} & \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\subsection{Modul 4: Gaji (Payroll) - Total Rp 17.000.000,-}
+Sistem manajemen ketenagakerjaan khusus perkebunan sawit (staf bulanan vs buruh panen).
+
+\begin{table}[h!]
+\centering
+\scriptsize
+\begin{tabular}{llcrl}
+    \toprule
+    \textbf{Nama Fitur / Komponen} & \textbf{Kompleksitas} & \textbf{Bobot} & \textbf{Nilai Fitur (IDR)} & \textbf{Deskripsi Fungsional} \\
+    \midrule
+    \textbf{Palm Oil Labor Payroll Engine} & Tinggi & 38,2\% & Rp 6.500.000,- & Hitung upah harian, premi panen (TBS/timbangan), lembur buruh \\
+    \textbf{BPJS \& PPh 21 Calculator} & Sedang & 23,5\% & Rp 4.000.000,- & Potongan PPh 21 bulanan, iuran iuran BPJS TK \& Kesehatan otomatis \\
+    \textbf{Master Karyawan \& Absensi} & Sedang & 20,6\% & Rp 3.500.000,- & DB SKU/BHL, denda keterlambatan, integrasi tracker finger print \\
+    \textbf{Slip Gaji Generator \& Rekap} & Rendah & 17,7\% & Rp 3.000.000,- & Cetak slip per divisi, rekap biaya upah bulanan, ekspor bank transfer \\
+    \midrule
+    \textbf{TOTAL} & & \textbf{100\%} & \textbf{Rp 17.000.000,-} & \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Modul 5: Assets (Aktiva Tetap) - Total Rp 15.000.000,-}
+Pencatatan aset perkebunan, armada angkutan TBS, serta depresiasi aset berkala.
+
+\begin{table}[h!]
+\centering
+\scriptsize
+\begin{tabular}{llcrl}
+    \toprule
+    \textbf{Nama Fitur / Komponen} & \textbf{Kompleksitas} & \textbf{Bobot} & \textbf{Nilai Fitur (IDR)} & \textbf{Deskripsi Fungsional} \\
+    \midrule
+    \textbf{Automatic Depreciation Engine} & Tinggi & 36,6\% & Rp 5.500.000,- & Posting penyusutan bulanan otomatis (garis lurus/saldo menurun) \\
+    \textbf{Asset Registry \& Lifecycle} & Sedang & 23,3\% & Rp 3.500.000,- & Track mutasi aset antar divisi kebun, perbaikan, disposal aset \\
+    \textbf{CAPEX \& Asset Acquisition} & Sedang & 23,3\% & Rp 3.500.000,- & Alur persetujuan belanja modal pembelian alat berat/lahan baru \\
+    \textbf{Master Kategori Asset} & Rendah & 16,8\% & Rp 2.500.000,- & Pengelompokan masa manfaat aset dan cetak barcode inventaris \\
+    \midrule
+    \textbf{TOTAL} & & \textbf{100\%} & \textbf{Rp 15.000.000,-} & \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+% ==========================================
+\section{METODE PEMBAYARAN \& TERMIN (PAYMENT MILESTONES)}
+% ==========================================
+
+Untuk menyelaraskan antara progress pengembangan fisik dengan komitmen keuangan, pembayaran dibagi menjadi \textbf{5 Termin} berdasarkan penyelesaian serah terima modul operasional:
+
+\begin{enumerate}
+    \item \textbf{Termin 1 (Uang Muka / DP) - 20\%} \\
+    Pembayaran awal setelah penandatanganan \textit{Scope of Work} (SOW) dan persetujuan formal \textit{Product Requirement Document} (PRD). Nilai: \textbf{Rp 18.400.000,-}.
+    \item \textbf{Termin 2 (Modul Accounting \& Kas/Bank) - 30\%} \\
+    Setelah serah terima fungsionalitas penuh modul Keuangan \& Treasury (SIA \& Kas/Bank) serta lulus uji akurasi jurnal. Nilai: \textbf{Rp 27.600.000,-}.
+    \item \textbf{Termin 3 (Modul Inventory / Gudang) - 25\%} \\
+    Setelah modul persediaan barang, stok gudang, dan logistik kebun dinyatakan selesai uji fungsi dan *Go-Live*. Nilai: \textbf{Rp 23.000.000,-}.
+    \item \textbf{Termin 4 (Modul Payroll \& Assets) - 20\%} \\
+    Setelah modul rekap HRD/Gaji buruh panen dan modul depresiasi otomatis aktiva tetap berhasil diserahterimakan. Nilai: \textbf{Rp 18.400.000,-}.
+    \item \textbf{Termin 5 (Pemeliharaan / Retensi) - 5\%} \\
+    Dibayarkan setelah berakhirnya masa garansi/pemeliharaan gratis sistem selama 3 bulan operasional. Nilai: \textbf{Rp 4.600.000,-}.
+\end{enumerate}
+
+\vspace{2cm}
+
+\begin{center}
+    \rule{8cm}{0.5pt}\\
+    \small\color{gray}DOKUMEN RENCANA ANGGARAN BIAYA (RAB) INI MERUPAKAN LAMPIRAN RESMI HUKUM YANG MERUPAKAN BAGIAN INTEGRAL DARI SCOPE OF WORK (SOW) PENGEMBANGAN ERP PT SEMADAM.
+\end{center}
+
+\end{document}
