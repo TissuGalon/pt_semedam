@@ -4,7 +4,7 @@ import * as React from 'react';
 import { usePathname } from 'next/navigation';
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Search, HelpCircle, Activity, Globe, FolderSync } from 'lucide-react';
+import { Search, Globe } from 'lucide-react';
 import { CommandMenu } from '@/components/command-menu';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -31,7 +31,7 @@ interface BreadcrumbItem {
 export function SiteHeader() {
   const [open, setOpen] = React.useState(false);
   const pathname = usePathname();
-  const { koke, bulan, tahun, setKoke, setBulan, setTahun, isSessionActive, isFallback } = useAccounting();
+  const { koke, bulan, tahun, setKoke, setBulan, setTahun, isFallback } = useAccounting();
   const [units, setUnits] = React.useState<any[]>([]);
   const [availableYears, setAvailableYears] = React.useState<string[]>([]);
 
@@ -57,46 +57,169 @@ export function SiteHeader() {
     loadHeaderData();
   }, [tahun, setTahun, isFallback]);
 
-  // Dynamic breadcrumbs structure for premium feel
+  // Dynamic module-aware breadcrumbs builder
   const getBreadcrumbs = (): BreadcrumbItem[] => {
-    const base = { label: 'SIA Semadam', href: '/portal' };
-    switch (pathname) {
-      case '/portal':
-        return [base, { label: 'Dashboard', active: true }];
-      case '/master-unit':
-        return [base, { label: 'Master', href: '#' }, { label: 'Unit Kebun', active: true }];
-      case '/master-rekening':
-        return [base, { label: 'Master', href: '#' }, { label: 'Rekening (COA)', active: true }];
-      case '/input-jurnal':
-        return [base, { label: 'Transaksi', href: '#' }, { label: 'Input Jurnal', active: true }];
-      case '/input-saldo-awal':
-        return [base, { label: 'Transaksi', href: '#' }, { label: 'Saldo Awal', active: true }];
-      case '/laporan-jurnal':
-        return [base, { label: 'Laporan', href: '#' }, { label: 'Tinjauan Jurnal', active: true }];
-      case '/proses':
-        return [base, { label: 'Proses', href: '#' }, { label: 'Kalkulasi Bulanan', active: true }];
-      case '/proses/append':
-        return [base, { label: 'Proses', href: '#' }, { label: 'Append Jurnal', active: true }];
-      case '/laporan/buku-besar':
-        return [base, { label: 'Laporan', href: '#' }, { label: 'Buku Besar', active: true }];
-      case '/laporan/neraca-klasifikasi':
-        return [base, { label: 'Laporan', href: '#' }, { label: 'Neraca Klasifikasi', active: true }];
-      case '/laporan/neraca-kompilasi':
-        return [base, { label: 'Laporan', href: '#' }, { label: 'Neraca Kompilasi', active: true }];
-      case '/laporan-manajemen':
-        return [base, { label: 'Laporan', href: '#' }, { label: 'Laporan Manajemen', active: true }];
-      case '/utility':
-        return [base, { label: 'Utility', href: '#' }, { label: 'Dashboard', active: true }];
-      case '/utility/console':
-        return [base, { label: 'Utility', href: '#' }, { label: 'Admin Console', active: true }];
-      case '/utility/backup-restore':
-        return [base, { label: 'Utility', href: '#' }, { label: 'Backup & Restore', active: true }];
-      default:
-        return [base, { label: 'Sistem Informasi Akuntansi', active: true }];
+    const base = { label: 'PT Semadam', href: '/portal' };
+    
+    // 1. Accounting SIA Module path
+    if (pathname.startsWith('/portal/accounting')) {
+      const moduleBase = { label: 'Akuntansi SIA', href: '/portal/accounting' };
+      const subpath = pathname.replace('/portal/accounting', '');
+      
+      if (subpath === '') {
+        return [base, { label: 'Akuntansi SIA', active: true }];
+      }
+      if (subpath.startsWith('/master-unit')) {
+        return [base, moduleBase, { label: 'Master', href: '#' }, { label: 'Unit Kebun', active: true }];
+      }
+      if (subpath.startsWith('/master-rekening')) {
+        return [base, moduleBase, { label: 'Master', href: '#' }, { label: 'COA Rekening', active: true }];
+      }
+      if (subpath.startsWith('/input-jurnal')) {
+        return [base, moduleBase, { label: 'Transaksi', href: '#' }, { label: 'Input Jurnal', active: true }];
+      }
+      if (subpath.startsWith('/input-saldo-awal')) {
+        return [base, moduleBase, { label: 'Transaksi', href: '#' }, { label: 'Saldo Awal', active: true }];
+      }
+      if (subpath.startsWith('/laporan-jurnal')) {
+        return [base, moduleBase, { label: 'Laporan', href: '#' }, { label: 'Tinjauan Jurnal', active: true }];
+      }
+      if (subpath.startsWith('/proses/append')) {
+        return [base, moduleBase, { label: 'Proses', href: '#' }, { label: 'Append Jurnal', active: true }];
+      }
+      if (subpath.startsWith('/proses')) {
+        return [base, moduleBase, { label: 'Proses', href: '#' }, { label: 'Kalkulasi Bulanan', active: true }];
+      }
+      if (subpath.startsWith('/laporan/buku-besar')) {
+        return [base, moduleBase, { label: 'Laporan', href: '#' }, { label: 'Buku Besar', active: true }];
+      }
+      if (subpath.startsWith('/laporan/neraca-klasifikasi')) {
+        return [base, moduleBase, { label: 'Laporan', href: '#' }, { label: 'Neraca Klasifikasi', active: true }];
+      }
+      if (subpath.startsWith('/laporan/neraca-kompilasi')) {
+        return [base, moduleBase, { label: 'Laporan', href: '#' }, { label: 'Neraca Kompilasi', active: true }];
+      }
+      if (subpath.startsWith('/laporan-manajemen')) {
+        return [base, moduleBase, { label: 'Laporan', href: '#' }, { label: 'Laporan Manajemen', active: true }];
+      }
+      if (subpath.startsWith('/utility/console')) {
+        return [base, moduleBase, { label: 'Utility', href: '#' }, { label: 'Admin Console', active: true }];
+      }
+      if (subpath.startsWith('/utility/backup-restore')) {
+        return [base, moduleBase, { label: 'Utility', href: '#' }, { label: 'Backup & Restore', active: true }];
+      }
+      return [base, moduleBase, { label: 'Aktivitas', active: true }];
     }
+
+    // 2. Inventory & Logistik Module path
+    if (pathname.startsWith('/portal/inventory')) {
+      const moduleBase = { label: 'Gudang Logistik', href: '/portal/inventory' };
+      const subpath = pathname.replace('/portal/inventory', '');
+      
+      if (subpath === '') {
+        return [base, { label: 'Gudang Logistik', active: true }];
+      }
+      return [base, moduleBase, { label: 'Aktivitas', active: true }];
+    }
+
+    // 3. Kas & Bank Module path
+    if (pathname.startsWith('/portal/kas-bank')) {
+      const moduleBase = { label: 'Treasury Kas', href: '/portal/kas-bank' };
+      const subpath = pathname.replace('/portal/kas-bank', '');
+      
+      if (subpath === '') {
+        return [base, { label: 'Treasury Kas & Bank', active: true }];
+      }
+      return [base, moduleBase, { label: 'Aktivitas', active: true }];
+    }
+
+    // 4. Payroll Module path
+    if (pathname.startsWith('/portal/payroll')) {
+      const moduleBase = { label: 'HRD & Payroll', href: '/portal/payroll' };
+      const subpath = pathname.replace('/portal/payroll', '');
+      
+      if (subpath === '') {
+        return [base, { label: 'Payroll & slip Upah', active: true }];
+      }
+      return [base, moduleBase, { label: 'Aktivitas', active: true }];
+    }
+
+    // 5. Assets Module path
+    if (pathname.startsWith('/portal/assets')) {
+      const moduleBase = { label: 'Aset Aktiva', href: '/portal/assets' };
+      const subpath = pathname.replace('/portal/assets', '');
+      
+      if (subpath === '') {
+        return [base, { label: 'Aset Tetap & Aktiva', active: true }];
+      }
+      return [base, moduleBase, { label: 'Aktivitas', active: true }];
+    }
+
+    // Fallback global breadcrumbs
+    if (pathname === '/portal') {
+      return [base, { label: 'Dashboard Portal', active: true }];
+    }
+    return [base, { label: 'Sistem ERP', active: true }];
+  };
+
+  // Dynamic module theme styles for selectors, inputs, rings
+  const getHeaderTheme = () => {
+    if (pathname.startsWith('/portal/accounting')) {
+      return {
+        iconColor: "text-orange-500",
+        ringColor: "focus:ring-orange-500/20",
+        focusRing: "focus:ring-orange-500",
+        btnHover: "group-hover:text-orange-500",
+        btnBorder: "group-hover:border-orange-500/20"
+      };
+    }
+    if (pathname.startsWith('/portal/inventory')) {
+      return {
+        iconColor: "text-blue-500",
+        ringColor: "focus:ring-blue-500/20",
+        focusRing: "focus:ring-blue-500",
+        btnHover: "group-hover:text-blue-500",
+        btnBorder: "group-hover:border-blue-500/20"
+      };
+    }
+    if (pathname.startsWith('/portal/kas-bank')) {
+      return {
+        iconColor: "text-indigo-500",
+        ringColor: "focus:ring-indigo-500/20",
+        focusRing: "focus:ring-indigo-500",
+        btnHover: "group-hover:text-indigo-500",
+        btnBorder: "group-hover:border-indigo-500/20"
+      };
+    }
+    if (pathname.startsWith('/portal/payroll')) {
+      return {
+        iconColor: "text-emerald-500",
+        ringColor: "focus:ring-emerald-500/20",
+        focusRing: "focus:ring-emerald-500",
+        btnHover: "group-hover:text-emerald-555",
+        btnBorder: "group-hover:border-emerald-500/20"
+      };
+    }
+    if (pathname.startsWith('/portal/assets')) {
+      return {
+        iconColor: "text-sky-500",
+        ringColor: "focus:ring-sky-500/20",
+        focusRing: "focus:ring-sky-500",
+        btnHover: "group-hover:text-sky-500",
+        btnBorder: "group-hover:border-sky-500/20"
+      };
+    }
+    return {
+      iconColor: "text-emerald-600",
+      ringColor: "focus:ring-emerald-500/20",
+      focusRing: "focus:ring-emerald-500",
+      btnHover: "group-hover:text-emerald-650",
+      btnBorder: "group-hover:border-emerald-500/20"
+    };
   };
 
   const breadcrumbs = getBreadcrumbs();
+  const theme = getHeaderTheme();
 
   return (
     <>
@@ -130,15 +253,15 @@ export function SiteHeader() {
         {/* Middle Section: Global Active Session Selector */}
         {!isFallback && (
           <div className="hidden md:flex items-center gap-2 bg-slate-50/60 dark:bg-zinc-900/40 border border-slate-200/60 dark:border-zinc-800/80 px-3 py-1 rounded-xl shadow-sm max-w-md shrink-0">
-            <div className="flex items-center gap-1 text-slate-400 dark:text-zinc-550 shrink-0 select-none">
-              <Globe className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="flex items-center gap-1 text-slate-455 dark:text-zinc-550 shrink-0 select-none">
+              <Globe className={cn("w-3.5 h-3.5", theme.iconColor)} />
               <span className="text-[9px] font-extrabold uppercase tracking-wider">Unit & Periode:</span>
             </div>
             <div className="flex items-center gap-1">
               <select
                 value={koke}
                 onChange={(e) => setKoke(e.target.value)}
-                className="bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none focus:ring-1 focus:ring-emerald-500 h-6 shrink-0 transition-all hover:border-slate-300"
+                className={cn("bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none h-6 shrink-0 transition-all hover:border-slate-300", theme.focusRing)}
               >
                 <option value="">Unit Kebun</option>
                 {units.map((u) => (
@@ -150,7 +273,7 @@ export function SiteHeader() {
               <select
                 value={bulan}
                 onChange={(e) => setBulan(e.target.value)}
-                className="bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none focus:ring-1 focus:ring-emerald-500 h-6 shrink-0 transition-all hover:border-slate-300"
+                className={cn("bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none h-6 shrink-0 transition-all hover:border-slate-300", theme.focusRing)}
               >
                 <option value="">Bulan</option>
                 {BULAN_OPTIONS.map((b) => (
@@ -162,7 +285,7 @@ export function SiteHeader() {
               <select
                 value={tahun}
                 onChange={(e) => setTahun(e.target.value)}
-                className="bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none focus:ring-1 focus:ring-emerald-500 h-6 shrink-0 transition-all hover:border-slate-300 font-mono"
+                className={cn("bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none h-6 shrink-0 transition-all hover:border-slate-300 font-mono", theme.focusRing)}
               >
                 <option value="">Tahun</option>
                 {availableYears.map((y) => (
@@ -182,13 +305,13 @@ export function SiteHeader() {
             {/* Desktop Search Button (Beautiful dynamic wrapper) */}
             <button
               onClick={() => setOpen(true)}
-              className="hidden sm:flex w-[160px] lg:w-[200px] h-9 rounded-xl border border-slate-200/60 dark:border-zinc-800/80 bg-slate-50/50 dark:bg-zinc-900/30 hover:bg-slate-50/80 dark:hover:bg-zinc-900/60 hover:border-slate-300 dark:hover:border-zinc-700 text-slate-400 dark:text-zinc-500 hover:text-slate-600 dark:hover:text-zinc-300 px-3 items-center justify-between shadow-sm transition-all focus:outline-none focus:ring-1 focus:ring-emerald-500/20 group hover:shadow-[0_0_12px_rgba(16,185,129,0.03)] cursor-pointer"
+              className={cn("hidden sm:flex w-[160px] lg:w-[200px] h-9 rounded-xl border border-slate-200/60 dark:border-zinc-800/80 bg-slate-50/50 dark:bg-zinc-900/30 hover:bg-slate-50/80 dark:hover:bg-zinc-900/60 hover:border-slate-300 dark:hover:border-zinc-700 text-slate-400 dark:text-zinc-500 hover:text-slate-600 dark:hover:text-zinc-300 px-3 items-center justify-between shadow-sm transition-all focus:outline-none group hover:shadow-sm cursor-pointer", theme.ringColor)}
             >
               <div className="flex items-center gap-2">
-                <Search className="h-3.5 w-3.5 text-slate-400 dark:text-zinc-500 shrink-0 group-hover:text-emerald-500 transition-colors duration-200" />
+                <Search className={cn("h-3.5 w-3.5 text-slate-400 dark:text-zinc-500 shrink-0 transition-colors duration-200", theme.btnHover)} />
                 <span className="text-[11px] font-bold tracking-tight">Cari Fitur...</span>
               </div>
-              <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-0.5 rounded border border-slate-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 px-1.5 font-mono text-[9px] font-black text-slate-400 dark:text-zinc-500 shadow-sm uppercase group-hover:border-emerald-500/20 group-hover:text-emerald-500 transition-all duration-200">
+              <kbd className={cn("pointer-events-none inline-flex h-5 select-none items-center gap-0.5 rounded border border-slate-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 px-1.5 font-mono text-[9px] font-black text-slate-400 dark:text-zinc-550 shadow-sm uppercase transition-all duration-200", theme.btnBorder, theme.btnHover)}>
                 Ctrl K
               </kbd>
             </button>
@@ -198,7 +321,7 @@ export function SiteHeader() {
               onClick={() => setOpen(true)}
               variant="outline"
               size="icon"
-              className="sm:hidden h-9 w-9 rounded-xl border-slate-200 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/30 hover:bg-slate-50 dark:hover:bg-zinc-900 text-slate-400 dark:text-zinc-500 hover:text-slate-600 dark:hover:text-zinc-300 flex items-center justify-center shadow-sm transition-all focus-visible:ring-emerald-500/20"
+              className={cn("sm:hidden h-9 w-9 rounded-xl border-slate-200 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/30 hover:bg-slate-50 dark:hover:bg-zinc-900 text-slate-400 dark:text-zinc-500 hover:text-slate-650 dark:hover:text-zinc-300 flex items-center justify-center shadow-sm transition-all", theme.ringColor)}
             >
               <Search className="h-4 w-4" />
             </Button>
@@ -215,7 +338,7 @@ export function SiteHeader() {
       {!isFallback && (
         <div className="fixed top-[68px] left-0 right-0 z-40 md:hidden px-4 pointer-events-none">
           <div className="mx-auto max-w-md w-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] p-2 flex items-center justify-between gap-1.5 pointer-events-auto transition-all duration-300">
-            <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 pl-1 shrink-0">
+            <div className={cn("flex items-center gap-1 pl-1 shrink-0", theme.iconColor)}>
               <Globe className="w-4 h-4 animate-pulse" />
             </div>
             
@@ -224,7 +347,7 @@ export function SiteHeader() {
               <select
                 value={koke}
                 onChange={(e) => setKoke(e.target.value)}
-                className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-2 py-1.5 text-[11px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none focus:ring-1 focus:ring-emerald-500 h-8 shrink-0 min-w-[180px] transition-all"
+                className={cn("bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-2 py-1.5 text-[11px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none h-8 shrink-0 min-w-[180px] transition-all", theme.focusRing)}
               >
                 <option value="">Unit</option>
                 {units.map((u) => (
@@ -238,7 +361,7 @@ export function SiteHeader() {
               <select
                 value={bulan}
                 onChange={(e) => setBulan(e.target.value)}
-                className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-2 py-1.5 text-[11px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none focus:ring-1 focus:ring-emerald-500 h-8 shrink-0 transition-all w-24 min-w-[96px]"
+                className={cn("bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-2 py-1.5 text-[11px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none h-8 shrink-0 transition-all w-24 min-w-[96px]", theme.focusRing)}
               >
                 <option value="">Bulan</option>
                 {BULAN_OPTIONS.map((b) => (
@@ -252,7 +375,7 @@ export function SiteHeader() {
               <select
                 value={tahun}
                 onChange={(e) => setTahun(e.target.value)}
-                className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-2 py-1.5 text-[11px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none focus:ring-1 focus:ring-emerald-500 h-8 shrink-0 transition-all font-mono w-20 min-w-[80px]"
+                className={cn("bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-2 py-1.5 text-[11px] font-bold text-slate-700 dark:text-zinc-300 cursor-pointer outline-none h-8 shrink-0 transition-all font-mono w-20 min-w-[80px]", theme.focusRing)}
               >
                 <option value="">Tahun</option>
                 {availableYears.map((y) => (
