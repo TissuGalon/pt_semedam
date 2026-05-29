@@ -58,9 +58,9 @@ export function SiteHeader() {
 
   // Dynamic breadcrumbs structure for premium feel
   const getBreadcrumbs = (): BreadcrumbItem[] => {
-    const base = { label: 'SIA Semadam', href: '/' };
+    const base = { label: 'SIA Semadam', href: '/dashboard' };
     switch (pathname) {
-      case '/':
+      case '/dashboard':
         return [base, { label: 'Dashboard', active: true }];
       case '/master-unit':
         return [base, { label: 'Master', href: '#' }, { label: 'Unit Kebun', active: true }];

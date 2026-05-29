@@ -10,7 +10,7 @@ export function MobileBottomBar() {
   const pathname = usePathname();
 
   const navItems = [
-    { name: 'Home', href: '/', icon: Home },
+    { name: 'Home', href: '/dashboard', icon: Home },
     { name: 'Jurnal', href: '/input-jurnal', icon: FileCheck },
     { name: 'Laporan', href: '/laporan-jurnal', icon: FileSpreadsheet },
     { name: 'Saldo', href: '/input-saldo-awal', icon: TrendingUp },
