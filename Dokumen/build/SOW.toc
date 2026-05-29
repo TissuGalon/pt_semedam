@@ -1,0 +1,14 @@
+\babel@toc {bahasa}{}\relax 
+\contentsline {section}{\numberline {1}PENDAHULUAN \& LATAR BELAKANG}{3}{section.1}%
+\contentsline {section}{\numberline {2}TUJUAN PROYEK}{3}{section.2}%
+\contentsline {section}{\numberline {3}RUANG LINGKUP PEKERJAAN (SCOPE OF WORK)}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Fase 1: Perancangan \& Migrasi Database (Supabase PostgreSQL)}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Fase 2: Global State Context \& Infrastruktur Header (Frontend)}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Fase 3: Form Input Jurnal Transaksi \& Utility Widget}{4}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Fase 4: Backend Processing \& Calculation Engine (Server Actions)}{5}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Fase 5: Modul Integrasi \& Import Utility (Append Engine)}{5}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Fase 6: Pelaporan Keuangan \& Print Optimization}{5}{subsection.3.6}%
+\contentsline {section}{\numberline {4}DAFTAR DELIVERABLES \& MILESTONES}{6}{section.4}%
+\contentsline {section}{\numberline {5}BATASAN PEKERJAAN (OUT OF SCOPE)}{6}{section.5}%
+\contentsline {section}{\numberline {6}KRITERIA KEBERTERIMAAN UTAMA}{7}{section.6}%
+\contentsline {section}{\numberline {7}STRUKTUR TIM \& KOORDINASI}{7}{section.7}%

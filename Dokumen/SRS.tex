@@ -1,0 +1,549 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Paket LaTeX Standar ---
+\usepackage[utf8]{inputenc}
+\usepackage[bahasa]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\usepackage{mathptmx}      % Menggunakan font Times New Roman
+\usepackage{parskip}       % Spasi antar paragraf modern & tanpa indentasi paragraf awal
+\renewcommand{\arraystretch}{1.3} % Membuat tinggi baris tabel lebih renggang & profesional
+
+% --- Paket TikZ untuk Diagram Modern ---
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds, shadows}
+
+% --- Konfigurasi Hyperref ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Software Requirements Specification (SRS) - Modul Akuntansi PT Semadam},
+    pdfpagemode=FullScreen,
+}
+
+% --- Konfigurasi Warna & Kotak Pesan (Callouts) ---
+\definecolor{primarycolor}{HTML}{0f172a} % Slate 900
+\definecolor{secondarycolor}{HTML}{0284c7} % Sky 600
+\definecolor{alertbg}{HTML}{f0f9ff}
+\definecolor{alertborder}{HTML}{bae6fd}
+\definecolor{alerttext}{HTML}{0369a1}
+
+\newtcolorbox{notealert}[1][Catatan]{
+    colback=alertbg,
+    colframe=alertborder,
+    coltext=alerttext,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=4px,
+    boxrule=1pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+
+% --- Konfigurasi Header & Footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}Sistem ERP PT Semadam - Modul Akuntansi}
+\fancyhead[R]{\small\color{gray}Versi 1.0.0}
+\fancyfoot[L]{\small\color{gray}\copyright~2026 PT Semadam}
+\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- Konfigurasi Sintaks Highlighter (SQL) ---
+\lstset{
+    language=SQL,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{orange},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!5},
+    rulecolor=\color{gray!30},
+    tabsize=2
+}
+
+% --- Konfigurasi Gaya TikZ untuk Diagram ---
+\tikzset{
+    module/.style={
+        rectangle, rounded corners=5pt,
+        minimum width=3cm, minimum height=1.1cm,
+        text centered, draw=blue!60!black,
+        fill=blue!15, font=\small\bfseries,
+        drop shadow
+    },
+    accnode/.style={
+        rectangle, rounded corners=4pt,
+        minimum width=3.3cm, minimum height=0.9cm,
+        text centered, draw=teal!60!black,
+        fill=teal!15, font=\small,
+        drop shadow
+    },
+    database/.style={
+        cylinder, shape border rotate=90,
+        minimum width=2cm, minimum height=1.6cm,
+        text centered, draw=orange!70!black,
+        fill=orange!20, font=\small\bfseries,
+        drop shadow
+    },
+    arrow/.style={
+        thick, ->, >=Stealth, draw=primarycolor!70, line width=1.1pt
+    },
+    line/.style={
+        thick, draw=primarycolor!70, line width=1.1pt
+    }
+}
+
+% --- INFORMASI DOKUMEN ---
+\title{
+    \vspace{-1.5cm}
+    \color{primarycolor}\textbf{\Huge Software Requirements Specification (SRS)}\\
+    \vspace{0.3cm}
+    \color{secondarycolor}\Large\textbf{Modul Akuntansi \& Keuangan (Accounting)}\\
+    \vspace{0.2cm}
+    \large\textbf{Sistem Informasi ERP Terintegrasi PT Semadam}
+}
+\author{\textbf{PT Semadam - Tim Pengembang Sistem}}
+\date{29 Mei 2026}
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{empty}
+\begin{center}
+    \vspace{1.5cm}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Detail Dokumen} & \textbf{Informasi} \\
+        \midrule
+        Nama Proyek & Sistem ERP Terintegrasi PT Semadam \\
+        Modul Utama & Akuntansi (Accounting - Ledger Konsolidasi) \\
+        Versi Dokumen & 1.0.0 \\
+        Status Dokumen & Final (Disetujui untuk Pengembangan) \\
+        Bahasa & Bahasa Indonesia \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ==========================================
+\section{PENDAHULUAN}
+% ==========================================
+
+\subsection{Latar Belakang}
+PT Semadam adalah perusahaan perkebunan kelapa sawit dan pabrik pengolahan kelapa sawit yang berlokasi di Provinsi Aceh. Operasional perusahaan mencakup pengelolaan kebun (Unit Kebun Semadam, dll.), pabrik pengolahan kelapa sawit (PKS), infrastruktur, hingga administrasi kantor pusat. 
+
+Selama bertahun-tahun, PT Semadam menggunakan sistem akuntansi warisan (\textit{legacy}) berbasis \textbf{Clipper/dBase} yang berjalan di lingkungan DOS. Meskipun fungsional, sistem tersebut memiliki keterbatasan yang signifikan, antara lain:
+\begin{enumerate}
+    \item Tidak berbasis web (hanya dapat diakses secara lokal pada komputer tertentu).
+    \item Risiko kehilangan/kerusakan file database (\texttt{.DBF}) dan file indeks (\texttt{.NTX}/\texttt{.NDX}) yang tinggi.
+    \item Sulit diintegrasikan dengan modul operasional lain (Inventory, Kas/Bank, Payroll, dan Asset).
+    \item Keterbatasan visualisasi data dan pencetakan laporan fisik (lebar kertas printer dot matrix).
+\end{enumerate}
+
+Dalam rangka modernisasi teknologi, PT Semadam memutuskan untuk membangun Sistem ERP modern berbasis \textbf{Next.js (React) + Supabase (PostgreSQL) + TailwindCSS (Shadcn UI)}. Modul Akuntansi diposisikan sebagai \textbf{pusat atau jantung (Financial Hub)} dari 5 modul utama yang dikembangkan secara paralel, yaitu:
+\begin{enumerate}
+    \item \textbf{Accounting (Modul Utama)}
+    \item \textbf{Inventory (Gudang)}
+    \item \textbf{Kas/Bank}
+    \item \textbf{Payroll (Gaji \& Kepegawaian)}
+    \item \textbf{Asset (Aktiva Tetap \& Penyusutan)}
+\end{enumerate}
+
+\subsection{Tujuan Dokumen}
+Dokumen \textit{Software Requirements Specification} (SRS) ini dibuat untuk:
+\begin{itemize}
+    \item Mendefinisikan spesifikasi kebutuhan fungsional dan non-fungsional dari \textbf{Modul Akuntansi} PT Semadam.
+    \item Menjelaskan mekanisme integrasi data keuangan dari 4 modul lainnya (Inventory, Kas/Bank, Payroll, Asset) ke dalam buku besar akuntansi.
+    \item Menjadi acuan teknis bagi tim pengembang dalam mengimplementasikan kode program, skema database, \textit{Server Actions}, dan antarmuka pengguna (UI/UX).
+\end{itemize}
+
+\subsection{Ruang Lingkup Sistem}
+Modul Akuntansi ini mencakup fungsionalitas pencatatan jurnal transaksi, pengelolaan saldo awal, proses kalkulasi akhir periode (Neraca Percobaan \& Laporan Manajemen), konsolidasi multi-unit kebun, pencetakan laporan keuangan formal, serta dasbor analisis biaya produksi perkebunan (LM-13).
+
+\begin{notealert}[Catatan Penting]
+Sistem akuntansi ini mempertahankan kode pengenal historis (\textit{legacy fields}) seperti \texttt{KOKE} (Kode Kebun/Unit) dan \texttt{KOBU} (Kode Bulan) serta skema penomoran akun perkebunan (COA) untuk memudahkan transisi dan pemetaan data historis.
+\end{notealert}
+
+\subsection{Singkatan \& Definisi}
+\begin{itemize}
+    \item \textbf{COA (Chart of Accounts)}: Daftar perkiraan/rekening akuntansi terstruktur. Pada sistem PT Semadam disebut juga dengan \textbf{Master Rekening}.
+    \item \textbf{KOKE (Kode Kebun)}: Pengenal unik untuk unit bisnis aktif (contoh: Kebun Semadam, Pabrik, Kantor Medan, Kantor Banda Aceh).
+    \item \textbf{KOBU (Kode Buku)}: Kode penunjuk bulan pembukuan (contoh: ``01'' untuk Januari, ``12'' untuk Desember).
+    \item \textbf{LNET (Laporan Netral)}: Tabel \textit{caching} hasil agregasi biaya aktual vs anggaran untuk mempercepat pemuatan Laporan Manajemen.
+    \item \textbf{LM (Laporan Manajemen)}: Paket laporan khusus perkebunan yang menganalisis efisiensi biaya per hektar, biaya pabrik, overhead, dan investasi tanaman (TBM/TM).
+    \item \textbf{RLS (Row Level Security)}: Kebijakan keamanan tingkat baris pada database PostgreSQL untuk membatasi akses data.
+\end{itemize}
+
+\newpage
+
+% ==========================================
+\section{GAMBARAN UMUM SISTEM}
+% ==========================================
+
+\subsection{Arsitektur Sistem ERP PT Semadam}
+Sistem ERP ini dibangun menggunakan arsitektur modern berbasis cloud:
+\begin{itemize}
+    \item \textbf{Frontend}: Next.js 15 (App Router) dengan TypeScript.
+    \item \textbf{UI \& Styling}: TailwindCSS dengan Shadcn UI dan Radix UI primitives.
+    \item \textbf{Backend \& Database}: Supabase (PostgreSQL) yang menyediakan autentikasi, database relasional, dan policy Row Level Security (RLS).
+    \item \textbf{State Management}: React Context (\texttt{AccountingContext}) untuk menyimpan informasi Unit Aktif (\texttt{KOKE}), Bulan Aktif, dan Tahun Aktif yang tersinkron secara global di seluruh modul.
+\end{itemize}
+
+\subsection{Hubungan Modul Akuntansi dengan 4 Modul Lain}
+Modul Akuntansi bertindak sebagai \textbf{Ledger Konsolidasi (General Ledger)}. Setiap transaksi operasional dari 4 modul lainnya akan bermuara pada pengisian jurnal transaksi di tabel \texttt{public.jurnal\_transaksi} secara otomatis melalui integrasi API / database trigger, atau secara semi-otomatis melalui proses penggabungan data (\textit{append}).
+
+Berikut adalah diagram alir integrasi 5 modul dalam ERP PT Semadam yang disajikan menggunakan TikZ:
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=2cm, auto]
+    % --- Nodes ---
+    \node (kb) [module] {Modul Kas/Bank};
+    \node (inv) [module, below=0.6cm of kb] {Modul Inventory};
+    \node (pay) [module, below=0.6cm of inv] {Modul Payroll};
+    \node (ast) [module, below=0.6cm of pay] {Modul Asset};
+    
+    \node (acc) [module, right=3.5cm of inv, yshift=-0.5cm, fill=teal!20, draw=teal!70!black] {Akuntansi (GL Hub)};
+    \node (db) [database, above=1.5cm of acc] {Supabase DB};
+    
+    % Sub Nodes Akuntansi
+    \node (coa) [accnode, right=2.5cm of acc, yshift=1.2cm] {Master Rekening / COA};
+    \node (jr) [accnode, right=2.5cm of acc] {Jurnal Transaksi};
+    \node (sa) [accnode, right=2.5cm of acc, yshift=-1.2cm] {Saldo Awal Periode};
+    
+    \node (eng) [module, below=1.8cm of acc, fill=purple!15, draw=purple!60!black] {Accounting Engine};
+    
+    \node (tb) [accnode, below=1.5cm of eng, xshift=-3cm] {Neraca Percobaan};
+    \node (lm) [accnode, below=1.5cm of eng] {Laporan Manajemen (LM)};
+    \node (frep) [accnode, below=1.5cm of eng, xshift=3cm] {Buku Besar \& Neraca};
+
+    \begin{scope}[on background layer]
+        \node[draw=teal!50, fill=teal!5, dashed, inner sep=0.35cm, rounded corners=8pt, fit=(acc) (coa) (jr) (sa) (eng) (tb) (lm) (frep), label={[teal]above right:\textbf{Lingkup Akuntansi (General Ledger)}}] (glbox) {};
+    \end{scope}
+
+    % --- Connections ---
+    \draw [arrow] (kb.east) -- (acc.160);
+    \draw [arrow] (inv.east) -- (acc.180);
+    \draw [arrow] (pay.east) -- (acc.200);
+    \draw [arrow] (ast.east) -- (acc.220);
+    
+    \draw [arrow, <->] (db) -- (acc);
+    
+    \draw [arrow] (acc.35) -- (coa.west);
+    \draw [arrow] (acc.0) -- (jr.west);
+    \draw [arrow] (acc.325) -- (sa.west);
+    
+    \draw [arrow] (jr.south) -- ++(0,-0.8) -| (eng.50);
+    \draw [arrow] (sa.south) -- ++(0,-0.5) -| (eng.20);
+    
+    \draw [arrow] (acc.south) -- (eng.north);
+    
+    \draw [arrow] (eng.south) -- ++(0,-0.5) -| (tb.north);
+    \draw [arrow] (eng.south) -- (lm.north);
+    \draw [arrow] (eng.south) -- ++(0,-0.5) -| (frep.north);
+
+\end{tikzpicture}
+\caption{Diagram Integrasi Data Keuangan Modul Akuntansi ERP PT Semadam}
+\label{fig:integrasi_modul}
+\end{figure}
+
+\subsubsection{1. Integrasi Modul Kas/Bank (Cash \& Bank)}
+Setiap transaksi penerimaan kas/bank (Kas Masuk, Bank Masuk) dan pengeluaran kas/bank (Kas Keluar, Bank Keluar) wajib dicatat secara real-time. Modul Kas/Bank melakukan penulisan langsung (\textit{direct insert}) ke tabel \texttt{jurnal\_transaksi} di Akuntansi.
+\begin{itemize}
+    \item \textbf{Aturan Jurnal}: Kode Jurnal Bukti menggunakan prefix \texttt{KK} (Kas Keluar), \texttt{KM} (Kas Masuk), \texttt{BK} (Bank Keluar), atau \texttt{BM} (Bank Masuk).
+    \item \textbf{Validasi}: Kode rekening kas/bank penerima/pengirim harus terdaftar di \texttt{master\_rekening} dan total jurnal Debet = Kredit.
+\end{itemize}
+
+\subsubsection{2. Integrasi Modul Inventory (Gudang)}
+Mencatat mutasi keluar-masuk bahan baku, suku cadang, pupuk, bahan kimia, dan solar di Gudang Perkebunan. Pada setiap akhir bulan (atau periodik), Modul Inventory menghasilkan rangkuman pemakaian barang per perkiraan biaya (COA) untuk di-append ke Akuntansi.
+\begin{itemize}
+    \item \textbf{Aturan Jurnal}: Kode Jurnal Bukti menggunakan prefix \texttt{GJ} (Gudang Jurnal).
+    \item \textbf{Alokasi}: Pemakaian pupuk akan mendebet akun investasi tanaman/biaya pemeliharaan (prefix \texttt{200} atau \texttt{257}) dan mengkredit akun persediaan barang di gudang (prefix \texttt{115} atau \texttt{116}).
+\end{itemize}
+
+\subsubsection{3. Integrasi Modul Payroll (Gaji \& Kepegawaian)}
+Mencatat total biaya tenaga kerja (BHL, Karyawan Bulanan, Staff), BPJS Kesehatan, BPJS Ketenagakerjaan, serta PPh 21. Payroll Engine menghitung rekapitulasi gaji bulanan per divisi/kebun, kemudian melakukan posting jurnal penyesuaian gaji ke Akuntansi.
+\begin{itemize}
+    \item \textbf{Aturan Jurnal}: Kode Jurnal Bukti menggunakan prefix \texttt{PG} (Payroll Gaji).
+    \item \textbf{Alokasi}: Menjurnal Debet ke perkiraan Biaya Tenaga Kerja (sesuai nomor divisi/afdeling) dan Kredit ke akun Hutang Gaji/Kas-Bank.
+\end{itemize}
+
+\subsubsection{4. Integrasi Modul Asset (Aktiva Tetap \& Penyusutan)}
+Mengelola siklus hidup aktiva tetap milik PT Semadam (Pembelian, Penyusutan Bulanan, Disposal). Setiap akhir bulan, Modul Asset menghitung nilai penyusutan aktiva tetap secara otomatis berdasarkan metode garis lurus (\textit{straight line}) atau saldo menurun, lalu memposting jurnal akumulasi penyusutan.
+\begin{itemize}
+    \item \textbf{Aturan Jurnal}: Kode Jurnal Bukti menggunakan prefix \texttt{AP} (Asset Penyusutan).
+    \item \textbf{Alokasi}: Mendebet akun Biaya Penyusutan dan mengkredit akun Akumulasi Penyusutan (prefix \texttt{021.}).
+\end{itemize}
+
+\newpage
+
+% ==========================================
+\section{KEBUTUHAN FUNGSIONAL}
+% ==========================================
+
+\subsection{RF-01: Sistem Navigasi \& Global Context Selector}
+Sistem harus memiliki selector parameter pembukuan aktif di bagian atas halaman (Site Header) yang bertindak sebagai Global State.
+\begin{itemize}
+    \item \textbf{RF-01.1}: Dropdown \textbf{Unit Aktif (\texttt{KOKE})} untuk memilih lokasi kebun atau unit bisnis (Medan, Semadam, Pabrik, Banda Aceh).
+    \item \textbf{RF-01.2}: Dropdown \textbf{Bulan Buku Aktif (\texttt{BULAN}/\texttt{KOBU})} (Januari s.d Desember).
+    \item \textbf{RF-01.3}: Dropdown \textbf{Tahun Buku Aktif (\texttt{TAHUN})}.
+    \item \textbf{RF-01.4}: Parameter terpilih harus disimpan ke dalam \texttt{AccountingContext} berbasis React, sehingga halaman input jurnal, input saldo awal, dan modul laporan keuangan akan secara otomatis memfilter data berdasarkan parameter global tersebut secara real-time tanpa \textit{page reload} penuh.
+    \item \textbf{RF-01.5}: Sistem harus memiliki \textbf{Keyboard Hotkeys Binding} untuk navigasi cepat: \texttt{Ctrl + S} untuk simpan, \texttt{Esc} untuk tutup modal, dan \texttt{Tab} untuk navigasi form.
+\end{itemize}
+
+\subsection{RF-02: Manajemen Master Data Akuntansi}
+Sistem harus mampu mengelola data master penunjang akuntansi secara lengkap (CRUD).
+\begin{itemize}
+    \item \textbf{RF-02.1: Master Unit (\texttt{master\_unit})}: Mengelola unit bisnis aktif dengan field wajib: \texttt{KOKE} (Kode Unit, Primary Key, varchar), \texttt{NAMA\_UNIT} (Nama Unit, varchar), dan \texttt{KETERANGAN} (varchar).
+    \item \textbf{RF-02.2: Master Rekening / COA (\texttt{master\_rekening})}: Mengelola kode perkiraan akuntansi berstruktur dengan field wajib: \texttt{REKSUB} (Kode Akun/Sub-rekening, Primary Key, varchar), \texttt{REKIN} (Kode Induk Akun, varchar), dan \texttt{NAMA\_PERK} (Nama Rekening Perkiraan, varchar). Menyediakan fitur unggah/impor file Excel (\texttt{.xlsx}).
+    \item \textbf{RF-02.3: Master Wilayah Perkebunan (\texttt{master\_areal} \& \texttt{master\_afdeling})}: Memetakan lokasi kebun berdasarkan kode areal (\texttt{KODA}) dan afdeling (\texttt{KODAF}).
+\end{itemize}
+
+\subsection{RF-03: Pencatatan Jurnal Transaksi}
+Sistem menyediakan modul input transaksi jurnal umum (Memorial Journal).
+\begin{itemize}
+    \item \textbf{RF-03.1}: Formulir pembuatan jurnal baru dengan input field: Tanggal Transaksi, Nomor Bukti Jurnal, Unit/Kebun (\texttt{KOKE}), Bulan Buku (\texttt{KOBU}), dan tabel entri baris jurnal (Grid Entries).
+    \item \textbf{RF-03.2}: Grid entries minimal harus memuat: Kode Rekening (\texttt{REK}), Rekening Lawan (\texttt{REKLA}), Uraian Penjelasan (\texttt{URAIAN1}), Nominal Debet, dan Nominal Kredit.
+    \item \textbf{RF-03.3: Validasi Jurnal Berimbang}: Sistem \textbf{tidak boleh} menyimpan jurnal ke database jika total nominal Debet tidak sama dengan total nominal Kredit (selisih $>$ 0.01).
+    \item \textbf{RF-03.4: Validasi Integritas COA}: Kode rekening yang dimasukkan dalam entri jurnal harus divalidasi ke dalam tabel \texttt{master\_rekening}.
+\end{itemize}
+
+\subsection{RF-04: Manajemen Saldo Awal Periode}
+Sistem harus mampu mengelola saldo awal perkiraan pada awal bulan buku/tahun buku berjalan.
+\begin{itemize}
+    \item \textbf{RF-04.1}: Menyediakan form/grid input saldo awal per \texttt{KOKE}, \texttt{BULAN}, dan \texttt{TAHUN}.
+    \item \textbf{RF-04.2}: Pengguna menginput nominal Debet atau Kredit untuk setiap akun COA aktif.
+\end{itemize}
+
+\subsection{RF-05: Modul Proses (Trial Balance \& LNET Engine)}
+Modul ini bertindak sebagai mesin komputasi untuk memproses data mentah menjadi laporan yang siap disajikan.
+\begin{itemize}
+    \item \textbf{RF-05.1: Proses Neraca Percobaan (Trial Balance)}: Mengkalkulasi mutasi jurnal transaksi berjalan ditambah saldo awal periode untuk menghasilkan saldo akhir per rekening. Perhitungan wajib dilakukan secara dinamis menggunakan Server Action \texttt{calculateTrialBalance} secara real-time di memori/query database tanpa menulis ke tabel fisik temporer.
+    \item \textbf{RF-05.2: Proses LNET Laporan Manajemen}: Menghitung nilai realisasi biaya aktual (\texttt{biayabi} dan \texttt{biayasd}) dari \texttt{jurnal\_transaksi} dan menggabungkannya dengan target anggaran tahunan dari tabel \texttt{anggaran\_rabi}. Hasil kalkulasi LNET harus disimpan secara persisten ke dalam tabel cache \texttt{public.laporan\_manajemen\_netral}.
+\end{itemize}
+
+\subsection{RF-06: Proses Gabung Data (Append)}
+Sistem memfasilitasi integrasi data semi-otomatis dari modul eksternal melalui fitur unggah file.
+\begin{itemize}
+    \item \textbf{RF-06.1}: Halaman unggah file \texttt{/proses/append} untuk mengunggah data transaksi dari file eksternal (Kas/Bank, Gudang/Inventory, Asset) dalam format CSV atau Excel.
+    \item \textbf{RF-06.2}: Sistem melakukan \textit{dry-run simulation} untuk memeriksa keselarasan nominal dan validitas COA.
+    \item \textbf{RF-06.3}: Jika sukses, sistem menulis data ke tabel utama \texttt{jurnal\_transaksi}. Jika gagal, operasi dibatalkan (*rollback*) dan memunculkan error per baris.
+\end{itemize}
+
+\subsection{RF-07: Modul Laporan Keuangan Interaktif}
+Menghasilkan laporan formal akuntansi yang interaktif di web dan ramah cetak (PDF/Excel).
+\begin{itemize}
+    \item \textbf{RF-07.1: Laporan Buku Besar (General Ledger)}: Menampilkan mutasi detail per rekening COA, pencarian fuzzy, dan perhitungan \textbf{Running Balance (Saldo Berjalan)} dari baris ke baris secara kumulatif.
+    \item \textbf{RF-07.2: Laporan Neraca Klasifikasi per Halaman}: Menampilkan Neraca 13 Halaman terstruktur berdasarkan pengelompokan prefix akun perkebunan (Halaman 1: Aktiva Tetap prefix \texttt{000.}, Halaman 2: Akumulasi Penyusutan prefix \texttt{021.}, dst.).
+    \item \textbf{RF-07.3: Laporan Neraca Kompilasi (Konsolidasi)}: Menyajikan data neraca percobaan multi-unit bisnis secara berdampingan (side-by-side) dengan kolom Unit 1, Unit 2, Unit 3, kolom Eliminasi, dan kolom Total Konsolidasian.
+\end{itemize}
+
+\subsection{RF-08: Laporan Manajemen Perkebunan (LM Dashboard)}
+Laporan khusus untuk kebutuhan analisis manajemen kebun PT Semadam.
+\begin{itemize}
+    \item \textbf{RF-08.1}: Dasbor eksekutif yang memuat analisis variansi anggaran vs realisasi biaya.
+    \item \textbf{RF-08.2: Visualisasi Chart}: Menggunakan grafik interaktif (Line/Bar Charts) untuk membandingkan nominal \textbf{Biaya Aktual S.D Bulan Ini (\texttt{BIAYASD})} vs \textbf{Anggaran S.D Bulan Ini (\texttt{ANGGARANSD})}.
+    \item \textbf{RF-08.3: LM-13 (Biaya Produksi Kebun)}: Menyajikan rincian biaya per pos perkebunan: Investasi TBM (\texttt{200}-\texttt{205}), Pemeliharaan TM (\texttt{257}-\texttt{258}), Pabrik Kelapa Sawit (\texttt{600}-\texttt{602}), dan Overhead Kebun (\texttt{040}-\texttt{049} \& \texttt{400}-\texttt{499}).
+\end{itemize}
+
+\subsection{RF-09: Utilitas Tambahan}
+Fitur pelengkap untuk mempermudah akuntan dalam bekerja sehari-hari.
+\begin{itemize}
+    \item \textbf{RF-09.1: Floating Widget Calculator}: Kalkulator melayang di sudut kanan bawah layar dilengkapi dengan \textbf{Audit Paper Tape} (pita kertas gulung).
+    \item \textbf{RF-09.2: Backup \& Restore Data}: Fitur ekspor seluruh data transaksi ke dalam format file enkripsi JSON atau Excel terkompresi.
+    \item \textbf{RF-09.3: Admin Database Console}: Grid data interaktif layaknya \texttt{TbBrowse()} Clipper jadul khusus untuk pengguna ber-role \textbf{Administrator} untukinline editing.
+\end{itemize}
+
+\newpage
+
+% ==========================================
+\section{KEBUTUHAN NON-FUNGSIONAL}
+% ==========================================
+
+\subsection{Performa \& Efisiensi}
+\begin{itemize}
+    \item \textbf{NFR-1.1: Database Composite Indexing}: Penerapan composite index untuk mempercepat waktu query di bawah 200ms:
+    \begin{lstlisting}[caption={Indeks Komposit PostgreSQL untuk Jurnal Transaksi}]
+CREATE INDEX idx_jurnal_filter ON jurnal_transaksi ("KOKE", "KOBU", "TANGGAL", "NO_BUKJUR");
+    \end{lstlisting}
+    \item \textbf{NFR-1.2: Server-Side Pagination}: Penggunaan range-based query (\texttt{.range(from, to)}) untuk transaksi berskala besar.
+    \item \textbf{NFR-1.3: DOM Virtualization}: Virtualisasi rendering DOM (\texttt{@tanstack/react-virtual}) pada halaman laporan buku besar.
+    \item \textbf{NFR-1.4: Concurrent Data Fetching}: Pengambilan data secara paralel (\texttt{Promise.all}) untuk master parameter.
+\end{itemize}
+
+\subsection{Keamanan \& Proteksi Data}
+\begin{itemize}
+    \item \textbf{NFR-2.1: PostgreSQL Row Level Security (RLS)}: RLS wajib aktif pada seluruh tabel database di Supabase (\texttt{master\_unit}, \texttt{master\_rekening}, \texttt{jurnal\_transaksi}, \texttt{saldo\_awal}, \texttt{anggaran\_rabi}, \texttt{laporan\_manajemen\_netral}).
+    \item \textbf{NFR-2.2: Autentikasi Keamanan}: Hak akses data hanya diizinkan bagi pengguna dengan status sesi terautentikasi (\texttt{authenticated} role).
+    \item \textbf{NFR-2.3: Audit Trail}: Pencatatan kolom metadata pembuat (\texttt{created\_by}) dan waktu modifikasi (\texttt{created\_at}).
+\end{itemize}
+
+\subsection{Ketersediaan \& Keandalan}
+\begin{itemize}
+    \item \textbf{NFR-3.1}: Garansi ketersediaan server database cloud Supabase dengan uptime SLA 99.9\%.
+    \item \textbf{NFR-3.2}: Penggabungan file/append dilindungi dengan transaksi database PostgreSQL (\textit{atomic transactions}) untuk menjamin pembatalan otomatis (*rollback*) jika terjadi kegagalan.
+\end{itemize}
+
+\subsection{Kemudahan Penggunaan \& Estetika (Usabilitas)}
+\begin{itemize}
+    \item \textbf{NFR-4.1: Premium UI Design}: Tampilan antarmuka profesional menggunakan font Inter/Roboto, skema warna HSL Slate/Zinc, efek glassmorphism, dan transisi mikro-animasi.
+    \item \textbf{NFR-4.2: Print-Optimized Layout}: CSS Media Query Cetak (\texttt{@media print}) agar cetak PDF via browser pas di kertas A4/F4.
+    \item \textbf{NFR-4.3: Responsive Web}: Desain adaptif dari layar desktop besar hingga perangkat tablet atau ponsel pintar.
+\end{itemize}
+
+\newpage
+
+% ==========================================
+\section{SKEMA DATABASE \& MODEL DATA (DDL)}
+% ==========================================
+
+Berikut adalah skema relasional tabel-tabel utama Modul Akuntansi yang diterapkan pada PostgreSQL Supabase:
+
+\subsection{Tabel Master Unit}
+\begin{lstlisting}[caption={DDL Master Unit}]
+CREATE TABLE public.master_unit (
+    "KOKE" varchar PRIMARY KEY,
+    "NAMA_UNIT" varchar NOT NULL,
+    "KETERANGAN" text,
+    created_at timestamptz DEFAULT timezone('utc'::text, now())
+);
+\end{lstlisting}
+
+\subsection{Tabel Master Rekening (COA)}
+\begin{lstlisting}[caption={DDL Master Rekening (COA)}]
+CREATE TABLE public.master_rekening (
+    "REKSUB" varchar PRIMARY KEY,
+    "REKIN" varchar,
+    "NAMA_PERK" varchar NOT NULL,
+    created_at timestamptz DEFAULT timezone('utc'::text, now())
+);
+\end{lstlisting}
+
+\subsection{Tabel Jurnal Transaksi}
+\begin{lstlisting}[caption={DDL Jurnal Transaksi}]
+CREATE TABLE public.jurnal_transaksi (
+    id uuid DEFAULT extensions.uuid_generate_v4() PRIMARY KEY,
+    "KOKE" varchar NOT NULL REFERENCES public.master_unit("KOKE") ON DELETE RESTRICT,
+    "KOBU" varchar(2) NOT NULL, -- Bulan pembukuan: "01" - "12"
+    "NO_BUKJUR" varchar NOT NULL, -- Nomor bukti transaksi
+    "TANGGAL" date NOT NULL,
+    "REK" varchar NOT NULL REFERENCES public.master_rekening("REKSUB") ON DELETE RESTRICT,
+    "REKLA" varchar REFERENCES public.master_rekening("REKSUB") ON DELETE SET NULL, -- Rekening lawan
+    "NAREK" varchar,
+    "URAIAN1" text,
+    "DEBET" numeric(15,2) DEFAULT 0.00,
+    "KREDIT" numeric(15,2) DEFAULT 0.00,
+    created_at timestamptz DEFAULT timezone('utc'::text, now())
+);
+\end{lstlisting}
+
+\subsection{Tabel Saldo Awal Perkiraan}
+\begin{lstlisting}[caption={DDL Saldo Awal}]
+CREATE TABLE public.saldo_awal (
+    id uuid DEFAULT extensions.uuid_generate_v4() PRIMARY KEY,
+    "KOKE" varchar NOT NULL REFERENCES public.master_unit("KOKE") ON DELETE CASCADE,
+    "BULAN" varchar(2) NOT NULL,
+    "TAHUN" varchar(4) NOT NULL,
+    "REK" varchar NOT NULL REFERENCES public.master_rekening("REKSUB") ON DELETE CASCADE,
+    "DEBET" numeric(15,2) DEFAULT 0.00,
+    "KREDIT" numeric(15,2) DEFAULT 0.00,
+    created_at timestamptz DEFAULT timezone('utc'::text, now()),
+    CONSTRAINT unique_saldo_awal UNIQUE ("KOKE", "BULAN", "TAHUN", "REK")
+);
+\end{lstlisting}
+
+\subsection{Tabel Anggaran Tahunan Perkebunan (\texttt{anggaran\_rabi})}
+\begin{lstlisting}[caption={DDL Anggaran Perkebunan}]
+CREATE TABLE public.anggaran_rabi (
+    id uuid DEFAULT extensions.uuid_generate_v4() PRIMARY KEY,
+    "KOKE" varchar NOT NULL REFERENCES public.master_unit("KOKE") ON DELETE CASCADE,
+    "TAHUN" varchar(4) NOT NULL,
+    "REK" varchar NOT NULL REFERENCES public.master_rekening("REKSUB") ON DELETE CASCADE,
+    "NOMINAL" numeric(15,2) DEFAULT 0.00, -- Total setahun
+    "BULAN_01" numeric(15,2) DEFAULT 0.00,
+    "BULAN_02" numeric(15,2) DEFAULT 0.00,
+    "BULAN_03" numeric(15,2) DEFAULT 0.00,
+    "BULAN_04" numeric(15,2) DEFAULT 0.00,
+    "BULAN_05" numeric(15,2) DEFAULT 0.00,
+    "BULAN_06" numeric(15,2) DEFAULT 0.00,
+    "BULAN_07" numeric(15,2) DEFAULT 0.00,
+    "BULAN_08" numeric(15,2) DEFAULT 0.00,
+    "BULAN_09" numeric(15,2) DEFAULT 0.00,
+    "BULAN_10" numeric(15,2) DEFAULT 0.00,
+    "BULAN_11" numeric(15,2) DEFAULT 0.00,
+    "BULAN_12" numeric(15,2) DEFAULT 0.00,
+    created_at timestamptz DEFAULT timezone('utc'::text, now()),
+    CONSTRAINT unique_anggaran_entry UNIQUE ("KOKE", "TAHUN", "REK")
+);
+\end{lstlisting}
+
+\subsection{Tabel Cache Laporan Manajemen (\texttt{laporan\_manajemen\_netral})}
+\begin{lstlisting}[caption={DDL Cache Laporan Manajemen (LNET)}]
+CREATE TABLE public.laporan_manajemen_netral (
+    id uuid DEFAULT extensions.uuid_generate_v4() PRIMARY KEY,
+    "KOKE" varchar NOT NULL REFERENCES public.master_unit("KOKE") ON DELETE CASCADE,
+    "BULAN" varchar(2) NOT NULL,
+    "TAHUN" varchar(4) NOT NULL,
+    "REK" varchar NOT NULL REFERENCES public.master_rekening("REKSUB") ON DELETE CASCADE,
+    "SALBULNLAL" numeric(15,2) DEFAULT 0.00, -- Saldo s.d bulan lalu
+    "SALRABLAL" numeric(15,2) DEFAULT 0.00,  -- Saldo akumulasi RAB s.d bulan lalu
+    "BIAYABI" numeric(15,2) DEFAULT 0.00,    -- Biaya bulan ini
+    "BIAYASD" numeric(15,2) DEFAULT 0.00,    -- Biaya s.d bulan ini
+    "ANGGARANBI" numeric(15,2) DEFAULT 0.00, -- Anggaran bulan ini
+    "ANGGARANSD" numeric(15,2) DEFAULT 0.00, -- Anggaran s.d bulan ini
+    created_at timestamptz DEFAULT timezone('utc'::text, now()),
+    CONSTRAINT unique_lm_entry UNIQUE ("KOKE", "BULAN", "TAHUN", "REK")
+);
+\end{lstlisting}
+
+\newpage
+
+% ==========================================
+\section{LAMPIRAN: SOURCE MERMAID DIAGRAM}
+% ==========================================
+Sebagai dokumentasi tambahan, berikut adalah kode sumber dari diagram Mermaid yang merepresentasikan integrasi data sistem Akuntansi:
+
+\begin{lstlisting}[caption={Kode Sumber Diagram Mermaid Integrasi}]
+graph TD
+    KB[Modul Kas/Bank] -->|1. Post Jurnal Kas/Bank| ACC[Modul Akuntansi / GL]
+    INV[Modul Inventory / Gudang] -->|2. Post Jurnal Mutasi Bahan| ACC
+    PAY[Modul Payroll / Gaji] -->|3. Post Jurnal Gaji Bulanan| ACC
+    AST[Modul Asset / Aktiva] -->|4. Post Jurnal Penyusutan| ACC
+
+    subgraph Modul Akuntansi (Financial Hub)
+        ACC --> COA[Master Rekening / COA]
+        ACC --> JR[Jurnal Transaksi]
+        ACC --> SA[Saldo Awal Periode]
+        
+        JR & SA --> ENG[Engine Akuntansi / Server Actions]
+        
+        ENG --> TB[Neraca Percobaan]
+        ENG --> LM[Laporan Manajemen LM-13]
+        ENG --> FREP[Laporan Neraca Klasifikasi & Buku Besar]
+    end
+
+    DB[(Supabase PostgreSQL)] <--> ACC
+\end{lstlisting}
+
+\vspace{2cm}
+\begin{center}
+    \color{gray}\textit{-- Akhir dari Dokumen Spesifikasi Kebutuhan Perangkat Lunak (SRS) --}
+\end{center}
+
+\end{document}

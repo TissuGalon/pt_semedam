@@ -1,0 +1,278 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Paket LaTeX Standar ---
+\usepackage[utf8]{inputenc}
+\usepackage[bahasa]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\usepackage{mathptmx}      % Menggunakan font Times New Roman
+\usepackage{parskip}       % Spasi antar paragraf modern & tanpa indentasi paragraf awal
+\renewcommand{\arraystretch}{1.3} % Membuat tinggi baris tabel lebih renggang & profesional
+
+% --- Konfigurasi Hyperref ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Scope of Work (SOW) - Modul Akuntansi PT Semadam},
+    pdfpagemode=FullScreen,
+}
+
+% --- Konfigurasi Warna & Kotak Pesan ---
+\definecolor{primarycolor}{HTML}{0f172a} % Slate 900
+\definecolor{secondarycolor}{HTML}{0284c7} % Sky 600
+\definecolor{alertbg}{HTML}{f8fafc}
+\definecolor{alertborder}{HTML}{cbd5e1}
+\definecolor{alerttext}{HTML}{334155}
+
+\newtcolorbox{notealert}[1][Catatan Penting]{
+    colback=alertbg,
+    colframe=alertborder,
+    coltext=alerttext,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=4px,
+    boxrule=1pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+
+% --- Konfigurasi Header & Footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}Sistem ERP PT Semadam - Scope of Work (SOW)}
+\fancyhead[R]{\small\color{gray}Modul Akuntansi}
+\fancyfoot[L]{\small\color{gray}\copyright~2026 PT Semadam}
+\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- INFORMASI DOKUMEN ---
+\title{
+    \vspace{-1.5cm}
+    \color{primarycolor}\textbf{\Huge SCOPE OF WORK (SOW)}\\
+    \vspace{0.3cm}
+    \color{secondarycolor}\Large\textbf{Pengembangan Modul Akuntansi \& Keuangan}\\
+    \vspace{0.2cm}
+    \large\textbf{Sistem Informasi ERP Terintegrasi PT Semadam}
+}
+\author{\textbf{PT Semadam - Tim Pengembang Sistem}}
+\date{29 Mei 2026}
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{empty}
+\begin{center}
+    \vspace{1.5cm}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Detail Dokumen} & \textbf{Informasi} \\
+        \midrule
+        Nama Proyek & Sistem ERP Terintegrasi PT Semadam \\
+        Modul Utama & Akuntansi (Accounting - Consolidated Ledger Hub) \\
+        Versi Dokumen & 1.0.0 (Final Draft) \\
+        Status Dokumen & Siap Disetujui (Ready for Signature) \\
+        Bahasa & Bahasa Indonesia \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ==========================================
+\section{PENDAHULUAN \& LATAR BELAKANG}
+% ==========================================
+PT Semadam sedang melakukan modernisasi infrastruktur sistem informasinya dari sistem warisan (\textit{legacy}) berbasis Clipper/dBase (DOS) menjadi \textbf{Sistem ERP Terintegrasi modern berbasis Web}. Pengembangan ERP ini dibagi menjadi 5 modul utama yang berjalan secara paralel, di mana \textbf{Modul Akuntansi (Accounting)} bertindak sebagai \textbf{Hub Keuangan Konsolidasi (General Ledger)}.
+
+Dokumen \textit{Scope of Work} (SOW) ini mendefinisikan batas pekerjaan, tahapan implementasi, tanggung jawab para pihak, serta kriteria keberterimaan (\textit{acceptance criteria}) khusus untuk pengembangan \textbf{Modul Akuntansi}. Dokumen ini menjadi kesepakatan formal antara Tim Pengembang dan Manajemen PT Semadam.
+
+% ==========================================
+\section{TUJUAN PROYEK}
+% ==========================================
+Tujuan dari pekerjaan pengembangan Modul Akuntansi ini adalah:
+\begin{enumerate}
+    \item \textbf{Menggantikan Sistem Clipper}: Menghilangkan ketergantungan pada sistem DOS dan database \texttt{.DBF} yang berisiko tinggi terhadap kehilangan data.
+    \item \textbf{Pusat Konsolidasi (Financial Hub)}: Menyediakan \textit{endpoint} integrasi yang aman dan efisien untuk menerima jurnal otomatis/append dari 4 modul operasional (Inventory, Kas/Bank, Payroll, Asset).
+    \item \textbf{Optimasi Performa Laporan}: Menerapkan caching canggih via tabel \texttt{laporan\_manajemen\_netral} (LNET) dan Server Actions untuk kalkulasi Neraca Percobaan (Trial Balance) berkecepatan tinggi.
+    \item \textbf{Desain Ramah Akuntan (Accountant-Friendly UI)}: Menyediakan kalkulator audit mengambang (\textit{floating calculator}), navigasi keyboard shortcut penuh untuk input jurnal, dan tata letak laporan keuangan yang optimal untuk dicetak (\textit{print-optimized}).
+\end{enumerate}
+
+\newpage
+
+% ==========================================
+\section{RUANG LINGKUP PEKERJAAN (SCOPE OF WORK)}
+% ==========================================
+Pekerjaan pengembangan Modul Akuntansi ini dibagi menjadi 6 Fase Utama yang mencakup perancangan database, pengembangan logika backend, pengembangan antarmuka (frontend), integrasi modul, hingga pengujian kinerja.
+
+\subsection{Fase 1: Perancangan \& Migrasi Database (Supabase PostgreSQL)}
+\begin{itemize}
+    \item \textbf{Implementasi DDL Database}: Membuat 6 tabel utama akuntansi di database Supabase sesuai dengan spesifikasi SRS:
+    \begin{enumerate}
+        \item \texttt{public.master\_unit} (Data Unit/Kebun)
+        \item \texttt{public.master\_rekening} (Chart of Accounts - COA)
+        \item \texttt{public.jurnal\_transaksi} (Ledger Transaksi)
+        \item \texttt{public.saldo\_awal} (Saldo Awal per Unit/Bulan/Tahun)
+        \item \texttt{public.anggaran\_rabi} (Rencana Anggaran Biaya Perkebunan)
+        \item \texttt{public.laporan\_manajemen\_netral} (Cache LNET Laporan Manajemen)
+    \end{enumerate}
+    \item \textbf{Penerapan Kebijakan Keamanan (RLS)}: Menulis skrip Row Level Security (RLS) PostgreSQL untuk membatasi hak akses data berdasarkan autentikasi pengguna.
+    \item \textbf{Optimasi Indeks Relasional}: Membuat indeks komposit pada \texttt{jurnal\_transaksi} (\texttt{idx\_jurnal\_filter} pada kolom \texttt{koke}, \texttt{kobu}, \texttt{thn}, \texttt{norek}) untuk memastikan kecepatan query pencarian data historis skala besar.
+    \item \textbf{Seeding Data Awal}: Melakukan migrasi data master COA historis PT Semadam (sekitar 300+ rekening perkebunan) ke dalam tabel \texttt{master\_rekening}.
+\end{itemize}
+
+\subsection{Fase 2: Global State Context \& Infrastruktur Header (Frontend)}
+\begin{itemize}
+    \item \textbf{Accounting Global Context (\texttt{AccountingContext})}: Membangun React Context penyimpan \textit{state} global pembukuan aktif:
+    \begin{itemize}
+        \item \texttt{KOKE} (Kode Kebun Aktif)
+        \item \texttt{BULAN} (Bulan Pembukuan Aktif, 01-12)
+        \item \texttt{TAHUN} (Tahun Pembukuan Aktif)
+    \end{itemize}
+    \item \textbf{Global Selector UI}: Mengintegrasikan selektor unit (\texttt{KOKE}), bulan, dan tahun pada \texttt{SiteHeader} (Navbar utama) menggunakan komponen Radix UI / Shadcn. Setiap perubahan pada selektor ini akan secara otomatis memicu pemuatan ulang (\textit{refetching}) data pada halaman aktif tanpa reload halaman penuh.
+\end{itemize}
+
+\subsection{Fase 3: Form Input Jurnal Transaksi \& Utility Widget}
+\begin{itemize}
+    \item \textbf{Form Input Jurnal Dinamis}:
+    \begin{itemize}
+        \item Mendukung entri baris Debet dan Kredit secara dinamis (tambah/hapus baris cepat).
+        \item Sistem autokomplit pencarian nomor/nama rekening dari \texttt{master\_rekening}.
+        \item Validasi \textit{Real-Time Balance}: Jurnal tidak dapat disimpan jika jumlah total Debet tidak sama dengan Kredit (harus \textit{balance}).
+    \end{itemize}
+    \item \textbf{Navigasi Keyboard Penuh}: Mengimplementasikan \textit{keyboard listeners} (Hotkeys) untuk akuntan:
+    \begin{itemize}
+        \item \texttt{Ctrl + S} untuk menyimpan jurnal secara instan.
+        \item \texttt{Tab} / \texttt{Shift + Tab} untuk navigasi antar field input.
+        \item \texttt{Esc} untuk membatalkan entri.
+    \end{itemize}
+    \item \textbf{Floating Audit Calculator Widget}: Membuat widget kalkulator mengambang yang dapat dipanggil di pojok kanan bawah layar untuk membantu akuntan melakukan perhitungan cepat saldo audit tanpa membuka aplikasi eksternal.
+\end{itemize}
+
+\subsection{Fase 4: Backend Processing \& Calculation Engine (Server Actions)}
+\begin{itemize}
+    \item \textbf{Server Action \texttt{calculateTrialBalance}}:
+    \begin{itemize}
+        \item Mengimplementasikan logika \textit{Server-Side Memory Joining} antara saldo awal pembukuan (\texttt{saldo\_awal}) dengan mutasi debet/kredit yang tercatat pada \texttt{jurnal\_transaksi} untuk periode bulan dan tahun terpilih.
+        \item Mengembalikan data baris Neraca Percobaan (Trial Balance) yang berisi Saldo Awal, Mutasi Debet, Mutasi Kredit, dan Saldo Akhir.
+    \end{itemize}
+    \item \textbf{Server Action \texttt{prosesLNET}}:
+    \begin{itemize}
+        \item Menghitung agregasi biaya aktual per divisi/afdeling dari tabel \texttt{jurnal\_transaksi}.
+        \item Membandingkan biaya aktual dengan anggaran dari tabel \texttt{anggaran\_rabi}.
+        \item Melakukan kalkulasi deviasi biaya dan menyimpan hasilnya (biaya aktual s/d bulan ini, anggaran s/d bulan ini, persentase efisiensi) ke dalam tabel cache \texttt{laporan\_manajemen\_netral}.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Fase 5: Modul Integrasi \& Import Utility (Append Engine)}
+\begin{itemize}
+    \item \textbf{Append Engine Interface}: Membuat UI khusus untuk melakukan proses \textit{append} (penggabungan data) transaksi bulanan dari file operasional eksternal (csv/xlsx) dari modul Gudang (Inventory) dan Kas/Bank.
+    \item \textbf{Validasi Integritas File Append}:
+    \begin{itemize}
+        \item Verifikasi kolom wajib (Tanggal, No. Jurnal, No. Rekening, Deskripsi, Nominal Debet/Kredit).
+        \item Verifikasi keberadaan Kode Kebun (\texttt{KOKE}) dan Nomor Perkiraan (\texttt{norek}) terhadap tabel master.
+    \end{itemize}
+    \item \textbf{Transaction Atomicity}: Memastikan proses penulisan ribuan baris jurnal ke tabel \texttt{jurnal\_transaksi} berjalan dalam satu transaksi database PostgreSQL (\textit{All-or-Nothing transaction block}). Jika terjadi satu baris gagal validasi, seluruh proses \textit{append} dibatalkan demi keamanan data.
+\end{itemize}
+
+\subsection{Fase 6: Pelaporan Keuangan \& Print Optimization}
+\begin{itemize}
+    \item \textbf{Laporan Buku Besar (Running Balance Ledger)}: Tampilan buku besar per rekening dengan kolom saldo berjalan (\textit{running balance}) yang dihitung dinamis.
+    \item \textbf{Laporan Manajemen Perkebunan (LM-13 \& LNET)}: Membuat dasbor visualisasi perbandingan Realisasi vs Anggaran Biaya per Afdeling untuk melacak efisiensi biaya perawatan tanaman kelapa sawit (TBM/TM) dan biaya pengolahan pabrik.
+    \item \textbf{Print-Optimized Stylesheets}: Menulis CSS \texttt{@media print} khusus untuk memastikan semua laporan keuangan bersih dari elemen navigasi web (navbar, sidebar, tombol) dan terformat rapi pada media kertas ukuran \textbf{A4 atau Folio/F4} secara vertikal (\textit{portrait}) maupun horizontal (\textit{landscape}).
+\end{itemize}
+
+\newpage
+
+% ==========================================
+\section{DAFTAR DELIVERABLES \& MILESTONES}
+% ==========================================
+Tabel berikut merangkum target deliverables (hasil kerja fisik), kriteria keberterimaan khusus, dan estimasi waktu penyelesaian untuk masing-masing fase pekerjaan.
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{0.5cm} p{3.2cm} p{4.2cm} p{4.5cm} l}
+    \toprule
+    \textbf{No.} & \textbf{Fase Pekerjaan} & \textbf{Target Deliverables} & \textbf{Kriteria Keberterimaan} & \textbf{Waktu} \\
+    \midrule
+    \textbf{1} & Database \& Security & Skema tabel PostgreSQL aktif di Supabase, RLS teruji, Indeks aktif. & Tabel database sukses diisi data inisiasi dan memblokir akses tidak sah. & Minggu 1 \\
+    \textbf{2} & Global Context & Komponen \texttt{AccountingContext} terintegrasi di Navbar. & Perubahan selektor KOKE langsung meng-update data halaman tanpa reload. & Minggu 2 \\
+    \textbf{3} & Form Jurnal \& Widget & Form Input Jurnal dengan keyboard hotkeys \& widget kalkulator. & Jurnal tidak seimbang diblokir, navigasi Tab dan Ctrl+S berfungsi 100\%. & Minggu 3 \\
+    \textbf{4} & Calculation Engine & Server Action \texttt{calculateTrialBalance} \& \texttt{prosesLNET}. & Kalkulasi Neraca Percobaan selesai dalam < 1.5 detik untuk data 10.000+ baris. & Minggu 4 \\
+    \textbf{5} & Append Engine & UI Import CSV/XLSX \& modul logging kesalahan. & Transaksi ter-append secara atomik, file rusak ditolak tanpa merusak database. & Minggu 5 \\
+    \textbf{6} & Financial Reports & Halaman Buku Besar, Neraca, LM-13 & Laporan rapi saat dicetak ke PDF/printer kertas (layout tidak terpotong). & Minggu 6 \\
+    \bottomrule
+\end{tabular}
+\caption{Tabel Jadwal Milestones dan Kriteria Serah Terima Modul Akuntansi}
+\end{table}
+
+% ==========================================
+\section{BATASAN PEKERJAAN (OUT OF SCOPE)}
+% ==========================================
+Pekerjaan yang didefinisikan di luar lingkup (\textit{Out of Scope}) pengerjaan modul ini meliputi:
+\begin{enumerate}
+    \item \textbf{Pengembangan 4 Modul Operasional}: Pembuatan internal fungsionalitas modul Inventory, Kas/Bank, Payroll, dan Asset itu sendiri (karena dikerjakan oleh tim terpisah secara paralel). Akuntansi hanya bertanggung jawab atas \textbf{penerimaan data jurnal/append} dari modul tersebut.
+    \item \textbf{Integrasi Direct Bank API}: Pengambilan data mutasi rekening bank secara otomatis (\textit{Open Banking API}) tidak tercakup. Penginputan data bank menggunakan import manual file Excel/CSV pada modul Kas/Bank.
+    \item \textbf{Entri Data Historis Clipper}: Pengisian data pembukuan historis PT Semadam tahun-tahun sebelumnya secara manual. Tim pengembang hanya menyediakan skrip migrasi/seeding awal, sedangkan entri operasional dilakukan oleh Tim Akuntan PT Semadam.
+    \item \textbf{Pengadaan Perangkat Keras}: Pembelian komputer server, printer, atau penyediaan jaringan internet fisik di lokasi kebun PT Semadam.
+\end{enumerate}
+
+\newpage
+
+% ==========================================
+\section{KRITERIA KEBERTERIMAAN UTAMA}
+% ==========================================
+Modul Akuntansi ini dianggap selesai dan dapat diserahterimakan jika memenuhi kriteria berikut:
+\begin{itemize}
+    \item \textbf{Fungsional}: Semua fitur (Selector KOKE, Input Jurnal, Trial Balance, Append, LNET, dan LM-13) berfungsi sesuai skenario SRS.
+    \item \textbf{Kecepatan Laporan}: Neraca Percobaan dan Laporan Manajemen LNET harus ter-load di bawah \textbf{1.5 detik} menggunakan mekanisme cache dan Server Actions.
+    \item \textbf{Keamanan RLS}: Uji coba penetrasi membuktikan bahwa pengguna dari Kebun A (\texttt{KOKE: 01}) tidak dapat melihat atau memodifikasi data milik Kebun B (\texttt{KOKE: 02}).
+    \item \textbf{Kemudahan Cetak}: Pengujian cetak fisik atau cetak ke berkas PDF pada peramban menunjukkan dokumen terformat rapi pada ukuran A4/F4 tanpa terpotong (\textit{overflow}).
+    \item \textbf{Akurasi Perhitungan}: Hasil kalkulasi Debet/Kredit pada Neraca Percobaan 100\% konsisten dengan akumulasi saldo transaksi.
+\end{itemize}
+
+% ==========================================
+\section{STRUKTUR TIM \& KOORDINASI}
+% ==========================================
+\begin{itemize}
+    \item \textbf{Project Sponsor}: Direktur Keuangan PT Semadam.
+    \item \textbf{Product Owner}: Kepala Akuntan PT Semadam (menyediakan spesifikasi akun \& alur audit).
+    \item \textbf{Lead Developer}: Arsitek Next.js \& Database Supabase.
+    \item \textbf{System Integrator}: Penanggung jawab integrasi modul Kas/Bank \& Inventory.
+\end{itemize}
+
+\begin{notealert}[Sistem Koordinasi]
+Koordinasi pengerjaan dilakukan melalui \textit{Daily Standup} mingguan secara daring dan peninjauan berkala hasil build pada server staging setiap akhir fase.
+\end{notealert}
+
+\vspace{2cm}
+
+\begin{center}
+\textit{Disetujui oleh,}
+\end{center}
+
+\vspace{1cm}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{cc}
+    \textbf{Untuk PT Semadam} & \textbf{Untuk Tim Pengembang} \\
+    \vspace{2cm} & \vspace{2cm} \\
+    \rule{5cm}{0.5pt} & \rule{5cm}{0.5pt} \\
+    Manajemen PT Semadam & Pimpinan Tim Pengembang \\
+\end{tabular}
+\end{table}
+
+\end{document}
