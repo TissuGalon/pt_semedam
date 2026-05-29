@@ -372,17 +372,17 @@ export default function Home() {
               <div className="text-sm font-mono font-black text-slate-800 dark:text-zinc-200">{stats.totalJurnal} baris</div>
             </div>
             <div className="text-center">
-              <div className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider mb-1">Master COA</div>
+              <div className="text-[10px] font-black text-slate-400 dark:text-zinc-550 uppercase tracking-wider mb-1">Master COA</div>
               <div className="text-sm font-mono font-black text-slate-800 dark:text-zinc-200">{stats.totalRekening} Akun</div>
             </div>
           </div>
 
           {/* Quick Action Links */}
           <div className="space-y-3">
-            <div className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider">Akses Menu Transaksi</div>
+            <div className="text-[10px] font-black text-slate-400 dark:text-zinc-550 uppercase tracking-wider">Akses Menu Transaksi</div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <Link 
-                href="/input-jurnal" 
+                href="/portal/accounting/input-jurnal" 
                 onClick={() => setActiveModal(null)}
                 className="flex flex-col gap-2 p-3 rounded-xl border border-slate-100 dark:border-zinc-800 hover:border-orange-200 dark:hover:border-orange-500/20 hover:bg-orange-50/20 dark:hover:bg-orange-950/10 shadow-sm transition-all group"
               >
@@ -394,7 +394,7 @@ export default function Home() {
               </Link>
 
               <Link 
-                href="/input-saldo-awal" 
+                href="/portal/accounting/input-saldo-awal" 
                 onClick={() => setActiveModal(null)}
                 className="flex flex-col gap-2 p-3 rounded-xl border border-slate-100 dark:border-zinc-800 hover:border-orange-200 dark:hover:border-orange-500/20 hover:bg-orange-50/20 dark:hover:bg-orange-950/10 shadow-sm transition-all group"
               >
@@ -406,7 +406,7 @@ export default function Home() {
               </Link>
 
               <Link 
-                href="/laporan-jurnal" 
+                href="/portal/accounting/laporan-jurnal" 
                 onClick={() => setActiveModal(null)}
                 className="flex flex-col gap-2 p-3 rounded-xl border border-slate-100 dark:border-zinc-800 hover:border-orange-200 dark:hover:border-orange-500/20 hover:bg-orange-50/20 dark:hover:bg-orange-950/10 shadow-sm transition-all group"
               >
@@ -418,10 +418,10 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider pt-2">Laporan Keuangan & Buku Besar</div>
+            <div className="text-[10px] font-black text-slate-400 dark:text-zinc-550 uppercase tracking-wider pt-2">Laporan Keuangan & Buku Besar</div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Link 
-                href="/laporan/buku-besar" 
+                href="/portal/accounting/laporan/buku-besar" 
                 onClick={() => setActiveModal(null)}
                 className="flex items-center gap-3 p-3 rounded-xl border border-slate-100 dark:border-zinc-800 hover:border-slate-200 dark:hover:border-zinc-700 bg-slate-50/20 dark:bg-transparent shadow-sm transition-all group"
               >
@@ -436,7 +436,7 @@ export default function Home() {
               </Link>
 
               <Link 
-                href="/laporan-manajemen" 
+                href="/portal/accounting/laporan-manajemen" 
                 onClick={() => setActiveModal(null)}
                 className="flex items-center gap-3 p-3 rounded-xl border border-slate-100 dark:border-zinc-800 hover:border-slate-200 dark:hover:border-zinc-700 bg-slate-50/20 dark:bg-transparent shadow-sm transition-all group"
               >
@@ -494,7 +494,7 @@ export default function Home() {
 
             <div className="pt-2 flex flex-col gap-2">
               <Link
-                href="/proses/append?tab=gudang"
+                href="/portal/accounting/proses/append?tab=gudang"
                 onClick={() => setActiveModal(null)}
                 className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition-all shadow-sm shadow-blue-100 dark:shadow-none"
               >
@@ -552,7 +552,7 @@ export default function Home() {
 
             <div className="pt-2 flex flex-col gap-2">
               <Link
-                href="/proses"
+                href="/portal/accounting/proses"
                 onClick={() => setActiveModal(null)}
                 className="w-full flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition-all shadow-sm"
               >
@@ -560,7 +560,7 @@ export default function Home() {
                 Jalankan Kalkulasi Penyusutan
               </Link>
               <Link
-                href="/proses/append?tab=penyusutan"
+                href="/portal/accounting/proses/append?tab=penyusutan"
                 onClick={() => setActiveModal(null)}
                 className="w-full border border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-300 font-extrabold text-xs py-2 rounded-xl text-center transition-all"
               >
@@ -611,7 +611,7 @@ export default function Home() {
 
             <div className="pt-2 flex flex-col gap-2">
               <Link
-                href="/input-jurnal"
+                href="/portal/accounting/input-jurnal"
                 onClick={() => setActiveModal(null)}
                 className="w-full flex items-center justify-center gap-2 bg-indigo-900 hover:bg-indigo-950 text-white font-extrabold text-xs py-2.5 rounded-xl transition-all shadow-sm"
               >
@@ -619,7 +619,7 @@ export default function Home() {
                 Entri Transaksi Kas / Bank
               </Link>
               <Link
-                href="/proses/append?tab=kas"
+                href="/portal/accounting/proses/append?tab=kas"
                 onClick={() => setActiveModal(null)}
                 className="w-full border border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-300 font-extrabold text-xs py-2 rounded-xl text-center transition-all"
               >
@@ -670,7 +670,7 @@ export default function Home() {
 
             <div className="pt-2 flex flex-col gap-2">
               <Link
-                href="/proses/append?tab=payroll"
+                href="/portal/accounting/proses/append?tab=payroll"
                 onClick={() => setActiveModal(null)}
                 className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition-all shadow-sm"
               >

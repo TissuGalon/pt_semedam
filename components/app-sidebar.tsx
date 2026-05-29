@@ -46,7 +46,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const mainNavItems = [
-  { name: 'Dashboard', href: '/dashboard', icon: Home },
+  { name: 'Dashboard', href: '/portal', icon: Home },
   { name: 'Master Unit', href: '/master-unit', icon: LayoutDashboard },
   { name: 'Master Rekening', href: '/master-rekening', icon: BookOpen },
 ];

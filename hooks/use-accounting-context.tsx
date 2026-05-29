@@ -11,6 +11,7 @@ interface AccountingContextType {
   setTahun: (tahun: string) => void;
   isSessionActive: boolean;
   clearSession: () => void;
+  isFallback?: boolean;
 }
 
 const AccountingContext = React.createContext<AccountingContextType | undefined>(undefined);
@@ -82,7 +83,17 @@ export function AccountingProvider({ children }: { children: React.ReactNode }) 
 export function useAccounting() {
   const context = React.useContext(AccountingContext);
   if (context === undefined) {
-    throw new Error('useAccounting must be used within an AccountingProvider');
+    return {
+      koke: '',
+      bulan: '',
+      tahun: '',
+      setKoke: () => {},
+      setBulan: () => {},
+      setTahun: () => {},
+      isSessionActive: false,
+      clearSession: () => {},
+      isFallback: true,
+    };
   }
-  return context;
+  return { ...context, isFallback: false };
 }

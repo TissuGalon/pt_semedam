@@ -54,7 +54,7 @@ export default function AssetsDashboard() {
       {/* Top Header Navigation */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 dark:border-zinc-800 pb-6 shrink-0">
         <div className="flex items-center gap-3">
-          <Link href="/dashboard">
+          <Link href="/portal">
             <Button variant="outline" size="icon" className="rounded-xl h-9 w-9 cursor-pointer">
               <ArrowLeft className="h-4 w-4" />
             </Button>
