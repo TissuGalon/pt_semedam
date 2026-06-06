@@ -97,7 +97,7 @@ function CustomCombobox({
       <div 
         className={cn(
           "flex items-center justify-between border rounded-md px-3 py-2 bg-white dark:bg-zinc-900 cursor-pointer transition-all text-xs h-9",
-          open ? "border-emerald-500 ring-1 ring-emerald-500 shadow-sm" : "border-slate-200 dark:border-zinc-800 hover:border-slate-300 dark:hover:border-zinc-700"
+          open ? "border-orange-500 ring-1 ring-orange-500 shadow-sm" : "border-slate-200 dark:border-zinc-800 hover:border-slate-300 dark:hover:border-zinc-700"
         )}
         onClick={() => setOpen(!open)}
       >
@@ -113,7 +113,7 @@ function CustomCombobox({
             <input 
               autoFocus
               type="text"
-              className="w-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded px-2.5 py-1.5 text-xs outline-none placeholder:text-slate-400 focus:border-emerald-500 transition-colors shadow-sm font-medium text-slate-700 dark:text-zinc-200"
+              className="w-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded px-2.5 py-1.5 text-xs outline-none placeholder:text-slate-400 focus:border-orange-500 transition-colors shadow-sm font-medium text-slate-700 dark:text-zinc-200"
               placeholder="Cari kode atau nama..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -129,7 +129,7 @@ function CustomCombobox({
                   className={cn(
                     "px-2.5 py-2 text-xs cursor-pointer rounded flex items-center justify-between transition-colors",
                     value === item[valueKey] 
-                      ? 'bg-slate-100 dark:bg-zinc-800 text-emerald-800 dark:text-emerald-450 font-bold' 
+                      ? 'bg-orange-50 dark:bg-orange-950/20 text-orange-700 dark:text-orange-400 font-bold' 
                       : 'text-slate-655 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-zinc-100'
                   )}
                   onClick={() => {
@@ -139,7 +139,7 @@ function CustomCombobox({
                   }}
                 >
                   <span className="truncate">{item[valueKey]} - {item[labelKey]}</span>
-                  {value === item[valueKey] && <Check className="w-3.5 h-3.5 shrink-0 text-emerald-600" />}
+                  {value === item[valueKey] && <Check className="w-3.5 h-3.5 shrink-0 text-orange-600" />}
                 </div>
               ))
             )}
@@ -356,7 +356,7 @@ export default function LaporanJurnalPage() {
     {
       header: 'Debet',
       accessorKey: 'DEBET',
-      cell: (info: any) => <span className="font-mono text-xs text-right font-bold text-emerald-700 dark:text-emerald-450">{formatRupiah(info.getValue())}</span>
+      cell: (info: any) => <span className="font-mono text-xs text-right font-bold text-orange-700 dark:text-orange-400">{formatRupiah(info.getValue())}</span>
     },
     {
       header: 'Kredit',
@@ -412,7 +412,7 @@ export default function LaporanJurnalPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 dark:border-zinc-800 pb-5">
         <div>
           <h1 className="text-xl font-extrabold text-slate-900 dark:text-zinc-100 tracking-tight flex items-center gap-2">
-            <FileSpreadsheet className="w-5 h-5 text-emerald-600" />
+            <FileSpreadsheet className="w-5 h-5 text-orange-600" />
             Tinjauan Data Jurnal
           </h1>
           <p className="text-slate-500 dark:text-zinc-400 text-xs font-semibold mt-1">
@@ -433,7 +433,7 @@ export default function LaporanJurnalPage() {
 
           <Button 
             onClick={handleExport}
-            className="h-9 px-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-md shadow-sm transition-all flex items-center gap-1.5 text-xs animate-in fade-in"
+            className="h-9 px-3.5 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-md shadow-sm transition-all flex items-center gap-1.5 text-xs animate-in fade-in"
           >
             <Download className="w-3.5 h-3.5" /> Export Excel
           </Button>
@@ -451,7 +451,7 @@ export default function LaporanJurnalPage() {
           <select 
             value={filterUnit} 
             onChange={e => setFilterUnit(e.target.value)}
-            className="border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer h-8.5"
+            className="border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-orange-500 outline-none transition-all cursor-pointer h-8.5"
           >
             {units.map(u => <option key={u.KOKE} value={u.KOKE}>{u.NAKE}</option>)}
           </select>
@@ -459,7 +459,7 @@ export default function LaporanJurnalPage() {
           <select 
             value={filterBulan} 
             onChange={e => setFilterBulan(e.target.value)}
-            className="border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all cursor-pointer h-8.5"
+            className="border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-orange-500 outline-none transition-all cursor-pointer h-8.5"
           >
             {BULAN_OPTIONS.map(u => <option key={u.value} value={u.value}>{u.label}</option>)}
           </select>
@@ -494,7 +494,7 @@ export default function LaporanJurnalPage() {
                 <tr>
                   <td colSpan={columns.length} className="text-center py-20">
                     <div className="flex flex-col items-center justify-center gap-2.5">
-                      <Loader2 className="w-6 h-6 text-emerald-600 animate-spin" />
+                      <Loader2 className="w-6 h-6 text-orange-600 animate-spin" />
                       <p className="text-slate-400 text-xs font-semibold">Menyiapkan data jurnal...</p>
                     </div>
                   </td>
@@ -534,7 +534,7 @@ export default function LaporanJurnalPage() {
           <div className="flex flex-wrap items-center gap-6 w-full md:w-auto">
             <div>
               <span className="text-[9px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest leading-none mb-1 block">Total Debet</span>
-              <span className="text-sm font-mono font-black text-emerald-800 dark:text-emerald-450 tracking-tight">{formatRupiah(totalDebet)}</span>
+              <span className="text-sm font-mono font-black text-orange-850 dark:text-orange-400 tracking-tight">{formatRupiah(totalDebet)}</span>
             </div>
             <div className="h-6 w-px bg-slate-200 dark:bg-zinc-800"></div>
             <div>
@@ -544,7 +544,7 @@ export default function LaporanJurnalPage() {
             <div className="h-6 w-px bg-slate-200 dark:bg-zinc-800"></div>
             <span className={cn(
               "text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded border",
-              isBalanced ? "bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/30" : "bg-rose-50 dark:bg-rose-950/20 text-rose-800 dark:text-rose-400 border border-rose-200 dark:border-rose-900/30"
+              isBalanced ? "bg-orange-50 dark:bg-orange-950/20 text-orange-800 dark:text-orange-400 border border-orange-200 dark:border-orange-900/30" : "bg-rose-50 dark:bg-rose-950/20 text-rose-800 dark:text-rose-400 border border-rose-200 dark:border-rose-900/30"
             )}>
               {isBalanced ? "Balanced" : "Not Balanced"}
             </span>
@@ -585,7 +585,7 @@ export default function LaporanJurnalPage() {
           <div className="bg-slate-50 dark:bg-zinc-950/40 border-b border-slate-200 dark:border-zinc-800 p-5">
             <DialogHeader>
               <DialogTitle className="text-sm font-bold tracking-tight text-slate-800 dark:text-zinc-200 flex items-center gap-2">
-                <Edit className="w-4 h-4 text-emerald-600" />
+                <Edit className="w-4 h-4 text-orange-600" />
                 Koreksi Jurnal Transaksi
               </DialogTitle>
               <DialogDescription className="text-slate-500 dark:text-zinc-400 font-semibold text-xs mt-1">
@@ -602,7 +602,7 @@ export default function LaporanJurnalPage() {
                   <input 
                     type="date" 
                     required
-                    className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
+                    className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-orange-500 outline-none transition-all h-8.5"
                     value={editFormData.TANGGAL}
                     onChange={e => setEditFormData({...editFormData, TANGGAL: e.target.value})}
                   />
@@ -648,7 +648,7 @@ export default function LaporanJurnalPage() {
                 <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Uraian / Keterangan</Label>
                 <input 
                   type="text" 
-                  className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
+                  className="w-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-orange-500 outline-none transition-all h-8.5"
                   value={editFormData.URAIAN1}
                   onChange={e => setEditFormData({...editFormData, URAIAN1: e.target.value})}
                 />
@@ -656,10 +656,10 @@ export default function LaporanJurnalPage() {
  
               <div className="grid grid-cols-2 gap-3 p-3 bg-slate-50 dark:bg-zinc-900/20 border border-slate-200 dark:border-zinc-800 rounded-lg">
                 <div className="space-y-1.5">
-                  <Label className="text-[10px] font-bold text-emerald-700 dark:text-emerald-450 uppercase tracking-wider">Debet</Label>
+                  <Label className="text-[10px] font-bold text-orange-700 dark:text-orange-450 uppercase tracking-wider">Debet</Label>
                   <input 
                     type="number" 
-                    className="w-full border border-slate-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-xs font-mono font-bold text-emerald-800 dark:text-emerald-450 bg-white dark:bg-zinc-900 focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
+                    className="w-full border border-slate-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-xs font-mono font-bold text-orange-850 dark:text-orange-400 bg-white dark:bg-zinc-900 focus:ring-1 focus:ring-orange-500 outline-none transition-all h-8.5"
                     value={editFormData.DEBET}
                     onChange={e => setEditFormData({...editFormData, DEBET: parseFloat(e.target.value || '0')})}
                   />
@@ -668,7 +668,7 @@ export default function LaporanJurnalPage() {
                   <Label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">Kredit</Label>
                   <input 
                     type="number" 
-                    className="w-full border border-slate-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-xs font-mono font-bold text-slate-800 dark:text-zinc-300 bg-white dark:bg-zinc-900 focus:ring-1 focus:ring-emerald-500 outline-none transition-all h-8.5"
+                    className="w-full border border-slate-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-xs font-mono font-bold text-slate-800 dark:text-zinc-300 bg-white dark:bg-zinc-900 focus:ring-1 focus:ring-orange-500 outline-none transition-all h-8.5"
                     value={editFormData.KREDIT}
                     onChange={e => setEditFormData({...editFormData, KREDIT: parseFloat(e.target.value || '0')})}
                   />
@@ -688,7 +688,7 @@ export default function LaporanJurnalPage() {
               <Button 
                 type="submit" 
                 disabled={loading}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white h-9 px-4 rounded-md font-bold text-xs shadow-sm transition-all"
+                className="bg-orange-600 hover:bg-orange-700 text-white h-9 px-4 rounded-md font-bold text-xs shadow-sm transition-all"
               >
                 {loading ? <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> : null}
                 Simpan Perubahan
