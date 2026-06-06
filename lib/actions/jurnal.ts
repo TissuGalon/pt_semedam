@@ -3,7 +3,7 @@
 import { createClient } from '../supabase/server';
 import { revalidatePath } from 'next/cache';
 
-export async function getJurnal(filterUnit?: string, filterBulan?: string) {
+export async function getJurnal(filterUnit?: string, filterBulan?: string, filterTahun?: string) {
   const supabase = await createClient();
   try {
     let query = supabase.from('jurnal_transaksi').select('id, KOKE, KOBU, NO_BUKJUR, TANGGAL, REK, REKLA, NAREK, URAIAN1, DEBET, KREDIT, created_at');
@@ -13,6 +13,9 @@ export async function getJurnal(filterUnit?: string, filterBulan?: string) {
     }
     if (filterBulan) {
       query = query.eq('KOBU', filterBulan);
+    }
+    if (filterTahun) {
+      query = query.gte('TANGGAL', `${filterTahun}-01-01`).lte('TANGGAL', `${filterTahun}-12-31`);
     }
     
     const { data, error } = await query

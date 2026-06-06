@@ -6,6 +6,7 @@ import { getMasterUnit } from '@/lib/actions/master-unit';
 import { getMasterRekening } from '@/lib/actions/master-rekening';
 import { MasterUnit } from '@/lib/types/master-unit';
 import { MasterRekening } from '@/lib/types/master-rekening';
+import { useAccounting } from '@/hooks/use-accounting-context';
 import * as XLSX from 'xlsx';
 import { 
   Search,
@@ -151,6 +152,7 @@ function CustomCombobox({
 }
 
 export default function LaporanJurnalPage() {
+  const { tahun } = useAccounting();
   const [data, setData] = useState<any[]>([]);
   const [units, setUnits] = useState<MasterUnit[]>([]);
   const [rekening, setRekening] = useState<MasterRekening[]>([]);
@@ -159,6 +161,13 @@ export default function LaporanJurnalPage() {
   
   const [filterUnit, setFilterUnit] = useState('00');
   const [filterBulan, setFilterBulan] = useState('01');
+  const [filterTahun, setFilterTahun] = useState('2026');
+
+  useEffect(() => {
+    if (tahun) {
+      setFilterTahun(tahun);
+    }
+  }, [tahun]);
   
   // Edit Modal State
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -192,7 +201,7 @@ export default function LaporanJurnalPage() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const result = await getJurnal(filterUnit, filterBulan);
+      const result = await getJurnal(filterUnit, filterBulan, filterTahun);
       
       let currentNoBukti = '';
       let recordCounter = 0;
@@ -217,7 +226,7 @@ export default function LaporanJurnalPage() {
 
   useEffect(() => {
     fetchData();
-  }, [filterUnit, filterBulan]);
+  }, [filterUnit, filterBulan, filterTahun]);
 
   const handleDelete = async (id: string) => {
     if(!confirm("Yakin ingin menghapus record ini?")) return;
@@ -264,7 +273,7 @@ export default function LaporanJurnalPage() {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Jurnal_Transaksi");
     
-    XLSX.writeFile(wb, `Jurnal_Unit_${filterUnit}_Bulan_${filterBulan}.xlsx`);
+    XLSX.writeFile(wb, `Jurnal_Unit_${filterUnit}_Bulan_${filterBulan}_Tahun_${filterTahun}.xlsx`);
   };
 
   const formatRupiah = (angka: any) => {
@@ -462,6 +471,16 @@ export default function LaporanJurnalPage() {
             className="border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-orange-500 outline-none transition-all cursor-pointer h-8.5"
           >
             {BULAN_OPTIONS.map(u => <option key={u.value} value={u.value}>{u.label}</option>)}
+          </select>
+
+          <select 
+            value={filterTahun} 
+            onChange={e => setFilterTahun(e.target.value)}
+            className="border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-md px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 focus:ring-1 focus:ring-orange-500 outline-none transition-all cursor-pointer h-8.5"
+          >
+            {['2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030'].map(t => (
+              <option key={t} value={t}>{t}</option>
+            ))}
           </select>
         </div>
       </div>
