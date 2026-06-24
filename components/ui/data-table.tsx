@@ -42,6 +42,7 @@ interface DataTableProps<TData, TValue> {
   searchPlaceholder?: string;
   filename?: string;
   toolbarChildren?: React.ReactNode;
+  onExport?: () => void;
 }
 
 export function DataTable<TData, TValue>({
@@ -51,6 +52,7 @@ export function DataTable<TData, TValue>({
   searchPlaceholder = "Cari data...",
   filename = "data-export",
   toolbarChildren,
+  onExport,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -120,7 +122,7 @@ export function DataTable<TData, TValue>({
           <Button
             variant="outline"
             size="sm"
-            onClick={handleExport}
+            onClick={onExport || handleExport}
             className="h-9 px-3 gap-2 border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-all rounded-md shadow-sm font-medium text-xs"
           >
             <Download className="h-3.5 w-3.5 text-slate-500 dark:text-zinc-400" />

@@ -19,7 +19,8 @@ import {
   Layers,
   LineChart,
   Grid,
-  ArrowLeft
+  ArrowLeft,
+  MapPin
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -51,7 +52,9 @@ const mainNavItems = [
   { name: 'Dashboard SIA', href: '/portal/accounting', icon: Home },
   { name: 'Master Unit', href: '/portal/accounting/master-unit', icon: LayoutDashboard },
   { name: 'Master Rekening', href: '/portal/accounting/master-rekening', icon: BookOpen },
+  { name: 'Lokasi & Budidaya', href: '/portal/accounting/master-lokasi', icon: MapPin },
 ];
+
 
 const transactionNavItems = [
   { name: 'Input Jurnal', href: '/portal/accounting/input-jurnal', icon: FileCheck },

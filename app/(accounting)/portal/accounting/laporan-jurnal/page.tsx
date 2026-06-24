@@ -239,37 +239,90 @@ export default function LaporanJurnalPage() {
   };
 
   const handleExport = () => {
-    if(data.length === 0) {
+    if (data.length === 0) {
       alert("Tidak ada data untuk diekspor");
       return;
     }
-    
-    const exportData = data.map(row => {
+
+    const TAHUN_TANAM_TO_KODE: Record<string, string> = {
+      '1991': '01',
+      '1994': '03',
+      '1995': '04',
+      '2003': '05',
+      '2003A': '05',
+      '2007': '06',
+      '2010': '08',
+      '2011': '09',
+      '2013': '11',
+      '2014': '12',
+      '1990': '13',
+      '2003B': '14',
+      '2015': '16',
+      '2016': '17',
+      '2017': '18',
+      '2018': '19',
+      '2019': '20',
+    };
+
+    const exportData = data.map((row) => {
       let tanggalStr = '';
       try {
         const d = new Date(row.TANGGAL);
         const day = String(d.getDate()).padStart(2, '0');
         const month = String(d.getMonth() + 1).padStart(2, '0');
         const year = d.getFullYear();
-        tanggalStr = `${day}/${month}/${year}`;
+        tanggalStr = `${day}-${month}-${year}`;
       } catch (e) {
-        tanggalStr = String(row.TANGGAL);
+        tanggalStr = String(row.TANGGAL || '');
       }
 
+      const kokePart = String(row.KOKE || filterUnit || '00').trim().padStart(2, '0');
+      const kobuPart = String(row.KOBU || filterBulan || '01').trim().padStart(2, '0');
+      
+      const noMemori = (row.NO_BUKJUR || '').replaceAll('.', '');
+      const noRecord = String(row.record_seq || 1).padStart(4, '0');
+
+      const rekDetail = rekening.find(r => r.REKSUB === row.REK);
+      const namaPerk = row.NAREK || rekDetail?.NAMA_PERK || '';
+
+      const thnTanam = row.THN_TANAM || 'Lain2';
+      const koTahun = TAHUN_TANAM_TO_KODE[thnTanam] || '99';
+
       return {
-        'Bulan': row.KOBU,
-        'Tanggal': tanggalStr,
-        'No Bukti': row.NO_BUKJUR,
-        'Record': row.record_seq,
-        'Rekening': row.REK,
-        'Rekening Lawan': row.REKLA,
-        'Uraian': row.URAIAN1,
-        'Debet': Number(row.DEBET || 0),
-        'Kredit': Number(row.KREDIT || 0)
+        KOKE: kokePart,
+        BULAN: kobuPart,
+        TANGGAL: tanggalStr,
+        NO_MEMORI: noMemori,
+        NO_RECORD: noRecord,
+        REKSUB: row.REK || '',
+        REKSUB_WN: row.REKLA || '',
+        NAMA_PERK: namaPerk,
+        BUDIDAYA: row.KODA || '99',
+        NAMABUDIDA: row.NAMA_AREAL || 'Lain-lain',
+        AFDEL: row.KODAF || '99',
+        NAMAFDEL: row.NAMA_AFDELING || 'Lain-lain',
+        KOTAHUN: koTahun,
+        TAHUNTANAM: thnTanam,
+        FISK_KEGIA: '',
+        INDIC: 0,
+        JEN_NOTA: row.JENIS_NOTA || '',
+        NO_NOTA: row.NO_NOTA || '',
+        URAIAN: '',
+        URAIAN1: row.URAIAN1 || '',
+        DEBET: Number(row.DEBET || 0),
+        KREDIT: Number(row.KREDIT || 0),
+        KETERANGAN: ''
       };
     });
 
-    const ws = XLSX.utils.json_to_sheet(exportData);
+    const ws = XLSX.utils.json_to_sheet(exportData, {
+      header: [
+        'KOKE', 'BULAN', 'TANGGAL', 'NO_MEMORI', 'NO_RECORD', 'REKSUB', 'REKSUB_WN', 
+        'NAMA_PERK', 'BUDIDAYA', 'NAMABUDIDA', 'AFDEL', 'NAMAFDEL', 'KOTAHUN', 
+        'TAHUNTANAM', 'FISK_KEGIA', 'INDIC', 'JEN_NOTA', 'NO_NOTA', 'URAIAN', 
+        'URAIAN1', 'DEBET', 'KREDIT', 'KETERANGAN'
+      ]
+    });
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Jurnal_Transaksi");
     

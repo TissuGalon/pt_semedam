@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 export async function getJurnal(filterUnit?: string, filterBulan?: string, filterTahun?: string) {
   const supabase = await createClient();
   try {
-    let query = supabase.from('jurnal_transaksi').select('id, KOKE, KOBU, NO_BUKJUR, TANGGAL, REK, REKLA, NAREK, URAIAN1, DEBET, KREDIT, created_at');
+    let query = supabase.from('jurnal_transaksi').select('*');
     
     if (filterUnit) {
       query = query.eq('KOKE', filterUnit);

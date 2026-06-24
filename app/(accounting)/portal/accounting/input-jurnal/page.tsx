@@ -70,12 +70,18 @@ function CustomCombobox({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [wrapperRef]);
 
+  const getValue = (item: any, key: string): string => {
+    if (!item) return '';
+    const foundKey = Object.keys(item).find(k => k.toUpperCase() === key.toUpperCase());
+    return foundKey ? String(item[foundKey] || '') : '';
+  };
+
   const filtered = items.filter(i => 
-    (i[valueKey] || '').toLowerCase().includes(search.toLowerCase()) || 
-    (i[labelKey] || '').toLowerCase().includes(search.toLowerCase())
+    getValue(i, valueKey).toLowerCase().includes(search.toLowerCase()) || 
+    getValue(i, labelKey).toLowerCase().includes(search.toLowerCase())
   );
 
-  const selectedItem = items.find(i => i[valueKey] === value);
+  const selectedItem = items.find(i => getValue(i, valueKey) === value);
 
   return (
     <div ref={wrapperRef} className="relative w-full">
@@ -87,7 +93,7 @@ function CustomCombobox({
         onClick={() => setOpen(!open)}
       >
         <span className={selectedItem ? "text-slate-900 dark:text-zinc-100 font-medium truncate" : "text-slate-400 dark:text-zinc-500"}>
-          {selectedItem ? `${selectedItem[valueKey]} - ${selectedItem[labelKey]}` : placeholder}
+          {selectedItem ? `${getValue(selectedItem, valueKey)} - ${getValue(selectedItem, labelKey)}` : placeholder}
         </span>
         <Search className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500 shrink-0 ml-1" />
       </div>
@@ -108,25 +114,29 @@ function CustomCombobox({
             {filtered.length === 0 ? (
               <div className="p-3 text-[11px] text-slate-400 dark:text-zinc-500 text-center italic">Tidak ditemukan...</div>
             ) : (
-              filtered.map((item) => (
-                <div 
-                  key={item[valueKey]}
-                  className={cn(
-                    "px-2.5 py-2 text-xs cursor-pointer rounded flex items-center justify-between transition-colors",
-                    value === item[valueKey] 
-                      ? 'bg-orange-50 dark:bg-orange-950/20 text-orange-700 dark:text-orange-400 font-bold' 
-                      : 'text-slate-650 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-zinc-100'
-                  )}
-                  onClick={() => {
-                    onChange(item[valueKey]);
-                    setOpen(false);
-                    setSearch('');
-                  }}
-                >
-                  <span className="truncate">{item[valueKey]} - {item[labelKey]}</span>
-                  {value === item[valueKey] && <Check className="w-3.5 h-3.5 shrink-0 text-orange-650" />}
-                </div>
-              ))
+              filtered.map((item) => {
+                const itemVal = getValue(item, valueKey);
+                const itemLbl = getValue(item, labelKey);
+                return (
+                  <div 
+                    key={itemVal}
+                    className={cn(
+                      "px-2.5 py-2 text-xs cursor-pointer rounded flex items-center justify-between transition-colors",
+                      value === itemVal 
+                        ? 'bg-orange-50 dark:bg-orange-950/20 text-orange-700 dark:text-orange-400 font-bold' 
+                        : 'text-slate-650 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-zinc-100'
+                    )}
+                    onClick={() => {
+                      onChange(itemVal);
+                      setOpen(false);
+                      setSearch('');
+                    }}
+                  >
+                    <span className="truncate">{itemVal} - {itemLbl}</span>
+                    {value === itemVal && <Check className="w-3.5 h-3.5 shrink-0 text-orange-650" />}
+                  </div>
+                );
+              })
             )}
           </div>
         </div>
@@ -233,10 +243,16 @@ export default function InputJurnalPage() {
     }
 
     try {
-      const selectedRek = rekening.find(r => r.REKSUB === formData.rek);
-      const selectedRekla = rekening.find(r => r.REKSUB === formData.rekla);
-      const selectedAreal = areal.find(a => a.KODA === formData.kodeBudiDaya);
-      const selectedAfdeling = afdeling.find(af => af.KODAF === formData.kodeAfdeling);
+      const getVal = (item: any, key: string): string => {
+        if (!item) return '';
+        const foundKey = Object.keys(item).find(k => k.toUpperCase() === key.toUpperCase());
+        return foundKey ? String(item[foundKey] || '') : '';
+      };
+
+      const selectedRek = rekening.find(r => getVal(r, 'REKSUB') === formData.rek);
+      const selectedRekla = rekening.find(r => getVal(r, 'REKSUB') === formData.rekla);
+      const selectedAreal = areal.find(a => getVal(a, 'KODA') === formData.kodeBudiDaya);
+      const selectedAfdeling = afdeling.find(af => getVal(af, 'KODAF') === formData.kodeAfdeling);
 
       // Row 1: Main journal row
       const row1 = {
@@ -247,14 +263,14 @@ export default function InputJurnalPage() {
         NOREC: formData.noRecord || null,
         REK: formData.rek,
         REKLA: formData.rekla,
-        NAREK: selectedRek?.NAMA_PERK || '',
+        NAREK: getVal(selectedRek, 'NAMA_PERK') || '',
         URAIAN1: formData.uraian,
         DEBET: debetVal,
         KREDIT: kreditVal,
         KODA: formData.kodeBudiDaya || null,
-        NAMA_AREAL: selectedAreal?.NAMA_AREAL || null,
+        NAMA_AREAL: getVal(selectedAreal, 'NAMA_AREAL') || null,
         KODAF: formData.kodeAfdeling || null,
-        NAMA_AFDELING: selectedAfdeling?.NAMA_AFDELING || null,
+        NAMA_AFDELING: getVal(selectedAfdeling, 'NAMA_AFDELING') || null,
         THN_TANAM: formData.tahunTanam || null,
         NO_NOTA: formData.noNota || null,
         JENIS_NOTA: formData.jenisNota || null
@@ -269,14 +285,14 @@ export default function InputJurnalPage() {
         NOREC: formData.noRecord ? `${formData.noRecord}-C` : null,
         REK: formData.rekla,
         REKLA: formData.rek,
-        NAREK: selectedRekla?.NAMA_PERK || '',
+        NAREK: getVal(selectedRekla, 'NAMA_PERK') || '',
         URAIAN1: formData.uraian,
         DEBET: kreditVal, // Debit for contra is Credit of main
         KREDIT: debetVal, // Credit for contra is Debit of main
         KODA: formData.kodeBudiDaya || null,
-        NAMA_AREAL: selectedAreal?.NAMA_AREAL || null,
+        NAMA_AREAL: getVal(selectedAreal, 'NAMA_AREAL') || null,
         KODAF: formData.kodeAfdeling || null,
-        NAMA_AFDELING: selectedAfdeling?.NAMA_AFDELING || null,
+        NAMA_AFDELING: getVal(selectedAfdeling, 'NAMA_AFDELING') || null,
         THN_TANAM: formData.tahunTanam || null,
         NO_NOTA: formData.noNota || null,
         JENIS_NOTA: formData.jenisNota || null
@@ -309,9 +325,15 @@ export default function InputJurnalPage() {
     }
   };
 
-  const selectedRekName = rekening.find(r => r.REKSUB === formData.rek)?.NAMA_PERK || '';
-  const selectedArealName = areal.find(a => a.KODA === formData.kodeBudiDaya)?.NAMA_AREAL || '';
-  const selectedAfdelingName = afdeling.find(af => af.KODAF === formData.kodeAfdeling)?.NAMA_AFDELING || '';
+  const getVal = (item: any, key: string): string => {
+    if (!item) return '';
+    const foundKey = Object.keys(item).find(k => k.toUpperCase() === key.toUpperCase());
+    return foundKey ? String(item[foundKey] || '') : '';
+  };
+
+  const selectedRekName = getVal(rekening.find(r => getVal(r, 'REKSUB') === formData.rek), 'NAMA_PERK');
+  const selectedArealName = getVal(areal.find(a => getVal(a, 'KODA') === formData.kodeBudiDaya), 'NAMA_AREAL');
+  const selectedAfdelingName = getVal(afdeling.find(af => getVal(af, 'KODAF') === formData.kodeAfdeling), 'NAMA_AFDELING');
 
   if (!isSessionActive) {
     return (
@@ -587,7 +609,10 @@ export default function InputJurnalPage() {
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider block">Kode Afdeling</label>
                   <CustomCombobox 
-                    items={afdeling.filter(af => !af.KOKE || af.KOKE === koke)} 
+                    items={afdeling.filter(af => {
+                      const unitVal = af.KOKE || (af as any).koke;
+                      return !unitVal || String(unitVal).trim() === String(koke).trim();
+                    })} 
                     value={formData.kodeAfdeling} 
                     onChange={(v) => setFormData({...formData, kodeAfdeling: v})} 
                     placeholder="Pilih afdeling..."

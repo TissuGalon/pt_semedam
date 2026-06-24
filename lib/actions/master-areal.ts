@@ -1,8 +1,8 @@
 "use server";
 
 import { createClient } from '../supabase/server';
-import { MasterAreal } from '../types/master-areal';
-import { unstable_noStore as noStore } from 'next/cache';
+import { MasterAreal, MasterArealInput } from '../types/master-areal';
+import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
 
 export async function getMasterAreal() {
   noStore();
@@ -20,3 +20,58 @@ export async function getMasterAreal() {
     return [];
   }
 }
+
+export async function addMasterAreal(input: MasterArealInput) {
+  const supabase = await createClient();
+  try {
+    const { data, error } = await supabase
+      .from('master_areal')
+      .insert([input])
+      .select()
+      .single();
+    
+    if (error) throw error;
+    revalidatePath('/portal/accounting/master-lokasi');
+    return data as MasterAreal;
+  } catch (error: any) {
+    console.error("Error adding master_areal:", error);
+    throw new Error(error.message);
+  }
+}
+
+export async function updateMasterAreal(koda: string, input: Partial<MasterArealInput>) {
+  const supabase = await createClient();
+  try {
+    const { data, error } = await supabase
+      .from('master_areal')
+      .update(input)
+      .eq('KODA', koda)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    revalidatePath('/portal/accounting/master-lokasi');
+    return data as MasterAreal;
+  } catch (error: any) {
+    console.error("Error updating master_areal:", error);
+    throw new Error(error.message);
+  }
+}
+
+export async function deleteMasterAreal(koda: string) {
+  const supabase = await createClient();
+  try {
+    const { error } = await supabase
+      .from('master_areal')
+      .delete()
+      .eq('KODA', koda);
+    
+    if (error) throw error;
+    revalidatePath('/portal/accounting/master-lokasi');
+    return true;
+  } catch (error: any) {
+    console.error("Error deleting master_areal:", error);
+    throw new Error(error.message);
+  }
+}
+

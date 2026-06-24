@@ -35,7 +35,8 @@ import {
   Building2,
   FolderOpen,
   Calculator,
-  Grid
+  Grid,
+  MapPin
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -94,6 +95,7 @@ export function CommandMenu({ open, setOpen }: CommandMenuProps) {
               { label: "Dasbor Akuntansi SIA", href: "/portal/accounting", icon: Home, shortcut: "A" },
               { label: "Master Unit Kebun", href: "/portal/accounting/master-unit", icon: LayoutDashboard },
               { label: "Master Rekening COA", href: "/portal/accounting/master-rekening", icon: BookOpen },
+              { label: "Master Lokasi & Budidaya Kebun", href: "/portal/accounting/master-lokasi", icon: MapPin },
               { label: "Entri Saldo Awal", href: "/portal/accounting/input-saldo-awal", icon: PlusCircle },
             ]
           },
