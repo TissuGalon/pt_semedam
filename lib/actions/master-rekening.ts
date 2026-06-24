@@ -8,13 +8,32 @@ import * as XLSX from 'xlsx';
 export async function getMasterRekening() {
   const supabase = await createClient();
   try {
-    const { data, error } = await supabase
-      .from('master_rekening')
-      .select('*')
-      .order('REKSUB', { ascending: true });
+    let allData: MasterRekening[] = [];
+    let from = 0;
+    const limit = 1000;
+    let hasMore = true;
+
+    while (hasMore) {
+      const { data, error } = await supabase
+        .from('master_rekening')
+        .select('*')
+        .order('REKSUB', { ascending: true })
+        .range(from, from + limit - 1);
+      
+      if (error) throw error;
+      
+      if (data && data.length > 0) {
+        allData = allData.concat(data as MasterRekening[]);
+        from += limit;
+        if (data.length < limit) {
+          hasMore = false;
+        }
+      } else {
+        hasMore = false;
+      }
+    }
     
-    if (error) throw error;
-    return data as MasterRekening[];
+    return allData;
   } catch (error) {
     console.error("Error fetching master_rekening:", error);
     return [];
